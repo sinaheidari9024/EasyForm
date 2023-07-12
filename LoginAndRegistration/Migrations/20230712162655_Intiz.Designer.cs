@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EasyForm.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230712144228_a")]
-    partial class a
+    [Migration("20230712162655_Intiz")]
+    partial class Intiz
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
