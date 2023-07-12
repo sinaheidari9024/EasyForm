@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EasyForm.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230712104606_Initialize")]
-    partial class Initialize
+    [Migration("20230712132836_Casecade on delete")]
+    partial class Casecadeondelete
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,69 @@ namespace EasyForm.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("EasyForm.Entities.Answer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Answers")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserApplicationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.HasIndex("UserApplicationId");
+
+                    b.ToTable("Answer");
+                });
+
+            modelBuilder.Entity("EasyForm.Entities.Application", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Applications");
+                });
+
+            modelBuilder.Entity("EasyForm.Entities.ApplicationPart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ApplicationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.ToTable("ApplicationParts");
+                });
 
             modelBuilder.Entity("EasyForm.Entities.ApplicationRole", b =>
                 {
@@ -48,6 +111,52 @@ namespace EasyForm.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("EasyForm.Entities.Question", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ApplicationPartId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationPartId");
+
+                    b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("EasyForm.Entities.QuestionItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("QuestionItem");
                 });
 
             modelBuilder.Entity("EasyForm.Entities.User", b =>
@@ -124,6 +233,9 @@ namespace EasyForm.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ApplicationId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -131,6 +243,8 @@ namespace EasyForm.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
 
                     b.HasIndex("UserId");
 
@@ -238,13 +352,73 @@ namespace EasyForm.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("EasyForm.Entities.Answer", b =>
+                {
+                    b.HasOne("EasyForm.Entities.Question", "Question")
+                        .WithMany("Answers")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EasyForm.Entities.UserApplication", "UserApplication")
+                        .WithMany("Answers")
+                        .HasForeignKey("UserApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+
+                    b.Navigation("UserApplication");
+                });
+
+            modelBuilder.Entity("EasyForm.Entities.ApplicationPart", b =>
+                {
+                    b.HasOne("EasyForm.Entities.Application", "Application")
+                        .WithMany("ApplicationParts")
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Application");
+                });
+
+            modelBuilder.Entity("EasyForm.Entities.Question", b =>
+                {
+                    b.HasOne("EasyForm.Entities.ApplicationPart", "Part")
+                        .WithMany("Questions")
+                        .HasForeignKey("ApplicationPartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Part");
+                });
+
+            modelBuilder.Entity("EasyForm.Entities.QuestionItem", b =>
+                {
+                    b.HasOne("EasyForm.Entities.Question", "Question")
+                        .WithMany("QuestionItems")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
             modelBuilder.Entity("EasyForm.Entities.UserApplication", b =>
                 {
+                    b.HasOne("EasyForm.Entities.Application", "Application")
+                        .WithMany("UserApplications")
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("EasyForm.Entities.User", "User")
                         .WithMany("Applications")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Application");
 
                     b.Navigation("User");
                 });
@@ -300,9 +474,33 @@ namespace EasyForm.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EasyForm.Entities.Application", b =>
+                {
+                    b.Navigation("ApplicationParts");
+
+                    b.Navigation("UserApplications");
+                });
+
+            modelBuilder.Entity("EasyForm.Entities.ApplicationPart", b =>
+                {
+                    b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("EasyForm.Entities.Question", b =>
+                {
+                    b.Navigation("Answers");
+
+                    b.Navigation("QuestionItems");
+                });
+
             modelBuilder.Entity("EasyForm.Entities.User", b =>
                 {
                     b.Navigation("Applications");
+                });
+
+            modelBuilder.Entity("EasyForm.Entities.UserApplication", b =>
+                {
+                    b.Navigation("Answers");
                 });
 #pragma warning restore 612, 618
         }
