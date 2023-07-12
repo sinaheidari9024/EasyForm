@@ -1,5 +1,7 @@
+using Autofac;
 using EasyForm.Entities;
 using EasyForm.Models;
+using EasyForm.Services.Implementations.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -70,6 +72,12 @@ namespace EasyForm
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule<EasyFormServiceModule>();
+            builder.RegisterModule<EasyFormRepositoryModule>();
         }
     }
 }

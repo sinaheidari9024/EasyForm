@@ -2,9 +2,6 @@
 using EasyForm.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EasyForm.Controllers
@@ -41,7 +38,7 @@ namespace EasyForm.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index", "Home");
                 }
 
                 foreach (var error in result.Errors)
