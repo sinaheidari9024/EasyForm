@@ -1,4 +1,5 @@
-﻿using EasyForm.ViewModel;
+﻿using EasyForm.Entities;
+using EasyForm.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,10 +11,10 @@ namespace EasyForm.Controllers
 {
     public class RegisterController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public RegisterController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public RegisterController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -30,7 +31,7 @@ namespace EasyForm.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser()
+                var user = new User()
                 {
                     UserName = req.Email,
                     Email = req.Email,
