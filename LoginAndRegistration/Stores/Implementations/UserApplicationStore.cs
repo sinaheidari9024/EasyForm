@@ -33,6 +33,14 @@ namespace EasyForm.Stores.Implementations
             return await _context.UserApplications.FirstOrDefaultAsync(s => s.Id == id);
         }
 
+        public async Task<UserApplication> GetUserApplicationIncludePartsAsync(int id)
+        {
+            return await _context.UserApplications
+                .Include(s=>s.Application)
+                .ThenInclude(s=>s.ApplicationParts)
+                .FirstOrDefaultAsync(s => s.Id == id);
+        }
+
         public async Task<bool> DeleteUserApplicationAsync(UserApplication item)
         {
             _context.UserApplications.Remove(item);

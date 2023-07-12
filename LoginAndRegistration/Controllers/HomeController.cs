@@ -36,8 +36,8 @@ namespace EasyForm.Controllers
 
         public async Task<IActionResult> Edit(int userApplicationId)
         {
-            var userApplication = await _userApplicationService.GetUserApplicationAsync(userApplicationId);
-            return View("Index");
+            var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(userApplicationId);
+            return View(result);
         }
 
         public async Task<IActionResult> Delete(int userApplicationId)

@@ -9,6 +9,7 @@ namespace EasyForm.Stores.Contracts
     {
         Task<List<UserApplicationViewModel>> GetUserApplicationsAsync(int userId);
         Task<UserApplication> GetUserApplicationAsync(int id);
+        Task<UserApplication> GetUserApplicationIncludePartsAsync(int id);
         Task<bool> DeleteUserApplicationAsync(UserApplication item);
     }
 }

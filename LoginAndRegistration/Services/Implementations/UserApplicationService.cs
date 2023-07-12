@@ -2,7 +2,9 @@
 using EasyForm.Models;
 using EasyForm.Services.Contracts;
 using EasyForm.Stores.Contracts;
+using EasyForm.ViewModel;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EasyForm.Services.Implementations
@@ -26,6 +28,30 @@ namespace EasyForm.Services.Implementations
             return await _userApplicationStore.GetUserApplicationAsync(userId);
         }
 
+        public async Task<ApplicationPartsVm> GetUserApplicationIncludePartsAsync(int id)
+        {
+            var result = await _userApplicationStore.GetUserApplicationIncludePartsAsync(id);
+
+            var model = new ApplicationPartsVm
+            {
+                CreationDate = result.CreatedDate,
+                UserApplicationId = result.Id,
+                Parts = new List<PartsVm>()
+
+            };
+            foreach (var part in result.Application.ApplicationParts) 
+            {
+                model.Parts.Add(new PartsVm
+                {
+                    Description = part.Description,
+                    Title = part.Title,
+                    IsCompleted = false
+                });
+            }
+
+            return model;
+            
+        }
         public async Task<bool> DeleteUserApplicationAsync(UserApplication item)
         {
             return await _userApplicationStore.DeleteUserApplicationAsync(item);
