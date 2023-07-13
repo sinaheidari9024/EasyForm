@@ -1,4 +1,7 @@
+using Autofac;
+using EasyForm.Entities;
 using EasyForm.Models;
+using EasyForm.Services.Implementations.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,7 +36,8 @@ namespace EasyForm
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentity<User, ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
             services.ConfigureApplicationCookie(config =>
             {
                 config.LoginPath = "/Login/Index";
@@ -68,6 +72,12 @@ namespace EasyForm
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule<EasyFormServiceModule>();
+            builder.RegisterModule<EasyFormRepositoryModule>();
         }
     }
 }

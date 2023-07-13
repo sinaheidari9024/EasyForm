@@ -1,17 +1,15 @@
-﻿using EasyForm.ViewModel;
+﻿using EasyForm.Entities;
+using EasyForm.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EasyForm.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        public LoginController(SignInManager<IdentityUser> signInManager)
+        private readonly SignInManager<User> _signInManager;
+        public LoginController(SignInManager<User> signInManager)
         {
             _signInManager = signInManager;
         }
