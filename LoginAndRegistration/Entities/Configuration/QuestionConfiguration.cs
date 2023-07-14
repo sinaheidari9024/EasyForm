@@ -8,7 +8,7 @@ namespace EasyForm.Entities.Configuration
         public void Configure(EntityTypeBuilder<Question> builder)
         {
             builder
-                .HasMany(e => e.Answers)
+                .HasMany(e => e.Answer)
                 .WithOne(e => e.Question)
                 .HasForeignKey(e => e.QuestionId)
                 //.OnDelete(DeleteBehavior.Restrict)

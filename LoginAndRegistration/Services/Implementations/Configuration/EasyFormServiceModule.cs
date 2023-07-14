@@ -9,6 +9,7 @@ namespace EasyForm.Services.Implementations.Configuration
         {
             builder.RegisterType<ApplicationService>().As<IApplicationService>().InstancePerLifetimeScope();
             builder.RegisterType<UserApplicationService>().As<IUserApplicationService>().InstancePerLifetimeScope();
+            builder.RegisterType<QuestionService>().As<IQuestionService>().InstancePerLifetimeScope();
         }
     }
 }

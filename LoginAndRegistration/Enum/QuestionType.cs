@@ -10,6 +10,9 @@
         Table2,
         OptionBox, // items
         CheckBox, // items
-        Date
+        Date,
+        Boolean,
+        Note,
+
     }
 }

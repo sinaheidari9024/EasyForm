@@ -26,11 +26,11 @@ namespace EasyForm.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Answers")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserApplicationId")
                         .HasColumnType("int");
@@ -41,7 +41,7 @@ namespace EasyForm.Migrations
 
                     b.HasIndex("UserApplicationId");
 
-                    b.ToTable("Answer");
+                    b.ToTable("Answers");
                 });
 
             modelBuilder.Entity("EasyForm.Entities.Application", b =>
@@ -124,6 +124,21 @@ namespace EasyForm.Migrations
                     b.Property<int>("ApplicationPartId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("DisablerItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EnabblerItemId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsRequierd")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MaxLengh")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Minlengh")
+                        .HasColumnType("int");
+
                     b.Property<string>("Number")
                         .HasColumnType("nvarchar(max)");
 
@@ -136,6 +151,10 @@ namespace EasyForm.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationPartId");
+
+                    b.HasIndex("DisablerItemId");
+
+                    b.HasIndex("EnabblerItemId");
 
                     b.ToTable("Questions");
                 });
@@ -157,7 +176,7 @@ namespace EasyForm.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("QuestionItem");
+                    b.ToTable("QuestionItems");
                 });
 
             modelBuilder.Entity("EasyForm.Entities.User", b =>
@@ -359,7 +378,7 @@ namespace EasyForm.Migrations
             modelBuilder.Entity("EasyForm.Entities.Answer", b =>
                 {
                     b.HasOne("EasyForm.Entities.Question", "Question")
-                        .WithMany("Answers")
+                        .WithMany("Answer")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -393,6 +412,20 @@ namespace EasyForm.Migrations
                         .HasForeignKey("ApplicationPartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("EasyForm.Entities.QuestionItem", "DisablerItem")
+                        .WithMany("DisableQuestion")
+                        .HasForeignKey("DisablerItemId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("EasyForm.Entities.QuestionItem", "EnabblerItem")
+                        .WithMany("EnableQuestion")
+                        .HasForeignKey("EnabblerItemId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("DisablerItem");
+
+                    b.Navigation("EnabblerItem");
 
                     b.Navigation("Part");
                 });
@@ -492,9 +525,16 @@ namespace EasyForm.Migrations
 
             modelBuilder.Entity("EasyForm.Entities.Question", b =>
                 {
-                    b.Navigation("Answers");
+                    b.Navigation("Answer");
 
                     b.Navigation("QuestionItems");
+                });
+
+            modelBuilder.Entity("EasyForm.Entities.QuestionItem", b =>
+                {
+                    b.Navigation("DisableQuestion");
+
+                    b.Navigation("EnableQuestion");
                 });
 
             modelBuilder.Entity("EasyForm.Entities.User", b =>
