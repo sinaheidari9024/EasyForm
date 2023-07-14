@@ -1,6 +1,7 @@
 ﻿using EasyForm.Entities;
 using EasyForm.Models;
 using EasyForm.Stores.Contracts;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace EasyForm.Stores.Implementations
@@ -20,6 +21,24 @@ namespace EasyForm.Stores.Implementations
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public Task<bool> DeleteApplication(int id)
+        {
+            throw new System.NotImplementedException();
+        }
 
+        public Task<Application> GetApplication(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<List<Application>> GetApplications(string name)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<Application> UpdateApplication(Application application, int id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

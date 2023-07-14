@@ -32,7 +32,7 @@ namespace EasyForm.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var test = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(1, 1);
+            //var test = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(1, 1);
             int userId = Convert.ToInt32(_userManager.GetUserId(User));
             var userApplications = await _userApplicationService.GetUserApplicationsAsync(userId);
             return View(userApplications);
