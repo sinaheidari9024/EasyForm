@@ -16,19 +16,23 @@ namespace EasyForm.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUserApplicationService _userApplicationService;
+        private readonly IQuestionService _questionService;
         private readonly UserManager<User> _userManager;
 
         public HomeController(ILogger<HomeController> logger
                                 , IUserApplicationService userApplicationService
-                                , UserManager<User> userManager)
+                                , UserManager<User> userManager
+                                ,IQuestionService questionService)
         {
             _logger = logger;
             _userApplicationService = userApplicationService;
             _userManager = userManager;
+            _questionService = questionService;
         }
 
         public async Task<IActionResult> Index()
         {
+            var test = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(1, 1);
             int userId = Convert.ToInt32(_userManager.GetUserId(User));
             var userApplications = await _userApplicationService.GetUserApplicationsAsync(userId);
             return View(userApplications);

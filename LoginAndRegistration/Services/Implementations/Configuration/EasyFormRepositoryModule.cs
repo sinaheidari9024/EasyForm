@@ -10,6 +10,7 @@ namespace EasyForm.Services.Implementations.Configuration
         {
             builder.RegisterType<ApplicationStore>().As<IApplicationStore>().InstancePerLifetimeScope();
             builder.RegisterType<UserApplicationStore>().As<IUserApplicationStore>().InstancePerLifetimeScope();
+            builder.RegisterType<QuestionStore>().As<IQuestionStore>().InstancePerLifetimeScope();
 
         }
     }

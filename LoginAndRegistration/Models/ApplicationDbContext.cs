@@ -2,7 +2,6 @@
 using EasyForm.Entities.Configuration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Metadata;
 
 namespace EasyForm.Models
 {
@@ -17,6 +16,8 @@ namespace EasyForm.Models
         public DbSet<Application> Applications { get; set; }
         public DbSet<ApplicationPart> ApplicationParts { get; set; }
         public DbSet<Question> Questions { get; set; }
+        public DbSet<QuestionItem> QuestionItems { get; set; }
+        public DbSet<Answer> Answers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +29,7 @@ namespace EasyForm.Models
             new QuestionConfiguration().Configure(modelBuilder.Entity<Question>());
             new UserApplicationConfiguration().Configure(modelBuilder.Entity<UserApplication>());
             new AnswerConfiguration().Configure(modelBuilder.Entity<Answer>());
+            new QuestionItemConfiguration().Configure(modelBuilder.Entity<QuestionItem>());
 
         }
     }

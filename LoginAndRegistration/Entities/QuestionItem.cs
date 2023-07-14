@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EasyForm.Entities
@@ -11,5 +12,8 @@ namespace EasyForm.Entities
         public string Title { get; set; }
 
         public Question Question { get; set; }
+        public ICollection<Question> EnableQuestion { get; set; }
+        public ICollection<Question> DisableQuestion { get; set; }
+
     }
 }
