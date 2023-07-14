@@ -3,8 +3,8 @@ using EasyForm.Models;
 using EasyForm.Services.Contracts;
 using EasyForm.Stores.Contracts;
 using EasyForm.ViewModel;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EasyForm.Services.Implementations
@@ -39,7 +39,7 @@ namespace EasyForm.Services.Implementations
                 Parts = new List<PartsVm>()
 
             };
-            foreach (var part in result.Application.ApplicationParts) 
+            foreach (var part in result.Application.ApplicationParts)
             {
                 model.Parts.Add(new PartsVm
                 {
@@ -50,11 +50,24 @@ namespace EasyForm.Services.Implementations
             }
 
             return model;
-            
+
         }
         public async Task<bool> DeleteUserApplicationAsync(UserApplication item)
         {
             return await _userApplicationStore.DeleteUserApplicationAsync(item);
+        }
+
+        public async Task<int> CreateNewUserApplication(int userId)
+        {
+            var newItem = new UserApplication
+            {
+                ApplicationId = 1, //todo
+                IsDeleted = false,
+                UserId = userId,
+                CreatedDate = DateTime.Now
+            };
+
+            return await _userApplicationStore.CreateNewUserApplicationAsync(newItem);
         }
     }
 }

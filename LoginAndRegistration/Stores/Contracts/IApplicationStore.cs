@@ -6,10 +6,10 @@ namespace EasyForm.Stores.Contracts
 {
     public interface IApplicationStore
     {
-        Task<bool> AddApplication(Application application);
-        Task<Application> UpdateApplication(Application application, int id);
-        Task<bool> DeleteApplication(int id);
-        Task<Application> GetApplication(int id);
-        Task<List<Application>> GetApplications(string name);
+        Task<bool> AddApplicationAsync(Application application);
+        Task<bool> UpdateApplicationAsync(Application application);
+        Task<bool> DeleteApplicationAsync(int id);
+        Task<Application> GetApplicationAsync(int id);
+        Task<List<Application>> GetApplicationsAsync(string name);
     }
 }

@@ -46,5 +46,13 @@ namespace EasyForm.Stores.Implementations
             _context.UserApplications.Remove(item);
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<int> CreateNewUserApplicationAsync(UserApplication item)
+        {
+            await _context.UserApplications.AddAsync(item);
+            await _context.SaveChangesAsync();
+
+            return item.Id;
+        }
     }
 }
