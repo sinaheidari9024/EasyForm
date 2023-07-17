@@ -41,6 +41,7 @@ namespace EasyForm.Controllers
         public async Task<IActionResult> Edit(int userApplicationId)
         {
             var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(userApplicationId);
+            var test = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(1, 1);
             return View(result);
         }
 
