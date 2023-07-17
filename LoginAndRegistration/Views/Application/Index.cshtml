@@ -40,7 +40,7 @@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { applicationId = item.Id }, new { @class = "details-link" })
                     @Html.ActionLink("Delete", "Delete", new { applicationId = item.Id }, new { @class = "details-link" })
-                    @Html.ActionLink("Parts", "Parts", new { applicationId = item.Id }, new { @class = "details-link" })
+                    @Html.ActionLink("Parts", "Index", "Part", new { applicationId = item.Id }, new { @class = "details-link" })
                 </td>
 
             </tr>

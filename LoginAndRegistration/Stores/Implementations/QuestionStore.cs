@@ -28,5 +28,10 @@ namespace EasyForm.Stores.Implementations
                 .ThenInclude(s => s.DisableQuestion)
                 .ToListAsync();
         }
+
+        public async Task<bool> HasAnyQuestion(int partId)
+        {
+            return await _context.Questions.AnyAsync(s => s.ApplicationPartId == partId);
+        }
     }
 }

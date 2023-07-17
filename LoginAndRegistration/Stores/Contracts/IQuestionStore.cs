@@ -6,6 +6,8 @@ namespace EasyForm.Stores.Contracts
 {
     public interface IQuestionStore
     {
-        Task<List<Question>> GetQuestionIncludeItemsAndAnswerAsync(int partId, int UserApplicationId); 
+        Task<List<Question>> GetQuestionIncludeItemsAndAnswerAsync(int partId, int UserApplicationId);
+        Task<bool> HasAnyQuestion(int partId);
+
     }
 }

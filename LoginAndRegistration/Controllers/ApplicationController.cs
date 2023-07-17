@@ -65,5 +65,6 @@ namespace EasyForm.Controllers
             var response = await _applicationService.GetApplicationsAsync(string.Empty);
             return View(Constants.IndexAction, response);
         }
+
     }
 }
