@@ -57,7 +57,11 @@ namespace EasyForm.Services.Implementations
             var response = await _partStore.GetApplicationPartsAsync();
             var parts = _mapper.Map<List<ApplicationPartVm>>(response);
             return new GetApplicationPartVm { ApplicationId = 0, Parts = parts };
+        }
 
+        public async Task<List<ApplicationPart>> GetPartListAsync()
+        {
+            return await _partStore.GetApplicationPartsAsync();
         }
 
         public async Task<bool> UpdateApplicationPartAsync(ApplicationPart applicationPart)

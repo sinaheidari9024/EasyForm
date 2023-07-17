@@ -42,7 +42,6 @@ namespace EasyForm.Controllers
             else
             {
                 response = await _partService.GetApplicationPartsAsync(applicationId);
-
             }
 
             return View(response);
@@ -67,7 +66,6 @@ namespace EasyForm.Controllers
                         }
                     );
                 }
-
             }
             var response = new CreateApplicationPartVm
             {
@@ -80,9 +78,20 @@ namespace EasyForm.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAsync(ApplicationPart part)
         {
-            await _partService.AddApplicationPartAsync(part);
+            TempData[Constants.IsShow] = "";
+            var result = await _partService.AddApplicationPartAsync(part);
+            if (result)
+            {
+                TempData[Constants.IsShow] = "Part updated successfully.";
+            }
+            else
+            {
+                TempData[Constants.IsShow] = "We have some problem in creating this part.";
+                _logger.LogError($"{Constants.UserError}: \"We have some problem in creating this part.");
+
+            }
             var response = await _partService.GetApplicationPartsAsync();
-            return View(Constants.IndexAction, response);
+            return RedirectToAction(Constants.IndexAction, response);
         }
 
         [HttpGet]
@@ -112,21 +121,32 @@ namespace EasyForm.Controllers
         [HttpPost]
         public async Task<IActionResult> EditAsync(ApplicationPart applicationPart)
         {
-            await _partService.UpdateApplicationPartAsync(applicationPart);
+            TempData[Constants.IsShow] = "";
+            var result = await _partService.UpdateApplicationPartAsync(applicationPart);
+            if (result)
+            {
+                TempData[Constants.IsShow] = "Part updated successfully.";
+            }
+            else
+            {
+                TempData[Constants.IsShow] = "We have some problem in update this part.";
+                _logger.LogError($"{Constants.UserError}: \"We have some problem in update this part.");
+            }
             var response = await _partService.GetApplicationPartsAsync();
-            return View(Constants.IndexAction, response);
+            return RedirectToAction(Constants.IndexAction, response);
         }
 
         public async Task<IActionResult> Delete(int partId)
         {
+            TempData[Constants.IsShow] = "";
             var result = await _partService.DeleteApplicationPartAsync(partId);
             if (!result)
-            { 
+            {
                 TempData[Constants.IsShow] = $"{Constants.UserError} : This Part has Question and You can not delete it";
                 _logger.LogError($"{Constants.UserError}: This Part has Question and You can not delete it");
             }
             var response = await _partService.GetApplicationPartsAsync();
-            return View(Constants.IndexAction, response);
+            return RedirectToAction(Constants.IndexAction, response);
         }
 
     }

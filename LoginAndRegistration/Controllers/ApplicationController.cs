@@ -40,7 +40,7 @@ namespace EasyForm.Controllers
         {
             await _applicationService.AddApplication(application);
             var response = await _applicationService.GetApplicationsAsync(string.Empty);
-            return View(Constants.IndexAction, response);
+            return RedirectToAction(Constants.IndexAction, response);
         }
 
         [HttpGet]
@@ -56,14 +56,14 @@ namespace EasyForm.Controllers
         {
             await _applicationService.UpdateApplicationAsync(application);
             var response = await _applicationService.GetApplicationsAsync(string.Empty);
-            return View(Constants.IndexAction, response);
+            return RedirectToAction(Constants.IndexAction, response);
         }
 
         public async Task<IActionResult> Delete(int applicationId)
         {
             await _applicationService.DeleteApplicationAsync(applicationId);
             var response = await _applicationService.GetApplicationsAsync(string.Empty);
-            return View(Constants.IndexAction, response);
+            return RedirectToAction(Constants.IndexAction, response);
         }
 
     }

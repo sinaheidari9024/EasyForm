@@ -1,5 +1,6 @@
 ﻿using EasyForm.Entities;
 using EasyForm.ViewModel;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace EasyForm.Services.Contracts
@@ -12,5 +13,6 @@ namespace EasyForm.Services.Contracts
         Task<ApplicationPart> GetApplicationPartAsync(int id);
         Task<GetApplicationPartVm> GetApplicationPartsAsync(int applicationId);
         Task<GetApplicationPartVm> GetApplicationPartsAsync();
+        Task<List<ApplicationPart>> GetPartListAsync();
     }
 }

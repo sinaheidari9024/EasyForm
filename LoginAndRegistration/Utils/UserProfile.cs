@@ -15,6 +15,17 @@ namespace EasyForm.Utils
             opt => opt.MapFrom(src => src.Application.Title));
 
             CreateMap<ApplicationPart, CreateApplicationPartVm>();
+
+            CreateMap<Question, QuestionVm>()
+                .ForMember(dest => dest.PartId,
+            opt => opt.MapFrom(src => src.Part.Id))
+                .ForMember(dest => dest.PartName,
+            opt => opt.MapFrom(src => src.Part.Title))
+                .ForMember(dest => dest.ApplicationName,
+            opt => opt.MapFrom(src => src.Part.Application.Title));
+
+            CreateMap<Question, CreateQuestionVm>();
+
         }
 
     }
