@@ -124,12 +124,6 @@ namespace EasyForm.Migrations
                     b.Property<int>("ApplicationPartId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DisablerItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EnabblerItemId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsRequierd")
                         .HasColumnType("bit");
 
@@ -151,10 +145,6 @@ namespace EasyForm.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationPartId");
-
-                    b.HasIndex("DisablerItemId");
-
-                    b.HasIndex("EnabblerItemId");
 
                     b.ToTable("Questions");
                 });
@@ -413,20 +403,6 @@ namespace EasyForm.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EasyForm.Entities.QuestionItem", "DisablerItem")
-                        .WithMany("DisableQuestion")
-                        .HasForeignKey("DisablerItemId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("EasyForm.Entities.QuestionItem", "EnabblerItem")
-                        .WithMany("EnableQuestion")
-                        .HasForeignKey("EnabblerItemId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("DisablerItem");
-
-                    b.Navigation("EnabblerItem");
-
                     b.Navigation("Part");
                 });
 
@@ -528,13 +504,6 @@ namespace EasyForm.Migrations
                     b.Navigation("Answer");
 
                     b.Navigation("QuestionItems");
-                });
-
-            modelBuilder.Entity("EasyForm.Entities.QuestionItem", b =>
-                {
-                    b.Navigation("DisableQuestion");
-
-                    b.Navigation("EnableQuestion");
                 });
 
             modelBuilder.Entity("EasyForm.Entities.User", b =>

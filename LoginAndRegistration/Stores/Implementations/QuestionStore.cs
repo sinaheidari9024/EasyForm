@@ -44,10 +44,6 @@ namespace EasyForm.Stores.Implementations
         {
             return await _context.Questions.Where(s => s.ApplicationPartId == partId )
                 .Include(s => s.Answer.Where(s=>s.UserApplicationId == UserApplicationId))
-                .Include(s => s.QuestionItems)
-                .ThenInclude(s => s.EnableQuestion)
-                .Include(s => s.QuestionItems)
-                .ThenInclude(s => s.DisableQuestion)
                 .ToListAsync();
         }
 
