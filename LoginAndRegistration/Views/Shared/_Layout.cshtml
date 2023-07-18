@@ -31,21 +31,24 @@
                     @{
                         if (SignInManager.IsSignedIn(User))
                         {
-                            <ul class="navbar-nav flex-grow-1">
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Users Applications</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Application" asp-action="Index">Application</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Part" asp-action="Index">Parts</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Question" asp-action="Index">Questions</a>
-                                </li>
-                            </ul>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <ul class="navbar-nav flex-grow-1">
 
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Users Applications</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Application" asp-action="Index">Application</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Part" asp-action="Index">Parts</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Question" asp-action="Index">Questions</a>
+                                    </li>
+                                </ul>
+                            }
                             <ul class="navbar-nav d-flex justify-content-end">
                                 <li class="nav-item">
                                     <a class="btn btn-primary" asp-area="" asp-controller="Logout" asp-action="Index">Logout</a>

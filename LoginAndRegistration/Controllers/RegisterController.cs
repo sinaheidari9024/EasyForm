@@ -1,7 +1,9 @@
 ﻿using EasyForm.Entities;
+using EasyForm.Enum;
 using EasyForm.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace EasyForm.Controllers
@@ -32,9 +34,12 @@ namespace EasyForm.Controllers
                 {
                     UserName = req.Email,
                     Email = req.Email,
+                    Role = UserRole.NormalUser
                 };
-
+                var claim = new Claim(ClaimTypes.Role.ToString(), user.Role.ToString());
                 var result = await _userManager.CreateAsync(user, req.Password);
+                await _userManager.AddClaimAsync(user, claim);
+
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
