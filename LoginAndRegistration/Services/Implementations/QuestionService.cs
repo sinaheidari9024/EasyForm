@@ -97,6 +97,13 @@ namespace EasyForm.Services.Implementations
             return new GetQuestionVm { PartId = 0, Questions = questions };
         }
 
+        public async Task<bool> ToggleActivationAsync(int questionId, bool currentStatus)
+        {
+            var question = await _questionStore.GetQuestionAsync(questionId);
+            question.IsActive = !currentStatus;
+            return await _questionStore.UpdateQuestionAsync(question);
+        }
+
         public async Task<bool> UpdateQuestionAsync(Question question)
         {
             return await _questionStore.UpdateQuestionAsync(question);

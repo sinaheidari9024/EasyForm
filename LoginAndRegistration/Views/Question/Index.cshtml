@@ -78,12 +78,23 @@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { QuestionId = item.Id }, new { @class = "details-link" })
                     @Html.ActionLink("Delete", "Delete", new { QuestionId = item.Id }, new { @class = "details-link" })
+
                     @{
                         if (item.Type == QuestionType.DropDown || item.Type == QuestionType.CheckBox || item.Type == QuestionType.OptionBox)
                         {
                             @Html.ActionLink("Items", "Index", "QuestionItems", new { QuestionId = item.Id }, new { @class = "details-link" });
                         }
+
+                        if (item.IsActive)
+                        {
+                            @Html.ActionLink("DeActive", "ToggleActivation", new { QuestionId = item.Id, CurrentStatus = item.IsActive }, new { @class = "details-link" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Active", "ToggleActivation", new { QuestionId = item.Id, CurrentStatus = item.IsActive }, new { @class = "details-link" })
+                        }
                     }
+
                 </td>
 
             </tr>

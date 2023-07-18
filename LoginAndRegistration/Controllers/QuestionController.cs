@@ -143,5 +143,21 @@ namespace EasyForm.Controllers
             var response = await _questionService.GetQuestionsAsync();
             return RedirectToAction(Constants.IndexAction, response);
         }
+
+        public async Task<IActionResult> ToggleActivation(int QuestionId, bool CurrentStatus)
+        {
+            var result = await _questionService.ToggleActivationAsync(QuestionId, CurrentStatus);
+            if (result)
+            {
+                TempData[Constants.IsShow] = "Part updated successfully.";
+            }
+            else
+            {
+                TempData[Constants.IsShow] = "We have some problem in update this question.";
+                _logger.LogError($"{Constants.UserError}: \"We have some problem in update this question.");
+            }
+            var response = await _questionService.GetQuestionsAsync();
+            return RedirectToAction(Constants.IndexAction, response);
+        }
     }
 }

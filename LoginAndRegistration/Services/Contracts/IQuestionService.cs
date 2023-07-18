@@ -14,6 +14,6 @@ namespace EasyForm.Services.Contracts
         Task<Question> GetQuestionAsync(int id);
         Task<GetQuestionVm> GetQuestionsAsync(int partId);
         Task<GetQuestionVm> GetQuestionsAsync();
-
+        Task<bool> ToggleActivationAsync(int questionId, bool currentStatus);
     }
 }
