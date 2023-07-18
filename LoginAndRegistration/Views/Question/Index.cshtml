@@ -1,4 +1,5 @@
-﻿@using EasyForm.ViewModel;
+﻿@using EasyForm.Enum;
+@using EasyForm.ViewModel;
 @model GetQuestionVm
 
 @{
@@ -8,7 +9,7 @@
 <h2>Questions</h2>
 <div class="col-md-6 text-right">
     <a>
-        @Html.ActionLink("Create New Part", "Create", new { applicationId = Model.PartId })
+        @Html.ActionLink("Create New Question", "Create", new { applicationId = Model.PartId })
     </a>
 </div>
 <hr />
@@ -77,7 +78,12 @@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { QuestionId = item.Id }, new { @class = "details-link" })
                     @Html.ActionLink("Delete", "Delete", new { QuestionId = item.Id }, new { @class = "details-link" })
-                    @Html.ActionLink("Items", "Index", "QuestionItems", new { QuestionId = item.Id }, new { @class = "details-link" })
+                    @{
+                        if (item.Type == QuestionType.DropDown || item.Type == QuestionType.CheckBox || item.Type == QuestionType.OptionBox)
+                        {
+                            @Html.ActionLink("Items", "Index", "QuestionItems", new { QuestionId = item.Id }, new { @class = "details-link" });
+                        }
+                    }
                 </td>
 
             </tr>
