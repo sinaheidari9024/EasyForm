@@ -1,24 +1,86 @@
-﻿@using EasyForm.ViewModel;
+﻿@using EasyForm.Enum
+@using EasyForm.ViewModel;
 @model ApplicationPartsVm
 
 @{
     ViewData["Title"] = "Modify Application";
-    var student = ViewData.Model;
+    var form = ViewData.Model;
 }
 
 <div class="accordion" id="accordionExample">
-    @for (int i = 0; i < student.Parts.Count - 1; i++)
+    @for (int i = 0; i < form.Parts.Count; i++)
     {
         <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-@i.ToString()" aria-expanded="false" aria-controls="flush-@i.ToString()">
-                    @student.Parts[i].Title
+                    @form.Parts[i].Title
+
+                    @if (form.Parts[i].IsCompleted == true)
+                    {
+                        <i class="fa fa-check text-success" style="margin: 0 12px"></i>
+                    }
+                    else
+                    {
+                        <i class="fa fa-times text-danger" style="margin: 0 12px"></i>
+                    }
+
                 </button>
             </h2>
             <div id="flush-@i.ToString()" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+                <div class="container-fluid row">
+                    @for (var j = 0; j < form.Parts[i].Questions.Count; j++)
+                    {
+                        @if (form.Parts[i].Questions[j].Type == QuestionType.TextBox)
+                        {
+                            <div class="mb-3">
+                                <label for="@form.Parts[i].Questions[j].Text" class="form-label">@form.Parts[i].Questions[j].Text</label>
+                                <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text" value="" @form.Parts[i].Questions[j].Answer />
+                            </div>
+                        }
+                        @if (form.Parts[i].Questions[j].Type == QuestionType.TextNumeric)
+                        {
+                            <div class="mb-3">
+                                <label for="@form.Parts[i].Questions[j].Text" class="form-label">@form.Parts[i].Questions[j].Text</label>
+                                <input type="number" class="form-control" id="@form.Parts[i].Questions[j].Text" value="" @form.Parts[i].Questions[j].Answer />
+                            </div>
+                        }
+                        @if (form.Parts[i].Questions[j].Type == QuestionType.OptionBox)
+                        {
+                            <div class="mb-3">
+                                <label for="@form.Parts[i].Questions[j].Text" class="form-label">@form.Parts[i].Questions[j].Text</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Default radio
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Default checked radio
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                        @if (form.Parts[i].Questions[j].Type == QuestionType.Date)
+                        {
+                            <div class="row mb-3">
+                                <label for="date" class="col-1 col-form-label">@form.Parts[i].Questions[j].Text</label>
+                                <div class="col-5">
+                                    <div class="input-group date" id="datepicker">
+                                        <input type="date" class="form-control" id="date" placeholder="..." />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+
             </div>
         </div>
     }
-
 </div>
+
+<script>
+    document.querySelector('#datepicker').datepicker();
+</script>

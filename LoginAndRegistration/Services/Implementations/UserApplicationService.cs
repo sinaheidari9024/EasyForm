@@ -12,10 +12,12 @@ namespace EasyForm.Services.Implementations
     public class UserApplicationService : IUserApplicationService
     {
         private readonly IUserApplicationStore _userApplicationStore;
+        private readonly IQuestionService _questionService;
 
-        public UserApplicationService(IUserApplicationStore userApplicationStore)
+        public UserApplicationService(IUserApplicationStore userApplicationStore, IQuestionService questionService)
         {
             _userApplicationStore = userApplicationStore;
+            _questionService = questionService;
         }
 
         public async Task<List<UserApplicationViewModel>> GetUserApplicationsAsync(int userId)
@@ -39,18 +41,19 @@ namespace EasyForm.Services.Implementations
                 Parts = new List<PartsVm>()
 
             };
-            foreach (var part in result.Application.ApplicationParts) 
+            foreach (var part in result.Application.ApplicationParts)
             {
                 model.Parts.Add(new PartsVm
                 {
                     Description = part.Description,
                     Title = part.Title,
-                    IsCompleted = false
+                    IsCompleted = false,
+                    Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(1, result.Id)
                 });
             }
 
             return model;
-            
+
         }
         public async Task<bool> DeleteUserApplicationAsync(UserApplication item)
         {
