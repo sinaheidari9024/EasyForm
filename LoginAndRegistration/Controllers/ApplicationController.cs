@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EasyForm.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = Constants.Admin)]
     public class ApplicationController : Controller
     {
         private readonly ILogger<ApplicationController> _logger;

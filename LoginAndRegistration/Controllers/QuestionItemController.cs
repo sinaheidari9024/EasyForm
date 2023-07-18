@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EasyForm.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = Constants.Admin)]
     public class QuestionItemController : Controller
     {
         private readonly IQuestionItemService _questionItemService;
@@ -62,7 +62,7 @@ namespace EasyForm.Controllers
         public async Task<IActionResult> Edit(int ItemId)
         {
             ViewData["Action"] = Constants.EditAction;
-            var item = await _questionItemService.GetQuestionItemsAsync(ItemId);
+            var item = await _questionItemService.GetQuestionItemAsync(ItemId);
 
             return View(Constants.CreateAction, item);
         }

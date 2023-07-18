@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace EasyForm.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = Constants.Admin)]
     public class QuestionController : Controller
     {
         private readonly ILogger<HomeController> _logger;
