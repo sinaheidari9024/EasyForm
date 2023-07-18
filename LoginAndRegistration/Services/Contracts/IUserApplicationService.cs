@@ -12,5 +12,6 @@ namespace EasyForm.Services.Contracts
         Task<UserApplication> GetUserApplicationAsync(int id);
         Task<ApplicationPartsVm> GetUserApplicationIncludePartsAsync(int id);
         Task<bool> DeleteUserApplicationAsync(UserApplication item);
+        Task<int> CreateNewUserApplication(int UserId);
     }
 }

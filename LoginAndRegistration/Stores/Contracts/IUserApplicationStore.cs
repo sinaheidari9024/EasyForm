@@ -11,5 +11,6 @@ namespace EasyForm.Stores.Contracts
         Task<UserApplication> GetUserApplicationAsync(int id);
         Task<UserApplication> GetUserApplicationIncludePartsAsync(int id);
         Task<bool> DeleteUserApplicationAsync(UserApplication item);
+        Task<int> CreateNewUserApplicationAsync(UserApplication item);
     }
 }

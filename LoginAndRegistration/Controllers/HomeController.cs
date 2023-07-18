@@ -44,6 +44,14 @@ namespace EasyForm.Controllers
             return View(result);
         }
 
+        public async Task<IActionResult> CreateNew()
+        {
+            int userId = Convert.ToInt32(_userManager.GetUserId(User));
+            var newItemId =  await _userApplicationService.CreateNewUserApplication(userId);
+            var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(newItemId);
+            return View("Edit", result);
+        }
+
         public async Task<IActionResult> Delete(int userApplicationId)
         {
             var userApplication = await _userApplicationService.GetUserApplicationAsync(userApplicationId);
