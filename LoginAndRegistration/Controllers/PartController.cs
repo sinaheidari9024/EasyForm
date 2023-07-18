@@ -15,12 +15,12 @@ namespace EasyForm.Controllers
     [Authorize]
     public class PartController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<PartController> _logger;
         private readonly IPartService _partService;
         private readonly IApplicationService _applicationService;
         private readonly IMapper _mapper;
 
-        public PartController(ILogger<HomeController> logger
+        public PartController(ILogger<PartController> logger
                                 , IPartService partService
                                 , IApplicationService applicationSerive
                                 , IMapper mapper)

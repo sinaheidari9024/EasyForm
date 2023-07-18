@@ -11,10 +11,10 @@ namespace EasyForm.Controllers
     [Authorize]
     public class ApplicationController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<ApplicationController> _logger;
         private readonly IApplicationService _applicationService;
 
-        public ApplicationController(ILogger<HomeController> logger
+        public ApplicationController(ILogger<ApplicationController> logger
                                 , IApplicationService applicationService)
         {
             _logger = logger;

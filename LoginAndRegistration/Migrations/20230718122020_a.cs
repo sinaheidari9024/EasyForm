@@ -229,7 +229,8 @@ namespace EasyForm.Migrations
                     IsRequierd = table.Column<bool>(type: "bit", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     MaxLengh = table.Column<int>(type: "int", nullable: false),
-                    Minlengh = table.Column<int>(type: "int", nullable: false)
+                    Minlengh = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

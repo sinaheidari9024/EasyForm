@@ -18,7 +18,7 @@ namespace EasyForm.Entities
         public bool IsActive { get; set; }
 
         public ApplicationPart Part { get; set; }
-        public ICollection<Answer> Answer { get; set; }
+        public ICollection<Answer> Answers { get; set; }
         public ICollection<QuestionItem> QuestionItems { get; set; }
     }
 }

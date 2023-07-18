@@ -12,5 +12,6 @@ namespace EasyForm.Services.Contracts
         Task<bool> DeleteQuestionItemAsync(int id);
         Task<QuestionItem> GetQuestionItemAsync(int id);
         Task<List<GetQuestionItemVm>> GetQuestionItemsAsync(int questionId);
+        Task<bool> ToggleActivationAsync(int itemId, bool currentStatus);
     }
 }

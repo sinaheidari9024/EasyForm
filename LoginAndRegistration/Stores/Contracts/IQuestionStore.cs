@@ -12,6 +12,7 @@ namespace EasyForm.Stores.Contracts
         Task<bool> UpdateQuestionAsync(Question question);
         Task<bool> DeleteQuestionAsync(int id);
         Task<Question> GetQuestionAsync(int id);
+        Task<Question> GetQuestionIncludeItemsAsync(int id);
         Task<List<Question>> GetQuestionsAsync(int questionId);
         Task<List<Question>> GetQuestionsAsync();
     }

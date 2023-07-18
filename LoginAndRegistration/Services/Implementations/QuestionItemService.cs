@@ -2,6 +2,7 @@
 using EasyForm.Entities;
 using EasyForm.Services.Contracts;
 using EasyForm.Stores.Contracts;
+using EasyForm.Stores.Implementations;
 using EasyForm.ViewModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -27,6 +28,7 @@ namespace EasyForm.Services.Implementations
 
         public async Task<bool> DeleteQuestionItemAsync(int id)
         {
+            //todo  check answer
             return await _questionItemStore.DeleteQuestionItemAsync(id);
         }
 
@@ -44,6 +46,13 @@ namespace EasyForm.Services.Implementations
         public async Task<bool> UpdateQuestionItemAsync(QuestionItem items)
         {
             return await _questionItemStore.UpdateQuestionItemAsync(items);
+        }
+
+        public async Task<bool> ToggleActivationAsync(int itemId, bool currentStatus)
+        {
+            var item = await _questionItemStore.GetQuestionItemAsync(itemId);
+            item.IsActive = !currentStatus;
+            return await _questionItemStore.UpdateQuestionItemAsync(item);
         }
     }
 }

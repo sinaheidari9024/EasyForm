@@ -38,6 +38,11 @@ namespace EasyForm.Services.Implementations
             return await _questionStore.GetQuestionAsync(id);
         }
 
+        public async Task<Question> GetQuestionIncludeItemsAsync(int id)
+        {
+            return await _questionStore.GetQuestionIncludeItemsAsync(id);
+        }
+
         public async Task<List<QuestionComplexModel>> GetQuestionIncludeItemsAndAnswerAsync(int partId, int UserApplicationId)
         {
             var result = await _questionStore.GetQuestionIncludeItemsAndAnswerAsync(partId, UserApplicationId);
@@ -45,7 +50,7 @@ namespace EasyForm.Services.Implementations
 
             foreach (var item in result)
             {
-                var answer = item.Answer.FirstOrDefault();
+                var answer = item.Answers.FirstOrDefault();
                 var questionItems = new List<QuestionItemVm>();
 
                 if (answer != null)

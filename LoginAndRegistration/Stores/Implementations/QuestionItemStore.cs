@@ -1,9 +1,8 @@
 ﻿using EasyForm.Entities;
 using EasyForm.Models;
 using EasyForm.Stores.Contracts;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,7 +20,7 @@ namespace EasyForm.Stores.Implementations
         public async Task<bool> AddQuestionItemtAsync(QuestionItem item)
         {
             await _context.AddAsync(item);
-           return await _context.SaveChangesAsync() > 0;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> DeleteQuestionItemAsync(int id)
@@ -37,12 +36,12 @@ namespace EasyForm.Stores.Implementations
 
         public async Task<QuestionItem> GetQuestionItemAsync(int id)
         {
-            return await _context.QuestionItems.FirstOrDefaultAsync(s=>s.Id == id);
+            return await _context.QuestionItems.Where(s => s.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<List<QuestionItem>> GetQuestionItemsAsync(int questionId)
         {
-            return await _context.QuestionItems.Where(s=>s.QuestionId == questionId).ToListAsync();
+            return await _context.QuestionItems.Where(s => s.QuestionId == questionId).ToListAsync();
         }
 
         public async Task<bool> UpdateQuestionItemAsync(QuestionItem item)
