@@ -24,6 +24,7 @@ namespace EasyForm.Services.Implementations
 
         public async Task<bool> AddQuestionAsync(Question question)
         {
+            question.IsActive = true;
             return await _questionStore.AddQuestionAsync(question);
         }
 

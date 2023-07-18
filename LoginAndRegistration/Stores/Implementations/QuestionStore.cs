@@ -42,7 +42,7 @@ namespace EasyForm.Stores.Implementations
 
         public async Task<List<Question>> GetQuestionIncludeItemsAndAnswerAsync(int partId, int UserApplicationId)
         {
-            return await _context.Questions.Where(s => s.ApplicationPartId == partId )
+            return await _context.Questions.Where(s => s.ApplicationPartId == partId && s.IsActive == true)
                 .Include(s => s.Answer.Where(s=>s.UserApplicationId == UserApplicationId))
                 .ToListAsync();
         }

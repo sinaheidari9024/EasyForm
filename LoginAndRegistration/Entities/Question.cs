@@ -15,6 +15,7 @@ namespace EasyForm.Entities
         public QuestionType Type { get; set; }
         public int MaxLengh { get; set; }
         public int Minlengh { get; set; }
+        public bool IsActive { get; set; }
 
         public ApplicationPart Part { get; set; }
         public ICollection<Answer> Answer { get; set; }

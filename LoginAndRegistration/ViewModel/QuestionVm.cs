@@ -14,6 +14,7 @@ namespace EasyForm.ViewModel
         public int? EnabblerItemId { get; set; }
         public int MaxLengh { get; set; }
         public int Minlengh { get; set; }
+        public bool IsActive { get; set; }
         public int PartId { get; set; }
         public string PartName { get; set; }
         public string ApplicationName { get; set; }

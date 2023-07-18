@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EasyForm.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230717155351_a")]
-    partial class a
+    [Migration("20230718062636_3")]
+    partial class _3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -125,6 +125,9 @@ namespace EasyForm.Migrations
 
                     b.Property<int>("ApplicationPartId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsRequierd")
                         .HasColumnType("bit");
