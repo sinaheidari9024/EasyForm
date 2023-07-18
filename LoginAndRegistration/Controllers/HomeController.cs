@@ -1,12 +1,12 @@
-﻿using EasyForm.Models;
-using EasyForm.ViewModel;
+﻿using EasyForm.Entities;
+using EasyForm.Models;
+using EasyForm.Services.Contracts;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EasyForm.Controllers
@@ -15,15 +15,55 @@ namespace EasyForm.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUserApplicationService _userApplicationService;
+        private readonly IQuestionService _questionService;
+        private readonly UserManager<User> _userManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger
+                                , IUserApplicationService userApplicationService
+                                , UserManager<User> userManager
+                                ,IQuestionService questionService)
         {
             _logger = logger;
+            _userApplicationService = userApplicationService;
+            _userManager = userManager;
+            _questionService = questionService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            //var test = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(1, 1);
+            int userId = Convert.ToInt32(_userManager.GetUserId(User));
+            var userApplications = await _userApplicationService.GetUserApplicationsAsync(userId);
+            return View(userApplications);
+        }
+
+        public async Task<IActionResult> Edit(int userApplicationId)
+        {
+            var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(userApplicationId);
+            return View(result);
+        }
+
+        public async Task<IActionResult> CreateNew()
+        {
+            int userId = Convert.ToInt32(_userManager.GetUserId(User));
+            var newItemId =  await _userApplicationService.CreateNewUserApplication(userId);
+            var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(newItemId);
+            return View("Edit", result);
+        }
+
+        public async Task<IActionResult> Delete(int userApplicationId)
+        {
+            var userApplication = await _userApplicationService.GetUserApplicationAsync(userApplicationId);
+            if (userApplication != null)
+            {
+                await _userApplicationService.DeleteUserApplicationAsync(userApplication);
+            }
+
+            int userId = Convert.ToInt32(_userManager.GetUserId(User));
+            var userApplications = await _userApplicationService.GetUserApplicationsAsync(userId);
+
+            return View("Index", userApplications);
         }
 
         public IActionResult Privacy()

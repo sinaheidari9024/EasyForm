@@ -1,0 +1,54 @@
+﻿@using EasyForm.Entities;
+@model Application;
+
+@{
+    var actionName = (string)ViewData["Action"];
+    ViewData["Title"] = actionName;
+
+}
+
+@if (actionName == "Create")
+{
+    <h2>Create</h2>
+}
+else if (actionName == "Edit")
+{
+    <h2>Edit</h2>
+}
+<h4>Application</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (actionName == "Edit")
+            {
+                <input type="hidden" asp-for="@Model.Id" />
+            }
+            <div class="form-group mb-2">
+                <span style="color:Red;" visible="true"> *</span>
+                <label asp-for="@Model.Title" class="col-form-label col-form-label-sm"></label>
+                <input asp-for="@Model.Title" class="form-control form-control-sm" />
+                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <span style="color:Red;" visible="true"> *</span>
+                <label asp-for="@Model.Description" class="col-form-label col-form-label-sm"></label>
+                <input asp-for="@Model.Description" class="form-control form-control-sm" />
+                <span asp-validation-for="@Model.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-primary btn-sm">
+                    @if (actionName == "Edit")
+                    {
+                        <span>Update</span>
+                    }
+                    else
+                    {
+                        <span>Create</span>
+                    }
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
