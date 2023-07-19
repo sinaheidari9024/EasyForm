@@ -7,7 +7,7 @@ namespace EasyForm.Services.Contracts
 {
     public interface IQuestionService
     {
-        Task<List<QuestionComplexModel>> GetQuestionIncludeItemsAndAnswerAsync(int partId, int UserApplicationId);
+        Task<List<QuestionComplexModel>> GetQuestionIncludeItemsAndAnswerAsync(int UserApplicationId);
         Task<bool> AddQuestionAsync(Question question);
         Task<bool> UpdateQuestionAsync(Question question);
         Task<bool> DeleteQuestionAsync(int id);

@@ -43,9 +43,9 @@ namespace EasyForm.Services.Implementations
             return await _questionStore.GetQuestionIncludeItemsAsync(id);
         }
 
-        public async Task<List<QuestionComplexModel>> GetQuestionIncludeItemsAndAnswerAsync(int partId, int UserApplicationId)
+        public async Task<List<QuestionComplexModel>> GetQuestionIncludeItemsAndAnswerAsync(int UserApplicationId)
         {
-            var result = await _questionStore.GetQuestionIncludeItemsAndAnswerAsync(partId, UserApplicationId);
+            var result = await _questionStore.GetQuestionIncludeItemsAndAnswerAsync(UserApplicationId);
             var model = new List<QuestionComplexModel>();
 
             foreach (var item in result)
@@ -73,6 +73,7 @@ namespace EasyForm.Services.Implementations
                 model.Add(new QuestionComplexModel
                 {
                     Answer = answer?.Text,
+                    ApplicationPartId = item.ApplicationPartId,
                     Text = item.Text,
                     Type = item.Type,
                     Number = item.Number,

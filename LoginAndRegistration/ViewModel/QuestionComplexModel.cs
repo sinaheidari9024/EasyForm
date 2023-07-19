@@ -8,6 +8,7 @@ namespace EasyForm.ViewModel
     public class QuestionComplexModel
     {
         public int QuestionId { get; set; }
+        public int ApplicationPartId { get; set; }
         public string Text { get; set; }
         public string Number { get; set; }
         public QuestionType Type { get; set; }

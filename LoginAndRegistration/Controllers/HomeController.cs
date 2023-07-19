@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EasyForm.Controllers
@@ -32,7 +33,6 @@ namespace EasyForm.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //var test = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(1, 1);
             int userId = Convert.ToInt32(_userManager.GetUserId(User));
             var userApplications = await _userApplicationService.GetUserApplicationsAsync(userId);
             return View(userApplications);
@@ -41,6 +41,13 @@ namespace EasyForm.Controllers
         public async Task<IActionResult> Edit(int userApplicationId)
         {
             var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(userApplicationId);
+            var Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(userApplicationId);
+
+            foreach (var part in result.Parts)
+            {
+                part.Questions = Questions.Where(s=>s.ApplicationPartId == userApplicationId).ToList();
+            }
+
             return View(result);
         }
 
@@ -49,6 +56,12 @@ namespace EasyForm.Controllers
             int userId = Convert.ToInt32(_userManager.GetUserId(User));
             var newItemId =  await _userApplicationService.CreateNewUserApplication(userId);
             var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(newItemId);
+            var Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(newItemId);
+
+            foreach (var part in result.Parts)
+            {
+                part.Questions = Questions.Where(s => s.ApplicationPartId == newItemId).ToList();
+            }
             return View("Edit", result);
         }
 
