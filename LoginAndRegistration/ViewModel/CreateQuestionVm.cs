@@ -14,6 +14,7 @@ namespace EasyForm.ViewModel
         public QuestionType Type { get; set; }
         public int MaxLengh { get; set; }
         public int Minlengh { get; set; }
+        public int Priority { get; set; }
         public List<SelectListItem> Parts { get; set; } = new List<SelectListItem>();
 
     }

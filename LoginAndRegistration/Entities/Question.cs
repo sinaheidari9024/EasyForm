@@ -16,6 +16,7 @@ namespace EasyForm.Entities
         public int MaxLengh { get; set; }
         public int Minlengh { get; set; }
         public bool IsActive { get; set; }
+        public int Priority { get; set; }
 
         public ApplicationPart Part { get; set; }
         public ICollection<Answer> Answers { get; set; }

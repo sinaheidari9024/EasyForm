@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace EasyForm
@@ -87,5 +88,8 @@ namespace EasyForm
             builder.RegisterModule<EasyFormServiceModule>();
             builder.RegisterModule<EasyFormRepositoryModule>();
         }
+
+        //insert into[dbo].[AspNetUserClaims]
+        //(UserId, ClaimType, ClaimValue) Values(1, 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role','Admin')
     }
 }
