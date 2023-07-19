@@ -75,6 +75,7 @@ namespace EasyForm.Services.Implementations
                     Answer = answer?.Text,
                     ApplicationPartId = item.ApplicationPartId,
                     Text = item.Text,
+                    IsRequierd = item.IsRequierd,
                     Type = item.Type,
                     Number = item.Number,
                     QuestionId = item.Id,

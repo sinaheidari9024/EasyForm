@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -46,7 +47,10 @@ namespace EasyForm.Controllers
             foreach (var part in result.Parts)
             {
                 part.Questions = Questions.Where(s=>s.ApplicationPartId == userApplicationId).ToList();
-            }
+                part.IsCompleted = !Questions.Any(s=>s.ApplicationPartId==userApplicationId 
+                                                    && s.IsRequierd  
+                                                    && string.IsNullOrEmpty(s.Answer));
+                                                }
 
             return View(result);
         }

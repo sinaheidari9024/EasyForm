@@ -8,7 +8,8 @@ namespace EasyForm.Services.Contracts
 {
     public interface IUserApplicationService
     {
-        Task<List<UserApplicationViewModel>> GetUserApplicationsAsync(int userId);
+        Task<List<GetUserApplicationViewModel>> GetUserApplicationsAsync(int userId);
+        Task<UserApplicationWithPaginationVm> GetUserApplicationsAsync(DataGridSearch dataGridSearch);
         Task<UserApplication> GetUserApplicationAsync(int id);
         Task<ApplicationPartsVm> GetUserApplicationIncludePartsAsync(int id);
         Task<bool> DeleteUserApplicationAsync(UserApplication item);
