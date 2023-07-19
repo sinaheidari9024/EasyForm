@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EasyForm.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230714074831_Initialize")]
-    partial class Initialize
+    [Migration("20230718153109_ee")]
+    partial class ee
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -126,11 +126,8 @@ namespace EasyForm.Migrations
                     b.Property<int>("ApplicationPartId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DisablerItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EnabblerItemId")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsRequierd")
                         .HasColumnType("bit");
@@ -154,10 +151,6 @@ namespace EasyForm.Migrations
 
                     b.HasIndex("ApplicationPartId");
 
-                    b.HasIndex("DisablerItemId");
-
-                    b.HasIndex("EnabblerItemId");
-
                     b.ToTable("Questions");
                 });
 
@@ -167,6 +160,9 @@ namespace EasyForm.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
@@ -224,6 +220,9 @@ namespace EasyForm.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -380,7 +379,7 @@ namespace EasyForm.Migrations
             modelBuilder.Entity("EasyForm.Entities.Answer", b =>
                 {
                     b.HasOne("EasyForm.Entities.Question", "Question")
-                        .WithMany("Answer")
+                        .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -414,20 +413,6 @@ namespace EasyForm.Migrations
                         .HasForeignKey("ApplicationPartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("EasyForm.Entities.QuestionItem", "DisablerItem")
-                        .WithMany("DisableQuestion")
-                        .HasForeignKey("DisablerItemId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("EasyForm.Entities.QuestionItem", "EnabblerItem")
-                        .WithMany("EnableQuestion")
-                        .HasForeignKey("EnabblerItemId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("DisablerItem");
-
-                    b.Navigation("EnabblerItem");
 
                     b.Navigation("Part");
                 });
@@ -527,16 +512,9 @@ namespace EasyForm.Migrations
 
             modelBuilder.Entity("EasyForm.Entities.Question", b =>
                 {
-                    b.Navigation("Answer");
+                    b.Navigation("Answers");
 
                     b.Navigation("QuestionItems");
-                });
-
-            modelBuilder.Entity("EasyForm.Entities.QuestionItem", b =>
-                {
-                    b.Navigation("DisableQuestion");
-
-                    b.Navigation("EnableQuestion");
                 });
 
             modelBuilder.Entity("EasyForm.Entities.User", b =>

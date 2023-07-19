@@ -1,4 +1,6 @@
-﻿using EasyForm.Enum;
+﻿using AutoMapper;
+using EasyForm.Entities;
+using EasyForm.Enum;
 using EasyForm.Models;
 using EasyForm.Services.Contracts;
 using EasyForm.Stores.Contracts;
@@ -11,11 +13,34 @@ namespace EasyForm.Services.Implementations
 {
     public class QuestionService : IQuestionService
     {
+        private readonly IMapper _mapper;
         private readonly IQuestionStore _questionStore;
 
-        public QuestionService(IQuestionStore questionStore)
+        public QuestionService(IQuestionStore questionStore, IMapper mapper)
         {
             _questionStore = questionStore;
+            _mapper = mapper;
+        }
+
+        public async Task<bool> AddQuestionAsync(Question question)
+        {
+            question.IsActive = true;
+            return await _questionStore.AddQuestionAsync(question);
+        }
+
+        public async Task<bool> DeleteQuestionAsync(int id)
+        {
+            return await _questionStore.DeleteQuestionAsync(id);
+        }
+
+        public async Task<Question> GetQuestionAsync(int id)
+        {
+            return await _questionStore.GetQuestionAsync(id);
+        }
+
+        public async Task<Question> GetQuestionIncludeItemsAsync(int id)
+        {
+            return await _questionStore.GetQuestionIncludeItemsAsync(id);
         }
 
         public async Task<List<QuestionComplexModel>> GetQuestionIncludeItemsAndAnswerAsync(int partId, int UserApplicationId)
@@ -25,7 +50,7 @@ namespace EasyForm.Services.Implementations
 
             foreach (var item in result)
             {
-                var answer = item.Answer.FirstOrDefault();
+                var answer = item.Answers.FirstOrDefault();
                 var questionItems = new List<QuestionItemVm>();
 
                 if (answer != null)
@@ -61,6 +86,32 @@ namespace EasyForm.Services.Implementations
             return model;
 
 
+        }
+
+        public async Task<GetQuestionVm> GetQuestionsAsync(int partId)
+        {
+            var response = await _questionStore.GetQuestionsAsync(partId);
+            var questions = _mapper.Map<List<QuestionVm>>(response);
+            return new GetQuestionVm { PartId = partId, Questions = questions };
+        }
+
+        public async Task<GetQuestionVm> GetQuestionsAsync()
+        {
+            var response = await _questionStore.GetQuestionsAsync();
+            var questions = _mapper.Map<List<QuestionVm>>(response);
+            return new GetQuestionVm { PartId = 0, Questions = questions };
+        }
+
+        public async Task<bool> ToggleActivationAsync(int questionId, bool currentStatus)
+        {
+            var question = await _questionStore.GetQuestionAsync(questionId);
+            question.IsActive = !currentStatus;
+            return await _questionStore.UpdateQuestionAsync(question);
+        }
+
+        public async Task<bool> UpdateQuestionAsync(Question question)
+        {
+            return await _questionStore.UpdateQuestionAsync(question);
         }
     }
 }

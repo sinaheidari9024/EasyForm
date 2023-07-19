@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EasyForm.Migrations
 {
-    public partial class Initialize : Migration
+    public partial class a : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -228,10 +228,9 @@ namespace EasyForm.Migrations
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsRequierd = table.Column<bool>(type: "bit", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
-                    DisablerItemId = table.Column<int>(type: "int", nullable: true),
-                    EnabblerItemId = table.Column<int>(type: "int", nullable: true),
                     MaxLengh = table.Column<int>(type: "int", nullable: false),
-                    Minlengh = table.Column<int>(type: "int", nullable: false)
+                    Minlengh = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -356,16 +355,6 @@ namespace EasyForm.Migrations
                 column: "ApplicationPartId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Questions_DisablerItemId",
-                table: "Questions",
-                column: "DisablerItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Questions_EnabblerItemId",
-                table: "Questions",
-                column: "EnabblerItemId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserApplications_ApplicationId",
                 table: "UserApplications",
                 column: "ApplicationId");
@@ -374,30 +363,10 @@ namespace EasyForm.Migrations
                 name: "IX_UserApplications_UserId",
                 table: "UserApplications",
                 column: "UserId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Questions_QuestionItems_DisablerItemId",
-                table: "Questions",
-                column: "DisablerItemId",
-                principalTable: "QuestionItems",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Questions_QuestionItems_EnabblerItemId",
-                table: "Questions",
-                column: "EnabblerItemId",
-                principalTable: "QuestionItems",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_QuestionItems_Questions_QuestionId",
-                table: "QuestionItems");
-
             migrationBuilder.DropTable(
                 name: "Answers");
 
@@ -417,22 +386,22 @@ namespace EasyForm.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "QuestionItems");
+
+            migrationBuilder.DropTable(
                 name: "UserApplications");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Questions");
 
             migrationBuilder.DropTable(
-                name: "ApplicationParts");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "QuestionItems");
+                name: "ApplicationParts");
 
             migrationBuilder.DropTable(
                 name: "Applications");
