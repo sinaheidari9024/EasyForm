@@ -53,14 +53,13 @@ namespace EasyForm.Services.Implementations
                 var answer = item.Answers.FirstOrDefault();
                 var questionItems = new List<QuestionItemVm>();
 
-                if (answer != null)
-                {
+
                     if (item.Type == QuestionType.DropDown || item.Type == QuestionType.CheckBox || item.Type == QuestionType.OptionBox)
                     {
                         foreach (var questionItem in item.QuestionItems)
                         {
-                            List<int> intTest = item.Text.Split(',').Select(int.Parse).ToList();
-                            var isChecked = intTest.Contains(questionItem.Id);
+                            List<int> intTest = answer?.Text?.Split(',').Select(int.Parse).ToList();
+                            var isChecked = intTest != null && intTest.Contains(questionItem.Id);
                             questionItems.Add(new QuestionItemVm
                             {
                                 Id = questionItem.Id,
@@ -69,7 +68,7 @@ namespace EasyForm.Services.Implementations
                             });
                         }
                     }
-                }
+                
                 model.Add(new QuestionComplexModel
                 {
                     Answer = answer?.Text,
