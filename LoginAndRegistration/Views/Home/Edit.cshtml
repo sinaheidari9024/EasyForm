@@ -46,6 +46,22 @@
                                 <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text" value="@form.Parts[i].Questions[j].Answer" />
                             </div>
                         }
+                        @if (form.Parts[i].Questions[j].Type == QuestionType.Numeric)
+                        {
+                            <div class="mb-3 col-12 col-md-6">
+                                <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                    @form.Parts[i].Questions[j].Number .
+                                    @form.Parts[i].Questions[j].Text
+                                    @if (form.Parts[i].Questions[j].IsRequierd)
+                                    {
+                                        <small class="font-10">
+                                            <i class="fa fa-asterisk text-danger"></i>
+                                        </small>
+                                    }
+                                </label>
+                                <input type="number" class="form-control" id="@form.Parts[i].Questions[j].Text" value="@form.Parts[i].Questions[j].Answer" />
+                            </div>
+                        }
                         @if (form.Parts[i].Questions[j].Type == QuestionType.TextNumeric)
                         {
                             <div class="mb-3 col-12 col-md-6">
