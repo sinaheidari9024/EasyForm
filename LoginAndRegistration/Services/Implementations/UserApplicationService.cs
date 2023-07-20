@@ -78,7 +78,7 @@ namespace EasyForm.Services.Implementations
                     Description = part.Description,
                     Title = part.Title,
                     IsCompleted = false,
-                    Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(1, result.Id)
+                    Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(result.Id)
                 });
             }
 
