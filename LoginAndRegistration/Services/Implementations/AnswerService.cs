@@ -15,7 +15,7 @@ namespace EasyForm.Services.Implementations
         private readonly IMapper _mapper;
 
         public AnswerService(IAnswerStore answerStore, IMapper mapper)
-        {
+        {   
             _answerStore = answerStore;
             _mapper = mapper;
         }

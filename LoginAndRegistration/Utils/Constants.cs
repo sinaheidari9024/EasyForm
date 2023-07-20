@@ -14,7 +14,7 @@ namespace EasyForm.Utils
         public const string NormalUser = nameof(UserRole.NormalUser);
         public const string Admin = nameof(UserRole.Admin);
 
-
+        public const string SpinnerPagUrl = "~/Views/Shared/Spinner.cshtml";
         public const int PageItems = 10;
 
     }

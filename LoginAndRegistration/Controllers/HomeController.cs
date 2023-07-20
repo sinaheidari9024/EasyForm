@@ -111,7 +111,19 @@ namespace EasyForm.Controllers
             {
                 TempData[Constants.IsShow] = "We have some problem in saving the answers.";
                 _logger.LogError($"{Constants.UserError}: \"We have some problem in saving the answers.");
-                return View("Index");
+                var userApplicationId = answers.FirstOrDefault().UserApplicationId;
+                var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(userApplicationId);
+                var Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(userApplicationId);
+
+                foreach (var part in result.Parts)
+                {
+                    part.Questions = Questions.Where(s => s.ApplicationPartId == userApplicationId).ToList();
+                    part.IsCompleted = !Questions.Any(s => s.ApplicationPartId == userApplicationId
+                                                        && s.IsRequierd
+                                                        && string.IsNullOrEmpty(s.Answer));
+                }
+
+                return View("Edit", result);
             }
 
             return View("Index");

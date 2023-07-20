@@ -16,4 +16,25 @@
         </div>
     </div>
 </form>
-     
+<script type="text/javascript">
+
+    var seq = "0";
+
+    $(document).ready(function () {
+        spinnerHide();
+        console.log("out");
+
+        var getValue = $('#tempData').val();
+        if (getValue != '') {
+            console.log("in");
+            displayToaster(getValue);
+        };
+        //$("#createuser").on("submit", function () {
+        //    if ($("#createuser").valid()) {
+        //        spinnerLoader();
+        //    }
+        //});
+
+    });
+
+</script>

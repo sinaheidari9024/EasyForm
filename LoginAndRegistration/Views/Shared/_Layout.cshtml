@@ -76,6 +76,12 @@
             @RenderBody()
         </main>
         <input id="tempData" type="text" value="@TempData[Constants.IsShow]" hidden />
+        <div class="align-content-center" id="spinnerLoader">
+            @{
+                await Html.RenderPartialAsync(Constants.SpinnerPagUrl);
+
+            }
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">
@@ -91,6 +97,13 @@
 </html>
 
 <script type="text/javascript">
+
+    function spinnerLoader() {
+        $("#spinnerLoader").show();
+    }
+    function spinnerHide() {
+        $("#spinnerLoader").hide();
+    }
 
     function displayToaster(strMessage) {
 
@@ -112,10 +125,10 @@
             "positionClass": "toast-top-right",
             "preventDuplicates": true,
             "onclick": null,
-            "showDuration": "100000",
-            "hideDuration": "1000000",
-            "timeOut": "5000000",
-            "extendedTimeOut": "1000000",
+            "showDuration": "100",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
             "showEasing": "swing",
             "hideEasing": "linear",
             "showMethod": "show",
