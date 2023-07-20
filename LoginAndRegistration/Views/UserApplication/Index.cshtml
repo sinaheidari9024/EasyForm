@@ -70,8 +70,12 @@
                 </td>
                 <td>
                     @Html.ActionLink("Show", "Edit", "Home", new { userApplicationId = item.Id }, new { @class = "details-link" })
-                </td>
+                    @using (Html.BeginForm("DownloadExcel", "UserApplication", new { userApplicationId = item.Id }, FormMethod.Post))
+                    {
 
+                        <input class="details-link" type="submit" value="Download" />
+                    }
+                </td>
             </tr>
         }
 
@@ -79,8 +83,7 @@
 
     Page @(Model.dataGridSearch.PageCount < Model.dataGridSearch.PageNumber ? 0 : Model.dataGridSearch.PageNumber) of @Model.dataGridSearch.PageCount
     @Html.PagedListPager(Model.UserApplication , Page_No =>Url.Action("Index",
-    new DataGridSearch{ PageNumber = Page_No, Email = Model.dataGridSearch.Email, PageCount = Model.dataGridSearch.PageCount , SortBy = Model.dataGridSearch.SortBy
-    ,SortDir = Model.dataGridSearch.SortDir}))
+    new { Page_No}))
 </div>
 
 <script type="text/javascript">

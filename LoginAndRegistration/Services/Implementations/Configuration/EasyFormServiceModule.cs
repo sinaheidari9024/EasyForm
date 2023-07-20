@@ -12,6 +12,7 @@ namespace EasyForm.Services.Implementations.Configuration
             builder.RegisterType<QuestionService>().As<IQuestionService>().InstancePerLifetimeScope();
             builder.RegisterType<PartService>().As<IPartService>().InstancePerLifetimeScope();
             builder.RegisterType<QuestionItemService>().As<IQuestionItemService>().InstancePerLifetimeScope();
+            builder.RegisterType<AnswerService>().As<IAnswerService>().InstancePerLifetimeScope();
         }
     }
 }

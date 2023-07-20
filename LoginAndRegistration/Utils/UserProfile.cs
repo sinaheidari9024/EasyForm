@@ -30,6 +30,7 @@ namespace EasyForm.Utils
                 .ForMember(dest => dest.QuestionText,
             opt => opt.MapFrom(src => src.Question.Text));
 
+            CreateMap<AnswerVm, Answer>();
         }
 
     }

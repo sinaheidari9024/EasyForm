@@ -32,7 +32,7 @@ namespace EasyForm.Stores.Implementations
                                                                             , int skip
                                                                             , string email = null)
         {
-            return await _context.UserApplications.Where(s => (s.User.Email == email || email == null) && !s.IsDeleted)
+            return await _context.UserApplications.Where(s => (s.User.Email.Contains(email) || email == null) && !s.IsDeleted)
                 .Select(s => new GetUserApplicationViewModel
                 {
                     Id = s.Id,

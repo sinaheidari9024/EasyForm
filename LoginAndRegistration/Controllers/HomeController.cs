@@ -1,6 +1,9 @@
-﻿using EasyForm.Entities;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using EasyForm.Entities;
 using EasyForm.Models;
 using EasyForm.Services.Contracts;
+using EasyForm.Utils;
+using EasyForm.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,16 +23,19 @@ namespace EasyForm.Controllers
         private readonly IUserApplicationService _userApplicationService;
         private readonly IQuestionService _questionService;
         private readonly UserManager<User> _userManager;
+        private readonly IAnswerService _answerService;
 
         public HomeController(ILogger<HomeController> logger
                                 , IUserApplicationService userApplicationService
                                 , UserManager<User> userManager
-                                ,IQuestionService questionService)
+                                , IQuestionService questionService
+                                , IAnswerService answerService)
         {
             _logger = logger;
             _userApplicationService = userApplicationService;
             _userManager = userManager;
             _questionService = questionService;
+            _answerService = answerService;
         }
 
         public async Task<IActionResult> Index()
@@ -92,6 +98,23 @@ namespace EasyForm.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public async Task<IActionResult> AnswerAsync(List<AnswerVm> answers)
+        {
+            var response = await _answerService.SetAnswersAsync(answers);
+            if (response)
+            {
+                TempData[Constants.IsShow] = "Updated successfully.";
+            }
+            else
+            {
+                TempData[Constants.IsShow] = "We have some problem in saving the answers.";
+                _logger.LogError($"{Constants.UserError}: \"We have some problem in saving the answers.");
+                return View("Index");
+            }
+
+            return View("Index");
         }
     }
 }
