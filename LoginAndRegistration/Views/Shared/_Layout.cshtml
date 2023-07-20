@@ -1,4 +1,6 @@
 ﻿@using EasyForm.Entities;
+@using EasyForm.Utils;
+@using EasyForm.ViewModel;
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
 
@@ -9,7 +11,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - EasyForm</title>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/bundle.css" />
+    <script src="~/js/bundle.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
@@ -23,14 +28,29 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    @{ if (SignInManager.IsSignedIn(User))
+                    @{
+                        if (SignInManager.IsSignedIn(User))
                         {
-                            <ul class="navbar-nav flex-grow-1">
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Applications</a>
-                                </li>
-                            </ul>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <ul class="navbar-nav flex-grow-1">
 
+                                    <li class="nav-item">
+                                        @Html.ActionLink("UserApplication", "Index", "UserApplication",
+                            new DataGridSearch { PageNumber = 1, Email = null, PageCount = 10 , SortBy = "CreationDate"
+                            ,SortDir = "Asc"}, new { @class="nav-link text-dark"})
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Application" asp-action="Index">Application</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Part" asp-action="Index">Parts</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Question" asp-action="Index">Questions</a>
+                                    </li>
+                                </ul>
+                            }
                             <ul class="navbar-nav d-flex justify-content-end">
                                 <li class="nav-item">
                                     <a class="btn btn-primary" asp-area="" asp-controller="Logout" asp-action="Index">Logout</a>
@@ -57,6 +77,13 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+        <input id="tempData" type="text" value="@TempData[Constants.IsShow]" hidden />
+        <div class="align-content-center" id="spinnerLoader">
+            @{
+                await Html.RenderPartialAsync(Constants.SpinnerPagUrl);
+
+            }
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">
@@ -70,3 +97,44 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<script type="text/javascript">
+
+    function spinnerLoader() {
+        $("#spinnerLoader").show();
+    }
+    function spinnerHide() {
+        $("#spinnerLoader").hide();
+    }
+
+    function displayToaster(strMessage) {
+
+        toasterOptions();
+        if (strMessage.includes('success')) {
+            toastr.success(strMessage);
+        }
+        else {
+            toastr.error(strMessage);
+        }
+    }
+
+    function toasterOptions() {
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "100",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "show",
+            "hideMethod": "hide"
+        };
+    }
+</script>

@@ -1,7 +1,10 @@
 ﻿using EasyForm.Entities;
 using EasyForm.Models;
 using EasyForm.Stores.Contracts;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EasyForm.Stores.Implementations
@@ -15,30 +18,37 @@ namespace EasyForm.Stores.Implementations
             _context = context;
         }
 
-        public async Task<bool> AddApplication(Application application)
+        public async Task<bool> AddApplicationAsync(Application application)
         {
             await _context.Applications.AddAsync(application);
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public Task<bool> DeleteApplication(int id)
+        public async Task<bool> DeleteApplicationAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var application = await _context.Applications.FirstOrDefaultAsync(s => s.Id == id);
+            if (application != null)
+            {
+                _context.Applications.Remove(application);
+                return await _context.SaveChangesAsync() > 0;
+            }
+            return false;
         }
 
-        public Task<Application> GetApplication(int id)
+        public async Task<Application> GetApplicationAsync(int id)
         {
-            throw new System.NotImplementedException();
+            return await _context.Applications.FirstOrDefaultAsync(s => s.Id == id);
         }
 
-        public Task<List<Application>> GetApplications(string name)
+        public async Task<List<Application>> GetApplicationsAsync(string name)
         {
-            throw new System.NotImplementedException();
+            return await _context.Applications.Where(s => s.Title == name || string.IsNullOrEmpty(name)).ToListAsync();
         }
 
-        public Task<Application> UpdateApplication(Application application, int id)
+        public async Task<bool> UpdateApplicationAsync(Application application)
         {
-            throw new System.NotImplementedException();
+            _context.Applications.Update(application);
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }
