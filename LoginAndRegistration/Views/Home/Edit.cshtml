@@ -46,6 +46,70 @@
                                 <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text" value="@form.Parts[i].Questions[j].Answer" />
                             </div>
                         }
+                        @if (form.Parts[i].Questions[j].Type == QuestionType.DropDown)
+                        {
+                            <div class="mb-3 col-12 col-md-6">
+                                <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                    @form.Parts[i].Questions[j].Number .
+                                    @form.Parts[i].Questions[j].Text
+                                    @if (form.Parts[i].Questions[j].IsRequierd)
+                                    {
+                                        <small class="font-10">
+                                            <i class="fa fa-asterisk text-danger"></i>
+                                        </small>
+                                    }
+                                </label>
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary dropdown-toggle w-50 text-left d-flex justify-content-between align-items-center" type="button" id="@form.Parts[i].Questions[j].Text" data-bs-toggle="dropdown" aria-expanded="false">
+                                        pick up
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="@form.Parts[i].Questions[j].Text">
+                                        @for (var k = 0; k < form.Parts[i].Questions[j].Items.Count; k++)
+                                        {
+                                            <li><p class="dropdown-item">@form.Parts[i].Questions[j].Items[k].Title</p></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                        @if (form.Parts[i].Questions[j].Type == QuestionType.CheckBox)
+                        {
+                            <div class="mb-3 col-12 col-md-6">
+                                <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                    @form.Parts[i].Questions[j].Number .
+                                    @form.Parts[i].Questions[j].Text
+                                    @if (form.Parts[i].Questions[j].IsRequierd)
+                                    {
+                                        <small class="font-10">
+                                            <i class="fa fa-asterisk text-danger"></i>
+                                        </small>
+                                    }
+                                </label>
+                                @for (var k = 0; k < form.Parts[i].Questions[j].Items.Count; k++)
+                                {
+                                    @if (form.Parts[i].Questions[j].Items[k].IsChecked == false)
+                                    {
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Items[k].Title">
+                                            <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
+                                                @form.Parts[i].Questions[j].Items[k].Title
+                                            </label>
+                                        </div>
+                                    }
+                                    @if (form.Parts[i].Questions[j].Items[k].IsChecked == true)
+                                    {
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Items[k].Title" checked>
+                                            <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
+                                                @form.Parts[i].Questions[j].Items[k].Title
+                                            </label>
+                                        </div>
+                                    }
+
+                                }
+
+                            </div>
+                        }
                         @if (form.Parts[i].Questions[j].Type == QuestionType.Numeric)
                         {
                             <div class="mb-3 col-12 col-md-6">
@@ -78,33 +142,6 @@
                                 <input type="number" class="form-control" id="@form.Parts[i].Questions[j].Text" value="@form.Parts[i].Questions[j].Answer" />
                             </div>
                         }
-                        @if (form.Parts[i].Questions[j].Type == QuestionType.OptionBox)
-                        {
-                            <div class="mb-3 col-12 col-md-6">
-                                <label for="@form.Parts[i].Questions[j].Text" class="form-label">
-                                    @form.Parts[i].Questions[j].Number .
-                                    @form.Parts[i].Questions[j].Text
-                                    @if (form.Parts[i].Questions[j].IsRequierd)
-                                    {
-                                        <small class="font-10">
-                                            <i class="fa fa-asterisk text-danger"></i>
-                                        </small>
-                                    }
-                                </label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Default radio
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Default checked radio
-                                    </label>
-                                </div>
-                            </div>
-                        }
                         @if (form.Parts[i].Questions[j].Type == QuestionType.Date)
                         {
                             <div class="mb-3 col-12 col-md-6">
@@ -118,12 +155,118 @@
                                         </small>
                                     }
                                 </label>
-                                <input type="date" class="form-control" id="@form.Parts[i].Questions[j].Text" value="@form.Parts[i].Questions[j].Answer" />
+                                <input type="date" placeholder="..." class="form-control" id="@form.Parts[i].Questions[j].Text" value="@form.Parts[i].Questions[j].Answer" />
                             </div>
+                        }
+                        @if (form.Parts[i].Questions[j].Type == QuestionType.Boolean)
+                        {
+                            <div class="mb-3 col-12 col-md-6">
+                                <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                    @form.Parts[i].Questions[j].Number .
+                                    @form.Parts[i].Questions[j].Text
+                                    @if (form.Parts[i].Questions[j].IsRequierd)
+                                    {
+                                        <small class="font-10">
+                                            <i class="fa fa-asterisk text-danger"></i>
+                                        </small>
+                                    }
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text + '-yes'">
+                                    <label class="form-check-label" for="@form.Parts[i].Questions[j].Text + '-yes'">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text + '-no'">
+                                    <label class="form-check-label" for="@form.Parts[i].Questions[j].Text + '-no'">
+                                        No
+                                    </label>
+                                </div>
+
+                            </div>
+                        }
+                        @if (form.Parts[i].Questions[j].Type == QuestionType.Note)
+                        {
+                            <div class="mb-3 col-12">
+                                <p> @form.Parts[i].Questions[j].Number . @form.Parts[i].Questions[j].Text</p>
+                            </div>
+                        }
+                        @if (form.Parts[i].Questions[j].Type == QuestionType.OptionBox)
+                        {
+                            <div class="mb-3 col-12 col-md-6">
+                                <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                    @form.Parts[i].Questions[j].Number .
+                                    @form.Parts[i].Questions[j].Text
+                                    @if (form.Parts[i].Questions[j].IsRequierd)
+                                    {
+                                        <small class="font-10">
+                                            <i class="fa fa-asterisk text-danger"></i>
+                                        </small>
+                                    }
+                                </label>
+                                @for (var k = 0; k < form.Parts[i].Questions[j].Items.Count; k++)
+                                {
+
+                                    @if (form.Parts[i].Questions[j].Items[k].IsChecked == false)
+                                    {
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="@form.Parts[i].Questions[j].Items[k].Title">
+                                            <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
+                                                @form.Parts[i].Questions[j].Items[k].Title
+                                            </label>
+                                        </div>
+                                    }
+                                    @if (form.Parts[i].Questions[j].Items[k].IsChecked == true)
+                                    {
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="@form.Parts[i].Questions[j].Items[k].Title" checked>
+                                            <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
+                                                @form.Parts[i].Questions[j].Items[k].Title
+                                            </label>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
+                        @if (form.Parts[i].Questions[j].Type == QuestionType.Table1)
+                        {
+                            <div class="mb-3 col-12">
+                                <table class="table w-100">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Benefit Received</th>
+                                            <th scope="col">Start Date</th>
+                                            <th scope="col">End Date</th>
+                                            <th scope="col">Dollar Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        }
+                        @if (form.Parts[i].Questions[j].Type == QuestionType.Table2)
+                        {
+                            <div class="mb-3 col-12">
+                                <table class="table w-100">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Institution Name/City/State</th>
+                                            <th scope="col">Date From</th>
+                                            <th scope="col">Date To</th>
+                                            <th scope="col">Reason</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         }
                     }
                 </div>
-
             </div>
         </div>
     }
