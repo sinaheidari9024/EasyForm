@@ -13,10 +13,11 @@ namespace EasyForm.Utils
             opt => opt.MapFrom(src => src.Application.Id))
                 .ForMember(dest => dest.ApplicationSpanishName,
             opt => opt.MapFrom(src => src.Application.SpanishTitle))
-                .ForMember(dest =>dest.ApplicationName,
+                .ForMember(dest => dest.ApplicationName,
             opt => opt.MapFrom(src => src.Application.Title));
 
             CreateMap<ApplicationPart, CreateApplicationPartVm>();
+            CreateMap<CreateApplicationPartVm, ApplicationPart>();
 
             CreateMap<Question, QuestionVm>()
                 .ForMember(dest => dest.PartId,
@@ -41,7 +42,10 @@ namespace EasyForm.Utils
             CreateMap<AnswerVm, Answer>();
             CreateMap<ApplicationVm, Application>();
             CreateMap<Application, ApplicationVm>();
-        }
 
+            CreateMap<CreateQuestionVm, Question>();
+            CreateMap<Question, CreateQuestionVm>();
+
+        }
     }
 }

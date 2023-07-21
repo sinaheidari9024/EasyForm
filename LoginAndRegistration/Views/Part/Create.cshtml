@@ -46,10 +46,11 @@ else if (actionName == "Edit")
             @if (ApplicationId == 0)
             {
                 <div class="form-group mb-2">
-                    <label asp-for="@Model.Application" class="col-form-label col-form-label-sm">Exam Online</label>
+                    <label asp-for="@Model.Application" class="col-form-label col-form-label-sm">Application</label>
                     <select id="ExamOnlineSelected" asp-for="@Model.ApplicationId" asp-items="@Model.Applications" class="form-control form-control-sm">
                         <option value="">None</option>
                     </select>
+                    <span asp-validation-for="@Model.ApplicationId" class="text-danger"></span>
                 </div>
             }
             else

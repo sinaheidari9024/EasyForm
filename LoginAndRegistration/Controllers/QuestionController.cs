@@ -6,6 +6,7 @@ using EasyForm.Utils;
 using EasyForm.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -45,7 +46,7 @@ namespace EasyForm.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create(int PartId,Language language)
+        public async Task<IActionResult> Create(int PartId)
         {
             ViewData["Action"] = Constants.CreateAction;
             List<SelectListItem> applicationPats = new List<SelectListItem>();
@@ -72,8 +73,27 @@ namespace EasyForm.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(Question question)
+        public async Task<IActionResult> CreateAsync(CreateQuestionVm model)
         {
+            if (!ModelState.IsValid)
+            {
+                List<SelectListItem> applicationPats = new List<SelectListItem>();
+
+                var parts = await _partService.GetPartListAsync();
+                foreach (var app in parts)
+                {
+                    applicationPats.Add(
+                        new SelectListItem
+                        {
+                            Text = app.Title,
+                            Value = app.Id.ToString()
+                        }
+                    );
+                }
+                model.Parts = applicationPats;
+                return View(Constants.CreateAction, model);
+            }
+            var question = _mapper.Map<Question>(model);
             TempData[Constants.IsShow] = "";
             var result = await _questionService.AddQuestionAsync(question);
             if (result)
@@ -115,8 +135,13 @@ namespace EasyForm.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditAsync(Question question)
+        public async Task<IActionResult> EditAsync(CreateQuestionVm model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(Constants.CreateAction, model);
+            }
+            var question = _mapper.Map<Question>(model);
             TempData[Constants.IsShow] = "";
             var result = await _questionService.UpdateQuestionAsync(question);
             if (result)

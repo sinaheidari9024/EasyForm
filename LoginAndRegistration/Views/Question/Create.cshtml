@@ -48,6 +48,7 @@ else if (actionName == "Edit")
             <div class="form-check">
                 <input asp-for="@Model.IsRequierd" class="form-check-input mt-2" type="checkbox" />
                 <label class="col-form-label-sm pt-1">Requierd</label>
+                <span asp-validation-for="@Model.IsRequierd" class="text-danger"></span>
             </div>
             @if (ApplicationId == 0)
             {
@@ -56,6 +57,7 @@ else if (actionName == "Edit")
                     <select id="ExamOnlineSelected" asp-for="@Model.ApplicationPartId" asp-items="@Model.Parts" class="form-control form-control-sm">
                         <option value="">None</option>
                     </select>
+                    <span asp-validation-for="@Model.ApplicationPartId" class="text-danger"></span>
                 </div>
             }
             else
@@ -67,6 +69,7 @@ else if (actionName == "Edit")
             <select asp-for="@Model.Type" asp-items="@Html.GetEnumSelectList<QuestionType>()">
                 <option value="">None</option>
             </select>
+                <span asp-validation-for="@Model.Type" class="text-danger"></span>
             </div>
 
 
