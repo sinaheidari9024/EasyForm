@@ -24,6 +24,7 @@ namespace EasyForm.Stores.Implementations
                 {
                     Id = s.Id,
                     Title = s.Application.Title,
+                    SpanishTitle = s.Application.SpanishTitle,
                     CreationDate = s.CreatedDate
                 }).ToListAsync();
         }
@@ -37,6 +38,7 @@ namespace EasyForm.Stores.Implementations
                 {
                     Id = s.Id,
                     Title = s.Application.Title,
+                    SpanishTitle = s.Application.SpanishTitle,
                     CreationDate = s.CreatedDate,
                     Email = s.User.Email,
                     IsCompleted = false //todo
@@ -51,6 +53,7 @@ namespace EasyForm.Stores.Implementations
                 {
                     Id = s.Id,
                     Title = s.Application.Title,
+                    SpanishTitle = s.Application.SpanishTitle,
                     CreationDate = s.CreatedDate,
                     Email = s.User.Email,
                     IsCompleted = false //todo

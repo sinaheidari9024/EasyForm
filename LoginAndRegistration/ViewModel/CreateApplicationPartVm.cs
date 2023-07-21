@@ -9,6 +9,7 @@ namespace EasyForm.ViewModel
         public int Id { get; set; }
         public int ApplicationId { get; set; }
         public string Title { get; set; }
+        public string SpanishTitle { get; set; }
         public string Description { get; set; }
         public Application Application { get; set; }
         public List<SelectListItem> Applications { get; set; } = new List<SelectListItem>();

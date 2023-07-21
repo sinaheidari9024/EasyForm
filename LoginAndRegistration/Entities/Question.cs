@@ -11,10 +11,11 @@ namespace EasyForm.Entities
         public int ApplicationPartId { get; set; }
         public string Number { get; set; }
         public string Text { get; set; }
+        public string SpanishText { get; set; }
         public bool IsRequierd { get; set; }
         public QuestionType Type { get; set; }
-        public int MaxLengh { get; set; }
-        public int Minlengh { get; set; }
+        public int? MaxLengh { get; set; }
+        public int? Minlengh { get; set; }
         public bool IsActive { get; set; }
         public int Priority { get; set; }
 

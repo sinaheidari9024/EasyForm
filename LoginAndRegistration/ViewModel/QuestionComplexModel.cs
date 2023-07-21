@@ -9,6 +9,7 @@ namespace EasyForm.ViewModel
         public int QuestionId { get; set; }
         public int ApplicationPartId { get; set; }
         public string Text { get; set; }
+        public string SpanishText { get; set; }
         public string Number { get; set; }
         public bool IsRequierd { get; set; }
 

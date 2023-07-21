@@ -4,14 +4,16 @@ using EasyForm.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EasyForm.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230721082946_add- spanish")]
+    partial class addspanish
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,12 +57,10 @@ namespace EasyForm.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SpanishTitle")
-                        .IsRequired()
                         .HasColumnType("Nvarchar(MAX)");
 
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("Varchar(MAX)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -81,12 +81,10 @@ namespace EasyForm.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SpanishTitle")
-                        .IsRequired()
                         .HasColumnType("Nvarchar(MAX)");
 
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("Varchar(MAX)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -140,26 +138,23 @@ namespace EasyForm.Migrations
                     b.Property<bool>("IsRequierd")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("MaxLengh")
+                    b.Property<int>("MaxLengh")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Minlengh")
+                    b.Property<int>("Minlengh")
                         .HasColumnType("int");
 
                     b.Property<string>("Number")
-                        .IsRequired()
-                        .HasColumnType("Nvarchar(10)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Priority")
                         .HasColumnType("int");
 
                     b.Property<string>("SpanishText")
-                        .IsRequired()
                         .HasColumnType("Nvarchar(MAX)");
 
                     b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("Nvarchar(MAX)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -185,12 +180,10 @@ namespace EasyForm.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("SpanishTitle")
-                        .IsRequired()
                         .HasColumnType("Nvarchar(MAX)");
 
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("Varchar(MAX)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

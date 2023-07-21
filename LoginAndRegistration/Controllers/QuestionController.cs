@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EasyForm.Entities;
+using EasyForm.Enum;
 using EasyForm.Services.Contracts;
 using EasyForm.Utils;
 using EasyForm.ViewModel;
@@ -44,7 +45,7 @@ namespace EasyForm.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create(int PartId)
+        public async Task<IActionResult> Create(int PartId,Language language)
         {
             ViewData["Action"] = Constants.CreateAction;
             List<SelectListItem> applicationPats = new List<SelectListItem>();

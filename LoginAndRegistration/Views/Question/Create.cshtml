@@ -39,6 +39,12 @@ else if (actionName == "Edit")
                 <input asp-for="@Model.Text" class="form-control form-control-sm" />
                 <span asp-validation-for="@Model.Text" class="text-danger"></span>
             </div>
+            <div class="form-group mb-2">
+                <span style="color:Red;" visible="true"> *</span>
+                <label asp-for="@Model.SpanishText" class="col-form-label col-form-label-sm"></label>
+                <input asp-for="@Model.SpanishText" class="form-control form-control-sm" />
+                <span asp-validation-for="@Model.SpanishText" class="text-danger"></span>
+            </div>
             <div class="form-check">
                 <input asp-for="@Model.IsRequierd" class="form-check-input mt-2" type="checkbox" />
                 <label class="col-form-label-sm pt-1">Requierd</label>
@@ -65,13 +71,11 @@ else if (actionName == "Edit")
 
 
             <div class="form-group mb-2">
-                <span style="color:Red;" visible="true"> *</span>
                 <label asp-for="@Model.Minlengh" class="col-form-label col-form-label-sm"></label>
                 <input asp-for="@Model.Minlengh" class="form-control form-control-sm" />
                 <span asp-validation-for="@Model.Minlengh" class="text-danger"></span>
             </div>
             <div class="form-group mb-2">
-                <span style="color:Red;" visible="true"> *</span>
                 <label asp-for="@Model.MaxLengh" class="col-form-label col-form-label-sm"></label>
                 <input asp-for="@Model.MaxLengh" class="form-control form-control-sm" />
                 <span asp-validation-for="@Model.MaxLengh" class="text-danger"></span>

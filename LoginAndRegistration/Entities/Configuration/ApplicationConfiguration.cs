@@ -20,6 +20,8 @@ namespace EasyForm.Entities.Configuration
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasForeignKey(e => e.ApplicationId)
                 .IsRequired();
+            builder.Property(s => s.SpanishTitle).IsRequired().HasColumnType("Nvarchar(MAX)");
+            builder.Property(s => s.Title).HasColumnType("Varchar(MAX)").IsRequired();
         }
     }
 }
