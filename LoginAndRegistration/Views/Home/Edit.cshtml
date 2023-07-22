@@ -322,7 +322,27 @@
                     break;
                     case 7:
                     break;
-                    //var 
+                    var text = document.getElementById(question.Text + question.QuestionId).innerText;
+                    if(text) {
+                        const item = question.find(item => item.Title === text);
+                        if(question.IsRequierd == true && !item) {
+                            break;
+                        } else {
+
+                        }
+                        if(item ) {
+                            var answer = {
+                                QuestionId: question.QuestionId,
+                                UserApplicationId: userAplicationId,
+                                Text: item.Title
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                    //var
                     //console.log("dskfjhsdjkf");
                     //break;
                     //var text = '';
