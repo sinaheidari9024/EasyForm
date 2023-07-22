@@ -6,7 +6,7 @@
 }
 
 <h2>Items</h2>
-<h6>@Model.Text</h6>
+<h6>Question: @Model.Text</h6>
 <div class="col-md-6 text-right">
     <a>
         @Html.ActionLink("Create New Item", "Create", new { QuestionId = Model.Id })
@@ -64,7 +64,7 @@
     var seq = "0";
 
     $(document).ready(function () {
-        // spinnerHide();
+         spinnerHide();
         console.log("out");
 
         var getValue = $('#tempData').val();

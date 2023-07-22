@@ -45,10 +45,11 @@ namespace EasyForm.Stores.Implementations
             return await _context.Questions.Include(s=>s.QuestionItems).Where(q => q.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<List<Question>> GetQuestionIncludeItemsAndAnswerAsync(int partId, int UserApplicationId)
+        public async Task<List<Question>> GetQuestionIncludeItemsAndAnswerAsync(int UserApplicationId)
         {
-            return await _context.Questions.Where(s => s.ApplicationPartId == partId && s.IsActive == true)
+            return await _context.Questions.Where(s => s.IsActive == true)
                 .Include(s => s.Answers.Where(s=>s.UserApplicationId == UserApplicationId))
+                .Include(s=>s.QuestionItems)
                 .ToListAsync();
         }
 

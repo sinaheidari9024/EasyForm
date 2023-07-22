@@ -43,9 +43,9 @@ namespace EasyForm.Services.Implementations
             return await _questionStore.GetQuestionIncludeItemsAsync(id);
         }
 
-        public async Task<List<QuestionComplexModel>> GetQuestionIncludeItemsAndAnswerAsync(int partId, int UserApplicationId)
+        public async Task<List<QuestionComplexModel>> GetQuestionIncludeItemsAndAnswerAsync(int UserApplicationId)
         {
-            var result = await _questionStore.GetQuestionIncludeItemsAndAnswerAsync(partId, UserApplicationId);
+            var result = await _questionStore.GetQuestionIncludeItemsAndAnswerAsync(UserApplicationId);
             var model = new List<QuestionComplexModel>();
 
             foreach (var item in result)
@@ -53,14 +53,13 @@ namespace EasyForm.Services.Implementations
                 var answer = item.Answers.FirstOrDefault();
                 var questionItems = new List<QuestionItemVm>();
 
-                if (answer != null)
-                {
+
                     if (item.Type == QuestionType.DropDown || item.Type == QuestionType.CheckBox || item.Type == QuestionType.OptionBox)
                     {
                         foreach (var questionItem in item.QuestionItems)
                         {
-                            List<int> intTest = item.Text.Split(',').Select(int.Parse).ToList();
-                            var isChecked = intTest.Contains(questionItem.Id);
+                            List<int> intTest = answer?.Text?.Split(',').Select(int.Parse).ToList();
+                            var isChecked = intTest != null && intTest.Contains(questionItem.Id);
                             questionItems.Add(new QuestionItemVm
                             {
                                 Id = questionItem.Id,
@@ -69,11 +68,13 @@ namespace EasyForm.Services.Implementations
                             });
                         }
                     }
-                }
+                
                 model.Add(new QuestionComplexModel
                 {
                     Answer = answer?.Text,
+                    ApplicationPartId = item.ApplicationPartId,
                     Text = item.Text,
+                    IsRequierd = item.IsRequierd,
                     Type = item.Type,
                     Number = item.Number,
                     QuestionId = item.Id,

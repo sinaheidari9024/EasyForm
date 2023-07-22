@@ -1,12 +1,17 @@
-﻿using EasyForm.Entities;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using EasyForm.Entities;
 using EasyForm.Models;
 using EasyForm.Services.Contracts;
+using EasyForm.Utils;
+using EasyForm.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EasyForm.Controllers
@@ -18,21 +23,23 @@ namespace EasyForm.Controllers
         private readonly IUserApplicationService _userApplicationService;
         private readonly IQuestionService _questionService;
         private readonly UserManager<User> _userManager;
+        private readonly IAnswerService _answerService;
 
         public HomeController(ILogger<HomeController> logger
                                 , IUserApplicationService userApplicationService
                                 , UserManager<User> userManager
-                                ,IQuestionService questionService)
+                                , IQuestionService questionService
+                                , IAnswerService answerService)
         {
             _logger = logger;
             _userApplicationService = userApplicationService;
             _userManager = userManager;
             _questionService = questionService;
+            _answerService = answerService;
         }
 
         public async Task<IActionResult> Index()
         {
-            //var test = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(1, 1);
             int userId = Convert.ToInt32(_userManager.GetUserId(User));
             var userApplications = await _userApplicationService.GetUserApplicationsAsync(userId);
             return View(userApplications);
@@ -41,6 +48,16 @@ namespace EasyForm.Controllers
         public async Task<IActionResult> Edit(int userApplicationId)
         {
             var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(userApplicationId);
+            var Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(userApplicationId);
+
+            foreach (var part in result.Parts)
+            {
+                part.Questions = Questions.Where(s=>s.ApplicationPartId == userApplicationId).ToList();
+                part.IsCompleted = !Questions.Any(s=>s.ApplicationPartId==userApplicationId 
+                                                    && s.IsRequierd  
+                                                    && string.IsNullOrEmpty(s.Answer));
+                                                }
+
             return View(result);
         }
 
@@ -49,6 +66,12 @@ namespace EasyForm.Controllers
             int userId = Convert.ToInt32(_userManager.GetUserId(User));
             var newItemId =  await _userApplicationService.CreateNewUserApplication(userId);
             var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(newItemId);
+            var Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(newItemId);
+
+            foreach (var part in result.Parts)
+            {
+                part.Questions = Questions.Where(s => s.ApplicationPartId == newItemId).ToList();
+            }
             return View("Edit", result);
         }
 
@@ -75,6 +98,35 @@ namespace EasyForm.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public async Task<IActionResult> AnswerAsync(List<AnswerVm> answers)
+        {
+            var response = await _answerService.SetAnswersAsync(answers);
+            if (response)
+            {
+                TempData[Constants.IsShow] = "Updated successfully.";
+            }
+            else
+            {
+                TempData[Constants.IsShow] = "We have some problem in saving the answers.";
+                _logger.LogError($"{Constants.UserError}: \"We have some problem in saving the answers.");
+                var userApplicationId = answers.FirstOrDefault().UserApplicationId;
+                var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(userApplicationId);
+                var Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(userApplicationId);
+
+                foreach (var part in result.Parts)
+                {
+                    part.Questions = Questions.Where(s => s.ApplicationPartId == userApplicationId).ToList();
+                    part.IsCompleted = !Questions.Any(s => s.ApplicationPartId == userApplicationId
+                                                        && s.IsRequierd
+                                                        && string.IsNullOrEmpty(s.Answer));
+                }
+
+                return View("Edit", result);
+            }
+
+            return View("Index");
         }
     }
 }
