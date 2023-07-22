@@ -19,7 +19,7 @@ steps:
 - task: UseDotNet@2
   inputs:
     packageType: 'runtime'
-    version: '5.0.17'
+    version: '5.0.10'
 
 - task: NuGetCommand@2
   inputs:
