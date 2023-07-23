@@ -16,14 +16,22 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@1
-- task: UseDotNet@2
-  inputs:
-    packageType: 'runtime'
-    version: '5.0.10'
-
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
+
+- task: DotNetCoreCLI@2
+  displayName: New Manifest for tool
+  inputs:
+    command: custom
+    custom: 'new '
+    arguments: tool-manifest
+- task: DotNetCoreCLI@2
+  displayName: Install EF Tool
+  inputs:
+    command: custom
+    custom: 'tool '
+    arguments: install dotnet-ef
 
 - task: VSBuild@1
   inputs:
@@ -31,6 +39,12 @@ steps:
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  displayName: Create SQL Scripts
+  inputs:
+    command: custom
+    custom: 'ef '
+    arguments: migrations script --output $(Build.SourcesDirectory)/SQL/tododbscript.sql --idempotent --project $(Build.SourcesDirectory)/src/TodoApi.csproj --context TodoApiDbContext
 
 - task: VSTest@2
   inputs:
@@ -42,3 +56,9 @@ steps:
   inputs:
     ArtifactName: Easy Form
     PathtoPublish: $(build.artifactStagingDirectory)
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: SQLScripts'
+  inputs:
+    PathtoPublish: $(Build.SourcesDirectory)/SQL/tododbscript.sql
+    ArtifactName: SQLScripts
