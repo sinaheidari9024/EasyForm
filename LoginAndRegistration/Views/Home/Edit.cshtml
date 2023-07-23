@@ -74,43 +74,6 @@
                                     </div>
                                 </div>
                             }
-                            @if (form.Parts[i].Questions[j].Type == QuestionType.CheckBox)
-                            {
-                                <div class="mb-3 col-12 col-md-6">
-                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label">
-                                        @form.Parts[i].Questions[j].Number .
-                                        @form.Parts[i].Questions[j].Text
-                                        @if (form.Parts[i].Questions[j].IsRequierd)
-                                        {
-                                            <small class="font-10">
-                                                <i class="fa fa-asterisk text-danger"></i>
-                                            </small>
-                                        }
-                                    </label>
-                                    @for (var k = 0; k < form.Parts[i].Questions[j].Items.Count; k++)
-                                    {
-
-                                        @if (form.Parts[i].Questions[j].Items[k].IsChecked == false)
-                                        {
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="@form.Parts[i].Questions[j].Items[k].Title">
-                                                <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
-                                                    @form.Parts[i].Questions[j].Items[k].Title
-                                                </label>
-                                            </div>
-                                        }
-                                        @if (form.Parts[i].Questions[j].Items[k].IsChecked == true)
-                                        {
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="@form.Parts[i].Questions[j].Items[k].Title" checked>
-                                                <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
-                                                    @form.Parts[i].Questions[j].Items[k].Title
-                                                </label>
-                                            </div>
-                                        }
-                                    }
-                                </div>
-                            }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.Numeric)
                             {
                                 <div class="mb-3 col-12 col-md-6">
@@ -124,7 +87,7 @@
                                             </small>
                                         }
                                     </label>
-                                    <input type="number" class="form-control" id="@form.Parts[i].Questions[j].Text" value="@form.Parts[i].Questions[j].Answer" />
+                                    <input type="number" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" value="@form.Parts[i].Questions[j].Answer" />
                                 </div>
                             }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.TextNumeric)
@@ -140,57 +103,41 @@
                                             </small>
                                         }
                                     </label>
-                                    <input type="number" class="form-control" id="@form.Parts[i].Questions[j].Text" value="@form.Parts[i].Questions[j].Answer" />
+                                    <input type="number" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" value="@form.Parts[i].Questions[j].Answer" />
                                 </div>
                             }
-                            @if (form.Parts[i].Questions[j].Type == QuestionType.Date)
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.Table1)
                             {
-                                <div class="mb-3 col-12 col-md-6">
-                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label">
-                                        @form.Parts[i].Questions[j].Number .
-                                        @form.Parts[i].Questions[j].Text
-                                        @if (form.Parts[i].Questions[j].IsRequierd)
-                                        {
-                                            <small class="font-10">
-                                                <i class="fa fa-asterisk text-danger"></i>
-                                            </small>
-                                        }
-                                    </label>
-                                    <input type="date" placeholder="..." class="form-control" id="@form.Parts[i].Questions[j].Text" value="@form.Parts[i].Questions[j].Answer" />
+                                <div class"mb-3 col-12">
+                                    <table class="table w-100">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Benefit Received</th>
+                                                <th scope="col">Start Date</th>
+                                                <th scope="col">End Date</th>
+                                                <th scope="col">Dollar Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
                                 </div>
                             }
-                            @if (form.Parts[i].Questions[j].Type == QuestionType.Boolean)
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.Table2)
                             {
-                                <div class="mb-3 col-12 col-md-6">
-                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label">
-                                        @form.Parts[i].Questions[j].Number .
-                                        @form.Parts[i].Questions[j].Text
-                                        @if (form.Parts[i].Questions[j].IsRequierd)
-                                        {
-                                            <small class="font-10">
-                                                <i class="fa fa-asterisk text-danger"></i>
-                                            </small>
-                                        }
-                                    </label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text + '-yes'">
-                                        <label class="form-check-label" for="@form.Parts[i].Questions[j].Text + '-yes'">
-                                            Yes
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text + '-no'">
-                                        <label class="form-check-label" for="@form.Parts[i].Questions[j].Text + '-no'">
-                                            No
-                                        </label>
-                                    </div>
-
-                                </div>
-                            }
-                            @if (form.Parts[i].Questions[j].Type == QuestionType.Note)
-                            {
-                                <div class="mb-3 col-12 col-md-6">
-                                    <p> @form.Parts[i].Questions[j].Number . @form.Parts[i].Questions[j].Text</p>
+                                <div class="mb-3 col-12">
+                                    <table class="table w-100">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Institution Name/City/State</th>
+                                                <th scope="col">Date From</th>
+                                                <th scope="col">Date To</th>
+                                                <th scope="col">Reason</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
                                 </div>
                             }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.OptionBox)
@@ -231,40 +178,94 @@
 
                                 </div>
                             }
-                            @if (form.Parts[i].Questions[j].Type == QuestionType.Table1)
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.CheckBox)
                             {
-                                <div class"mb-3 col-12">
-                                    <table class="table w-100">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Benefit Received</th>
-                                                <th scope="col">Start Date</th>
-                                                <th scope="col">End Date</th>
-                                                <th scope="col">Dollar Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
+                                <div class="mb-3 col-12 col-md-6">
+                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                        @form.Parts[i].Questions[j].Number .
+                                        @form.Parts[i].Questions[j].Text
+                                        @if (form.Parts[i].Questions[j].IsRequierd)
+                                        {
+                                            <small class="font-10">
+                                                <i class="fa fa-asterisk text-danger"></i>
+                                            </small>
+                                        }
+                                    </label>
+                                    @for (var k = 0; k < form.Parts[i].Questions[j].Items.Count; k++)
+                                    {
+
+                                        @if (form.Parts[i].Questions[j].Items[k].IsChecked == false)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id">
+                                                <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
+                                                    @form.Parts[i].Questions[j].Items[k].Title
+                                                </label>
+                                            </div>
+                                        }
+                                        @if (form.Parts[i].Questions[j].Items[k].IsChecked == true)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id" checked>
+                                                <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
+                                                    @form.Parts[i].Questions[j].Items[k].Title
+                                                </label>
+                                            </div>
+                                        }
+                                    }
                                 </div>
                             }
-                            @if (form.Parts[i].Questions[j].Type == QuestionType.Table2)
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.Date)
                             {
-                                <div class="mb-3 col-12">
-                                    <table class="table w-100">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Institution Name/City/State</th>
-                                                <th scope="col">Date From</th>
-                                                <th scope="col">Date To</th>
-                                                <th scope="col">Reason</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
+                                <div class="mb-3 col-12 col-md-6">
+                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                        @form.Parts[i].Questions[j].Number .
+                                        @form.Parts[i].Questions[j].Text
+                                        @if (form.Parts[i].Questions[j].IsRequierd)
+                                        {
+                                            <small class="font-10">
+                                                <i class="fa fa-asterisk text-danger"></i>
+                                            </small>
+                                        }
+                                    </label>
+                                    <input type="date" placeholder="..." class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId" value="@form.Parts[i].Questions[j].Answer" />
                                 </div>
                             }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.Boolean)
+                            {
+                                <div class="mb-3 col-12 col-md-6">
+                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                        @form.Parts[i].Questions[j].Number .
+                                        @form.Parts[i].Questions[j].Text
+                                        @if (form.Parts[i].Questions[j].IsRequierd)
+                                        {
+                                            <small class="font-10">
+                                                <i class="fa fa-asterisk text-danger"></i>
+                                            </small>
+                                        }
+                                    </label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId-yes">
+                                        <label class="form-check-label" for="@form.Parts[i].Questions[j].Text + '-yes'">
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text-no">
+                                        <label class="form-check-label" for="@form.Parts[i].Questions[j].Text + '-no'">
+                                            No
+                                        </label>
+                                    </div>
+
+                                </div>
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.Note)
+                            {
+                                <div class="mb-3 col-12 col-md-6">
+                                    <p> @form.Parts[i].Questions[j].Number . @form.Parts[i].Questions[j].Text</p>
+                                </div>
+                            }
+
                         }
                     </div>
                 </div>
@@ -296,7 +297,6 @@
     }
 
      function doFunction(form) {
-        debugger;
         var answerList = [];
         var userAplicationId = form.UserApplicationId;
         var parts = form.Parts;
@@ -305,10 +305,10 @@
                 var question = parts[i].Questions[j];
                 switch(question.Type) {
                     case 0:
-                     var questtionElementValue = (document.getElementById(question.Text + question.QuestionId.toString())).value;
+                    var questtionElementValue = (document.getElementById(question.Text + question.QuestionId.toString())).value;
                     if(question.IsRequierd == true && !questtionElementValue) {
                         break;
-                    } else if(questtionElementValue.length) {
+                    } else if (questtionElementValue.length) {
                         var answer = {
                             QuestionId: question.QuestionId,
                             UserApplicationId: userAplicationId,
@@ -319,57 +319,151 @@
                     } else {
                         break;
                     }
-                    break;
-                    case 7:
-                    break;
+                    case 1:
                     var text = document.getElementById(question.Text + question.QuestionId).innerText;
                     if(text) {
-                        const item = question.find(item => item.Title === text);
+                        const item = question.Items.find(item => item.Title === text);
                         if(question.IsRequierd == true && !item) {
                             break;
                         } else {
-
-                        }
-                        if(item ) {
+                            if(item ) {
                             var answer = {
                                 QuestionId: question.QuestionId,
                                 UserApplicationId: userAplicationId,
-                                Text: item.Title
+                                Text: item.Id.toString()
                             }
-                        } else {
+                            answerList.push(answer);
                             break;
-                        }
+                            }else {
+                                break;
+                            }
+                    }
                     } else {
                         break;
                     }
-                    //var
-                    //console.log("dskfjhsdjkf");
-                    //break;
-                    //var text = '';
-                    //for(var k = 0; k < question.Items.length; k++) {
-                    //    var dropDownItem = document.getElementById(question.Items[k].Title + question.Items[k].Id);
-                    //    if (dropDownItem.classList.contains('active')) {
-                    //        text = text + question.Items[k].Title;
-                    //    }
-                    //}
-                    //if(question.IsRequierd == true && !text.length){
-                    //    break;
-                    //} else if(text.length) {
-                    //     var answer = {
-                    //        QuestionId: question.QuestionId,
-                    //        UserApplicationId: userAplicationId,
-                    //        Text: text
-                    //    }
-                    //    answerList.push(answer);
-                    //} else {
-                    //    break;
-                    //}
+
+                    case 2:
+                    var questtionElementValue = (document.getElementById(question.Text + question.QuestionId.toString())).value;
+                    if(question.IsRequierd == true && !questtionElementValue) {
                         break;
+                    } else if (questtionElementValue.length) {
+                        var answer = {
+                            QuestionId: question.QuestionId,
+                            UserApplicationId: userAplicationId,
+                            Text: questtionElementValue
+                        }
+                        answerList.push(answer);
+                        break;
+                    } else {
+                        break;
+                    }
+
+                    case 3:
+                    var questtionElementValue = (document.getElementById(question.Text + question.QuestionId.toString())).value;
+                    if(question.IsRequierd == true && !questtionElementValue) {
+                        break;
+                    } else if (questtionElementValue.length) {
+                        var answer = {
+                            QuestionId: question.QuestionId,
+                            UserApplicationId: userAplicationId,
+                            Text: questtionElementValue
+                        }
+                        answerList.push(answer);
+                        break;
+                    } else {
+                        break;
+                    }
+
+                    case 6:
+                    var text = '';
+                    for(var k = 0; k < question.Items.length; k++) {
+                        var checkbox = document.getElementById(question.Items[k].Title + question.Items[k].Id);
+                        if (checkbox.checked) {
+                            text = text + question.Items[k].Id + ',';
+                        }
+                    }
+                    if(question.IsRequierd == true && !text.length){
+                        break;
+                    } else if(text.length) {
+                         var answer = {
+                            QuestionId: question.QuestionId,
+                            UserApplicationId: userAplicationId,
+                            Text: text.substring(0,text.length - 1)
+                        }
+                        answerList.push(answer);
+                        break;
+                    } else {
+                        break;
+                    }
+
+                    case 7:
+                    var text = '';
+                    for(var k = 0; k < question.Items.length; k++) {
+                        var checkbox = document.getElementById(question.Items[k].Title + question.Items[k].Id);
+                        if (checkbox.checked) {
+                            text = text + question.Items[k].Id + ',';
+                        }
+                    }
+                    if(question.IsRequierd == true && !text.length){
+                        break;
+                    } else if(text.length) {
+                         var answer = {
+                            QuestionId: question.QuestionId,
+                            UserApplicationId: userAplicationId,
+                            Text: text.substring(0,text.length - 1)
+                        }
+                        answerList.push(answer);
+                        break;
+                    } else {
+                        break;
+                    }
+                    case 8:
+                    var questtionElementValue = (document.getElementById(question.Text + question.QuestionId.toString())).value;
+                    if(question.IsRequierd == true && !questtionElementValue) {
+                        break;
+                    } else if (questtionElementValue.length) {
+                        var answer = {
+                            QuestionId: question.QuestionId,
+                            UserApplicationId: userAplicationId,
+                            Text: questtionElementValue
+                        }
+                        answerList.push(answer);
+                        break;
+                    } else {
+                        break;
+                    }
+
+                    case 9:
+                    var trueElement = document.getElementById(question.Text + question.QuestionId + '-yes').checked;
+                    if(trueElement){
+                        var answer = {
+                            QuestionId: question.QuestionId,
+                            UserApplicationId: userAplicationId,
+                            Text: 'true'
+                        };
+                        answerList.push(answer);
+                        break;
+                    } else {
+                        var answer = {
+                            QuestionId: question.QuestionId,
+                            UserApplicationId: userAplicationId,
+                            Text: 'false'
+                        };
+                        answerList.push(answer);
+                        break;
+                    }
                     default:
                         break;
                 }
-
             }
         }
+        $.ajax({
+        type: 'POST',
+        url: '@Url.Action("AnswerAsync", "Home")',
+        dataType: 'json',
+        cache: false,
+        contentType: 'application/json',
+        data: JSON.stringify(answerList),
+        });
     }
 </script>
