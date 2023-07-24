@@ -100,7 +100,9 @@ namespace EasyForm.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public async Task<IActionResult> AnswerAsync(List<AnswerVm> answers)
+        [HttpPost]
+        [ActionName("AnswerAsync")]
+        public async Task<IActionResult> AnswerAsync([FromBody]List<AnswerVm> answers)
         {
             var response = await _answerService.SetAnswersAsync(answers);
             if (response)
