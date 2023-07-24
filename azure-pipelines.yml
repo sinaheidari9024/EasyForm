@@ -39,12 +39,12 @@ steps:
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-- task: DotNetCoreCLI@2
-  displayName: Create SQL Scripts
-  inputs:
-    command: custom
-    custom: 'ef '
-    arguments: migrations script --output $(Build.SourcesDirectory)/SQL/tododbscript.sql --idempotent --project $(Build.SourcesDirectory)/src/TodoApi.csproj --context TodoApiDbContext
+# - task: DotNetCoreCLI@2
+#   displayName: Create SQL Scripts
+#   inputs:
+#     command: custom
+#     custom: 'ef '
+#     arguments: migrations script --output $(Build.SourcesDirectory)/SQL/tododbscript.sql --idempotent --project $(Build.SourcesDirectory)/src/TodoApi.csproj --context TodoApiDbContext
 
 - task: VSTest@2
   inputs:
@@ -57,8 +57,8 @@ steps:
     ArtifactName: Easy Form
     PathtoPublish: $(build.artifactStagingDirectory)
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: SQLScripts'
-  inputs:
-    PathtoPublish: $(Build.SourcesDirectory)/SQL/tododbscript.sql
-    ArtifactName: SQLScripts
+# - task: PublishBuildArtifacts@1
+#   displayName: 'Publish Artifact: SQLScripts'
+#   inputs:
+#     PathtoPublish: $(Build.SourcesDirectory)/SQL/tododbscript.sql
+#     ArtifactName: SQLScripts
