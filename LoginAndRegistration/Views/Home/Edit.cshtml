@@ -467,3 +467,14 @@
         });
     }
 </script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        spinnerHide();
+        var getValue = $('#tempData').val();
+        if (getValue != '') {
+            displayToaster(getValue);
+        };
+    });
+
+</script>

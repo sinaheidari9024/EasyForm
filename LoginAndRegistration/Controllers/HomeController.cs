@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
-using EasyForm.Entities;
+﻿using EasyForm.Entities;
 using EasyForm.Models;
 using EasyForm.Services.Contracts;
 using EasyForm.Utils;
@@ -48,15 +47,22 @@ namespace EasyForm.Controllers
         public async Task<IActionResult> Edit(int userApplicationId)
         {
             var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(userApplicationId);
-            var Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(userApplicationId);
+            //var Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(userApplicationId);
+
+            //foreach (var part in result.Parts)
+            //{
+            //    part.Questions = Questions.Where(s => s.ApplicationPartId == userApplicationId).ToList();
+            //    part.IsCompleted = !Questions.Any(s => s.ApplicationPartId == userApplicationId
+            //                                        && s.IsRequierd
+            //                                        && string.IsNullOrEmpty(s.Answer));
+            //}
 
             foreach (var part in result.Parts)
             {
-                part.Questions = Questions.Where(s=>s.ApplicationPartId == userApplicationId).ToList();
-                part.IsCompleted = !Questions.Any(s=>s.ApplicationPartId==userApplicationId 
-                                                    && s.IsRequierd  
+                part.IsCompleted = !part.Questions.Any(s => s.ApplicationPartId == userApplicationId
+                                                    && s.IsRequierd
                                                     && string.IsNullOrEmpty(s.Answer));
-                                                }
+            }
 
             return View(result);
         }
@@ -64,7 +70,7 @@ namespace EasyForm.Controllers
         public async Task<IActionResult> CreateNew()
         {
             int userId = Convert.ToInt32(_userManager.GetUserId(User));
-            var newItemId =  await _userApplicationService.CreateNewUserApplication(userId);
+            var newItemId = await _userApplicationService.CreateNewUserApplication(userId);
             var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(newItemId);
             var Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(newItemId);
 
@@ -102,7 +108,7 @@ namespace EasyForm.Controllers
 
         [HttpPost]
         [ActionName("AnswerAsync")]
-        public async Task<IActionResult> AnswerAsync([FromBody]List<AnswerVm> answers)
+        public async Task<IActionResult> AnswerAsync([FromBody] List<AnswerVm> answers)
         {
             var response = await _answerService.SetAnswersAsync(answers);
             if (response)
@@ -127,8 +133,9 @@ namespace EasyForm.Controllers
 
                 return View("Edit", result);
             }
-
-            return View("Index");
+            int userId = Convert.ToInt32(_userManager.GetUserId(User));
+            var userApplications = await _userApplicationService.GetUserApplicationsAsync(userId);
+            return View("Index", userApplications);
         }
     }
 }
