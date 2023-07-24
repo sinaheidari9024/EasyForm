@@ -44,7 +44,7 @@ steps:
   inputs:
     command: custom
     custom: 'ef '
-    arguments: migrations script --output $(Build.SourcesDirectory)/SQL/tododbscript.sql --idempotent --context ApplicationDbContext
+    arguments: migrations script --output $(Build.SourcesDirectory)/SQL/tododbscript.sql --idempotent --project $(Build.SourcesDirectory)/src/EasyForm.csproj --context ApplicationDbContext
 
 - task: VSTest@2
   inputs:
