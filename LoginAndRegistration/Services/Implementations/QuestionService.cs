@@ -79,8 +79,8 @@ namespace EasyForm.Services.Implementations
                     Number = item.Number,
                     QuestionId = item.Id,
                     Items = questionItems,
-                    Table1 = answer != null && item.Type == QuestionType.Table1 ? Newtonsoft.Json.JsonConvert.DeserializeObject<Table1>(answer.Text) : null,
-                    Table2 = answer != null && item.Type == QuestionType.Table2 ? Newtonsoft.Json.JsonConvert.DeserializeObject<Table2>(answer.Text) : null
+                    Table1 = answer != null && item.Type == QuestionType.Table1 ? Newtonsoft.Json.JsonConvert.DeserializeObject<List<Table1>>(answer.Text) : null,
+                    Table2 = answer != null && item.Type == QuestionType.Table2 ? Newtonsoft.Json.JsonConvert.DeserializeObject<List<Table2>>(answer.Text) : null
                 });
 
             }
@@ -93,14 +93,14 @@ namespace EasyForm.Services.Implementations
         {
             var response = await _questionStore.GetQuestionsAsync(partId);
             var questions = _mapper.Map<List<QuestionVm>>(response);
-            return new GetQuestionVm { PartId = partId, Questions = questions };
+            return new GetQuestionVm { PartId = partId, Questions = questions.OrderBy(s=>s.PartId).ThenBy(s=>s.Priority).ToList() };
         }
 
         public async Task<GetQuestionVm> GetQuestionsAsync()
         {
             var response = await _questionStore.GetQuestionsAsync();
             var questions = _mapper.Map<List<QuestionVm>>(response);
-            return new GetQuestionVm { PartId = 0, Questions = questions };
+            return new GetQuestionVm { PartId = 0, Questions = questions.OrderBy(s => s.PartId).ThenBy(s => s.Priority).ToList() };
         }
 
         public async Task<bool> ToggleActivationAsync(int questionId, bool currentStatus)

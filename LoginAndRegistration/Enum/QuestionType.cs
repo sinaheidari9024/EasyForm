@@ -13,6 +13,9 @@
         Date,
         Boolean,
         Note,
+        TextArea,
+        Check,
+        CheckText
 
     }
 }

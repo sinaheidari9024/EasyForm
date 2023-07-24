@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
 using EasyForm.Entities;
-using EasyForm.Enum;
 using EasyForm.Services.Contracts;
 using EasyForm.Utils;
 using EasyForm.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -106,8 +104,7 @@ namespace EasyForm.Controllers
                 _logger.LogError($"{Constants.UserError}: \"We have some problem in creating this question.");
 
             }
-            var response = await _questionService.GetQuestionsAsync();
-            return RedirectToAction(Constants.IndexAction, response);
+            return RedirectToAction(Constants.IndexAction, model.ApplicationPartId);
         }
 
         [HttpGet]
@@ -143,6 +140,7 @@ namespace EasyForm.Controllers
             }
             var question = _mapper.Map<Question>(model);
             TempData[Constants.IsShow] = "";
+            question.IsActive = true;
             var result = await _questionService.UpdateQuestionAsync(question);
             if (result)
             {
@@ -153,8 +151,7 @@ namespace EasyForm.Controllers
                 TempData[Constants.IsShow] = "We have some problem in update this question.";
                 _logger.LogError($"{Constants.UserError}: \"We have some problem in update this question.");
             }
-            var response = await _questionService.GetQuestionsAsync();
-            return RedirectToAction(Constants.IndexAction, response);
+            return RedirectToAction(Constants.IndexAction, model.ApplicationPartId);
         }
 
         public async Task<IActionResult> Delete(int questionId)
@@ -182,8 +179,7 @@ namespace EasyForm.Controllers
                 TempData[Constants.IsShow] = "We have some problem in update this question.";
                 _logger.LogError($"{Constants.UserError}: \"We have some problem in update this question.");
             }
-            var response = await _questionService.GetQuestionsAsync();
-            return RedirectToAction(Constants.IndexAction, response);
+            return RedirectToAction(Constants.IndexAction);
         }
     }
 }
