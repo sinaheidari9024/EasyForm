@@ -54,8 +54,13 @@ namespace EasyForm.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SpanishTitle")
+                        .IsRequired()
+                        .HasColumnType("Nvarchar(MAX)");
+
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("Varchar(MAX)");
 
                     b.HasKey("Id");
 
@@ -75,8 +80,13 @@ namespace EasyForm.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SpanishTitle")
+                        .IsRequired()
+                        .HasColumnType("Nvarchar(MAX)");
+
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("Varchar(MAX)");
 
                     b.HasKey("Id");
 
@@ -130,17 +140,26 @@ namespace EasyForm.Migrations
                     b.Property<bool>("IsRequierd")
                         .HasColumnType("bit");
 
-                    b.Property<int>("MaxLengh")
+                    b.Property<int?>("MaxLengh")
                         .HasColumnType("int");
 
-                    b.Property<int>("Minlengh")
+                    b.Property<int?>("Minlengh")
                         .HasColumnType("int");
 
                     b.Property<string>("Number")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("Nvarchar(10)");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SpanishText")
+                        .IsRequired()
+                        .HasColumnType("Nvarchar(MAX)");
 
                     b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("Nvarchar(MAX)");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -165,8 +184,13 @@ namespace EasyForm.Migrations
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
+                    b.Property<string>("SpanishTitle")
+                        .IsRequired()
+                        .HasColumnType("Nvarchar(MAX)");
+
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("Varchar(MAX)");
 
                     b.HasKey("Id");
 

@@ -16,11 +16,11 @@ else if (actionName == "Edit")
 {
     <h2>Edit</h2>
 }
-<h4>Question</h4>
+<h4>Items</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form id="itemsForm" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @if (actionName == "Edit")
             {
@@ -32,6 +32,12 @@ else if (actionName == "Edit")
                 <label asp-for="@Model.Title" class="col-form-label col-form-label-sm"></label>
                 <input asp-for="@Model.Title" class="form-control form-control-sm" />
                 <span asp-validation-for="@Model.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <span style="color:Red;" visible="true"> *</span>
+                <label asp-for="@Model.SpanishTitle" class="col-form-label col-form-label-sm"></label>
+                <input asp-for="@Model.SpanishTitle" class="form-control form-control-sm" />
+                <span asp-validation-for="@Model.SpanishTitle" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="@Model.QuestionId" />
 
@@ -51,3 +57,25 @@ else if (actionName == "Edit")
         </form>
     </div>
 </div>
+<script type="text/javascript">
+
+    var seq = "0";
+
+    $(document).ready(function () {
+        spinnerHide();
+        console.log("out");
+
+        var getValue = $('#tempData').val();
+        if (getValue != '') {
+            console.log("in");
+            displayToaster(getValue);
+        };
+        $("#itemsForm").on("submit", function () {
+            if ($("#creitemsFormateuser").valid()) {
+                spinnerLoader();
+            }
+        });
+
+    });
+
+</script>

@@ -76,8 +76,27 @@ namespace EasyForm.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(ApplicationPart part)
+        public async Task<IActionResult> CreateAsync(CreateApplicationPartVm model)
         {
+            if (!ModelState.IsValid)
+            {
+                List<SelectListItem> applications = new List<SelectListItem>();
+                var Applications = await _applicationService.GetApplicationsAsync(string.Empty);
+                foreach (var app in Applications)
+                {
+                    applications.Add(
+                        new SelectListItem
+                        {
+                            Text = app.Title,
+                            Value = app.Id.ToString()
+                        }
+                    );
+                }
+                model.Applications = applications;
+                return View(Constants.CreateAction, model);
+            }
+            var part = _mapper.Map<ApplicationPart>(model);
+
             TempData[Constants.IsShow] = "";
             var result = await _partService.AddApplicationPartAsync(part);
             if (result)
@@ -119,8 +138,13 @@ namespace EasyForm.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditAsync(ApplicationPart applicationPart)
+        public async Task<IActionResult> EditAsync(CreateApplicationPartVm model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(Constants.CreateAction, model);
+            }
+            var applicationPart = _mapper.Map<ApplicationPart>(model);
             TempData[Constants.IsShow] = "";
             var result = await _partService.UpdateApplicationPartAsync(applicationPart);
             if (result)

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EasyForm.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230718123938_d")]
-    partial class d
+    [Migration("20230721082946_add- spanish")]
+    partial class addspanish
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,6 +56,9 @@ namespace EasyForm.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SpanishTitle")
+                        .HasColumnType("Nvarchar(MAX)");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -76,6 +79,9 @@ namespace EasyForm.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SpanishTitle")
+                        .HasColumnType("Nvarchar(MAX)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -141,6 +147,12 @@ namespace EasyForm.Migrations
                     b.Property<string>("Number")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SpanishText")
+                        .HasColumnType("Nvarchar(MAX)");
+
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
@@ -166,6 +178,9 @@ namespace EasyForm.Migrations
 
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
+
+                    b.Property<string>("SpanishTitle")
+                        .HasColumnType("Nvarchar(MAX)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -220,6 +235,9 @@ namespace EasyForm.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -376,7 +394,7 @@ namespace EasyForm.Migrations
             modelBuilder.Entity("EasyForm.Entities.Answer", b =>
                 {
                     b.HasOne("EasyForm.Entities.Question", "Question")
-                        .WithMany("Answer")
+                        .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -509,7 +527,7 @@ namespace EasyForm.Migrations
 
             modelBuilder.Entity("EasyForm.Entities.Question", b =>
                 {
-                    b.Navigation("Answer");
+                    b.Navigation("Answers");
 
                     b.Navigation("QuestionItems");
                 });

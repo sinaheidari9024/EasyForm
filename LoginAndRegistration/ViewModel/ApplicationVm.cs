@@ -2,7 +2,7 @@
 
 namespace EasyForm.ViewModel
 {
-    public class ApplicationPartVm
+    public class ApplicationVm
     {
         public int Id { get; set; }
         [Required]
@@ -10,8 +10,5 @@ namespace EasyForm.ViewModel
         [Required]
         public string SpanishTitle { get; set; }
         public string Description { get; set; }
-        public string ApplicationName { get; set; }
-        public string ApplicationSpanishName { get; set; }
-        public string ApplicationId { get; set; }
     }
 }
