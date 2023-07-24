@@ -71,6 +71,8 @@ namespace EasyForm.Services.Implementations
                 Parts = new List<PartsVm>()
 
             };
+            var questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(result.Id);
+
             foreach (var part in result.Application.ApplicationParts)
             {
                 model.Parts.Add(new PartsVm
@@ -78,7 +80,7 @@ namespace EasyForm.Services.Implementations
                     Description = part.Description,
                     Title = part.Title,
                     IsCompleted = false,
-                    Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(result.Id)
+                    Questions = questions.Where(s=>s.ApplicationPartId == part.Id).ToList()
                 });
             }
 
