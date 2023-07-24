@@ -104,7 +104,7 @@ namespace EasyForm.Controllers
                 _logger.LogError($"{Constants.UserError}: \"We have some problem in creating this question.");
 
             }
-            return RedirectToAction(Constants.IndexAction, model.ApplicationPartId);
+            return RedirectToAction(Constants.IndexAction, new { PartId = model.ApplicationPartId });
         }
 
         [HttpGet]
@@ -151,7 +151,7 @@ namespace EasyForm.Controllers
                 TempData[Constants.IsShow] = "We have some problem in update this question.";
                 _logger.LogError($"{Constants.UserError}: \"We have some problem in update this question.");
             }
-            return RedirectToAction(Constants.IndexAction, model.ApplicationPartId);
+            return RedirectToAction(Constants.IndexAction, new { PartId = model.ApplicationPartId });
         }
 
         public async Task<IActionResult> Delete(int questionId)
