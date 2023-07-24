@@ -9,6 +9,7 @@ namespace EasyForm.Entities
         public int Id { get; set; }
         public int ApplicationId { get; set; }
         public string Title { get; set; }
+        public string SpanishTitle { get; set; }
         public string Description { get; set; }
         public Application Application { get; set; }
         public ICollection<Question> Questions { get; set; }

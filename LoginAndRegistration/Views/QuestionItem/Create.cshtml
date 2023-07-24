@@ -33,6 +33,12 @@ else if (actionName == "Edit")
                 <input asp-for="@Model.Title" class="form-control form-control-sm" />
                 <span asp-validation-for="@Model.Title" class="text-danger"></span>
             </div>
+            <div class="form-group mb-2">
+                <span style="color:Red;" visible="true"> *</span>
+                <label asp-for="@Model.SpanishTitle" class="col-form-label col-form-label-sm"></label>
+                <input asp-for="@Model.SpanishTitle" class="form-control form-control-sm" />
+                <span asp-validation-for="@Model.SpanishTitle" class="text-danger"></span>
+            </div>
             <input type="hidden" asp-for="@Model.QuestionId" />
 
 
