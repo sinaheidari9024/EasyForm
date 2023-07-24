@@ -19,6 +19,7 @@ namespace EasyForm.ViewModel
         public bool IsRequierd { get; set; }
         [Required]
         public QuestionType Type { get; set; }
+        public bool IsActive { get; set; }
         public int MaxLengh { get; set; }
         public int Minlengh { get; set; }
         [Required]
