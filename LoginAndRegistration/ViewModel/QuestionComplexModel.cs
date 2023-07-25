@@ -12,6 +12,8 @@ namespace EasyForm.ViewModel
         public string SpanishText { get; set; }
         public string Number { get; set; }
         public bool IsRequierd { get; set; }
+        public int? MaxLengh { get; set; }
+        public int? Minlengh { get; set; }
 
         public QuestionType Type { get; set; }
         public string Answer { get; set; }

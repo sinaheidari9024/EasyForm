@@ -34,7 +34,7 @@
                         {
                             @if (form.Parts[i].Questions[j].Type == QuestionType.TextBox)
                             {
-                                <div class="mb-3 col-12 col-md-6">
+                                <div class="mb-3 col-12">
                                     <label for="@form.Parts[i].Questions[j].Text" class="form-label">
                                         @form.Parts[i].Questions[j].Number .
                                         @form.Parts[i].Questions[j].Text
@@ -50,7 +50,7 @@
                             }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.DropDown)
                             {
-                                <div class="mb-3 col-12 col-md-6">
+                                <div class="mb-3 col-12">
                                     <label for="@form.Parts[i].Questions[j].Text" class="form-label">
                                         @form.Parts[i].Questions[j].Number .
                                         @form.Parts[i].Questions[j].Text
@@ -82,7 +82,7 @@
                             }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.Numeric)
                             {
-                                <div class="mb-3 col-12 col-md-6">
+                                <div class="mb-3 col-12">
                                     <label for="@form.Parts[i].Questions[j].Text" class="form-label">
                                         @form.Parts[i].Questions[j].Number .
                                         @form.Parts[i].Questions[j].Text
@@ -98,7 +98,7 @@
                             }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.TextNumeric)
                             {
-                                <div class="mb-3 col-12 col-md-6">
+                                <div class="mb-3 col-12">
                                     <label for="@form.Parts[i].Questions[j].Text" class="form-label">
                                         @form.Parts[i].Questions[j].Number .
                                         @form.Parts[i].Questions[j].Text
@@ -148,7 +148,8 @@
                             }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.OptionBox)
                             {
-                                <div class="mb-3 col-12 col-md-6">
+                                <div class="mb-3 col-12
+">
                                     <label for="@form.Parts[i].Questions[j].Text" class="form-label">
                                         @form.Parts[i].Questions[j].Number .
                                         @form.Parts[i].Questions[j].Text
@@ -186,7 +187,7 @@
                             }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.CheckBox)
                             {
-                                <div class="mb-3 col-12 col-md-6">
+                                <div class="mb-3 col-12">
                                     <label for="@form.Parts[i].Questions[j].Text" class="form-label">
                                         @form.Parts[i].Questions[j].Number .
                                         @form.Parts[i].Questions[j].Text
@@ -223,7 +224,7 @@
                             }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.Date)
                             {
-                                <div class="mb-3 col-12 col-md-6">
+                                <div class="mb-3 col-12">
                                     <label for="@form.Parts[i].Questions[j].Text" class="form-label">
                                         @form.Parts[i].Questions[j].Number .
                                         @form.Parts[i].Questions[j].Text
@@ -239,7 +240,7 @@
                             }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.Boolean)
                             {
-                                <div class="mb-3 col-12 col-md-6">
+                                <div class="mb-3 col-12">
                                     <label for="@form.Parts[i].Questions[j].Text" class="form-label">
                                         @form.Parts[i].Questions[j].Number .
                                         @form.Parts[i].Questions[j].Text
