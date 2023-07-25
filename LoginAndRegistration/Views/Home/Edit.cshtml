@@ -63,10 +63,11 @@
                                     </label>
                                     <div class="dropdown">
                                         <button class="btn btn-outline-secondary dropdown-toggle w-50 text-left d-flex justify-content-between align-items-center" type="button" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId" data-bs-toggle="dropdown" aria-expanded="false">
-                                            @if(@form.Parts[i].Questions[j].Answer != null && @form.Parts[i].Questions[j].Answer.Length > 0)
+                                            @if (@form.Parts[i].Questions[j].Answer != null && @form.Parts[i].Questions[j].Answer.Length > 0)
                                             {
                                                 <span>@form.Parts[i].Questions[j].Items.Find(item => item.Id == int.Parse(form.Parts[i].Questions[j].Answer))</span>
-                                            } else
+                                            }
+                                            else
                                             {
                                                 <span>pick up one item</span>
                                             }
@@ -109,7 +110,7 @@
                                             </small>
                                         }
                                     </label>
-                                    <input type="number" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" value="@form.Parts[i].Questions[j].Answer" />
+                                    <input type="number" class="form-control" maxlength="@form.Parts[i].Questions[j].Minlengh" maxlength="@form.Parts[i].Questions[j].MaxLengh" length id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" value="@form.Parts[i].Questions[j].Answer" />
                                 </div>
                             }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.Table1)
@@ -148,8 +149,7 @@
                             }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.OptionBox)
                             {
-                                <div class="mb-3 col-12
-">
+                                <div class="mb-3 col-12">
                                     <label for="@form.Parts[i].Questions[j].Text" class="form-label">
                                         @form.Parts[i].Questions[j].Number .
                                         @form.Parts[i].Questions[j].Text
@@ -174,7 +174,7 @@
                                         @if (form.Parts[i].Questions[j].Items[k].IsChecked == true)
                                         {
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id" checked>
+                                                <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id" checked>
                                                 <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
                                                     @form.Parts[i].Questions[j].Items[k].Title
                                                 </label>
@@ -311,7 +311,7 @@
             for(var j = 0; j < parts[i].Questions.length; j++) {
                 var question = parts[i].Questions[j];
                 switch(question.Type) {
-                    
+
                     //TextBox
                     case 0:
                     var questtionElementValue = (document.getElementById(question.Text + question.QuestionId.toString())).value;
