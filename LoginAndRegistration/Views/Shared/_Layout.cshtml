@@ -52,7 +52,35 @@
                                 </ul>
                             }
                             <ul class="navbar-nav d-flex justify-content-end">
-                                <li class="nav-item">
+                                <li class="nav-item mx-2">
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span id="lang-en">
+                                                <img src="img/en.png" />
+                                                EN
+                                            </span>
+                                            <span id="lang-esp" class="d-none">
+                                                <img src="img/esp.png" />
+                                                ESP
+                                            </span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li onclick="setLang("en")">
+                                                <button class="dropdown-item" type="button">
+                                                    <img src="img/en.png" />
+                                                    EN
+                                                </button>
+                                            </li>
+                                            <li onclick="setLang("esp")">
+                                                <button class="dropdown-item" type="button">
+                                                    <img src="img/esp.png" />
+                                                    ESP
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item mx-2">
                                     <a class="btn btn-primary" asp-area="" asp-controller="Logout" asp-action="Index">Logout</a>
                                 </li>
                             </ul>
@@ -117,6 +145,12 @@
         }
         else {
             toastr.error(strMessage);
+        }
+    }
+
+    function setLang(lang) {
+        if(lang === 'en') {
+            document.getElementById('')
         }
     }
 
