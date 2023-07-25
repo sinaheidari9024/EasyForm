@@ -9,7 +9,7 @@
 }
 
 <div>
-    <div class="accordion" id="accordionExample">
+    <div class="accordion" id="accordionEn">
         @for (int i = 0; i < form.Parts.Count; i++)
         {
             <div class="accordion-item">
@@ -279,6 +279,277 @@
             </div>
         }
     </div>
+
+    <div class="accordion" id="accordionEsp">
+        @for (int i = 0; i < form.Parts.Count; i++)
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-@i.ToString()" aria-expanded="false" aria-controls="flush-@i.ToString()">
+                        @form.Parts[i].SpanishTitle
+
+                        @if (form.Parts[i].IsCompleted == true)
+                        {
+                            <i class="fa fa-check text-success" style="margin: 0 12px"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-times text-danger" style="margin: 0 12px"></i>
+                        }
+
+                    </button>
+                </h2>
+                <div id="flush-@i.ToString()" class="accordion-collapse collapse pt-4" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="container-fluid row">
+                        @for (var j = 0; j < form.Parts[i].Questions.Count; j++)
+                        {
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.TextBox)
+                            {
+                                <div class="mb-3 col-12">
+                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                        @form.Parts[i].Questions[j].Number .
+                                        @form.Parts[i].Questions[j].SpanishText
+                                        @if (form.Parts[i].Questions[j].IsRequierd)
+                                        {
+                                            <small class="font-10">
+                                                <i class="fa fa-asterisk text-danger"></i>
+                                            </small>
+                                        }
+                                    </label>
+                                    <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" value="@form.Parts[i].Questions[j].Answer" />
+                                </div>
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.DropDown)
+                            {
+                                <div class="mb-3 col-12">
+                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                        @form.Parts[i].Questions[j].Number .
+                                        @form.Parts[i].Questions[j].SpanishText
+                                        @if (form.Parts[i].Questions[j].IsRequierd)
+                                        {
+                                            <small class="font-10">
+                                                <i class="fa fa-asterisk text-danger"></i>
+                                            </small>
+                                        }
+                                    </label>
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-secondary dropdown-toggle w-50 text-left d-flex justify-content-between align-items-center" type="button" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId" data-bs-toggle="dropdown" aria-expanded="false">
+                                            @if (@form.Parts[i].Questions[j].Answer != null && @form.Parts[i].Questions[j].Answer.Length > 0)
+                                            {
+                                                <span>@form.Parts[i].Questions[j].Items.Find(item => item.Id == int.Parse(form.Parts[i].Questions[j].Answer))</span>
+                                            }
+                                            else
+                                            {
+                                                <span>pick up one item</span>
+                                            }
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="@form.Parts[i].Questions[j].Text">
+                                            @for (var k = 0; k < form.Parts[i].Questions[j].Items.Count; k++)
+                                            {
+                                                <li onclick="onSelectDropdown(@(JsonConvert.SerializeObject(form.Parts[i].Questions[j].Text)), @(JsonConvert.SerializeObject(form.Parts[i].Questions[j].QuestionId)), @(JsonConvert.SerializeObject(form.Parts[i].Questions[j].Items[k].Title)))"><p class="dropdown-item" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id">@form.Parts[i].Questions[j].Items[k].SpanishTitle</p></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.Numeric)
+                            {
+                                <div class="mb-3 col-12">
+                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                        @form.Parts[i].Questions[j].Number .
+                                        @form.Parts[i].Questions[j].SpanishText
+                                        @if (form.Parts[i].Questions[j].IsRequierd)
+                                        {
+                                            <small class="font-10">
+                                                <i class="fa fa-asterisk text-danger"></i>
+                                            </small>
+                                        }
+                                    </label>
+                                    <input type="number" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" value="@form.Parts[i].Questions[j].Answer" />
+                                </div>
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.TextNumeric)
+                            {
+                                <div class="mb-3 col-12">
+                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                        @form.Parts[i].Questions[j].Number .
+                                        @form.Parts[i].Questions[j].SpanishText
+                                        @if (form.Parts[i].Questions[j].IsRequierd)
+                                        {
+                                            <small class="font-10">
+                                                <i class="fa fa-asterisk text-danger"></i>
+                                            </small>
+                                        }
+                                    </label>
+                                    <input type="number" class="form-control" maxlength="@form.Parts[i].Questions[j].Minlengh" maxlength="@form.Parts[i].Questions[j].MaxLengh" length id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" value="@form.Parts[i].Questions[j].Answer" />
+                                </div>
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.Table1)
+                            {
+                                <div class"mb-3 col-12">
+                                    <table class="table w-100">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Benefit Received</th>
+                                                <th scope="col">Start Date</th>
+                                                <th scope="col">End Date</th>
+                                                <th scope="col">Dollar Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.Table2)
+                            {
+                                <div class="mb-3 col-12">
+                                    <table class="table w-100">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Institution Name/City/State</th>
+                                                <th scope="col">Date From</th>
+                                                <th scope="col">Date To</th>
+                                                <th scope="col">Reason</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.OptionBox)
+                            {
+                                <div class="mb-3 col-12">
+                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                        @form.Parts[i].Questions[j].Number .
+                                        @form.Parts[i].Questions[j].SpanishText
+                                        @if (form.Parts[i].Questions[j].IsRequierd)
+                                        {
+                                            <small class="font-10">
+                                                <i class="fa fa-asterisk text-danger"></i>
+                                            </small>
+                                        }
+                                    </label>
+                                    @for (var k = 0; k < form.Parts[i].Questions[j].Items.Count; k++)
+                                    {
+                                        @if (form.Parts[i].Questions[j].Items[k].IsChecked == false)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id">
+                                                <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
+                                                    @form.Parts[i].Questions[j].Items[k].SpanishTitle
+                                                </label>
+                                            </div>
+                                        }
+                                        @if (form.Parts[i].Questions[j].Items[k].IsChecked == true)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id" checked>
+                                                <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
+                                                    @form.Parts[i].Questions[j].Items[k].SpanishTitle
+                                                </label>
+                                            </div>
+                                        }
+
+                                    }
+
+                                </div>
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.CheckBox)
+                            {
+                                <div class="mb-3 col-12">
+                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                        @form.Parts[i].Questions[j].Number .
+                                        @form.Parts[i].Questions[j].SpanishText
+                                        @if (form.Parts[i].Questions[j].IsRequierd)
+                                        {
+                                            <small class="font-10">
+                                                <i class="fa fa-asterisk text-danger"></i>
+                                            </small>
+                                        }
+                                    </label>
+                                    @for (var k = 0; k < form.Parts[i].Questions[j].Items.Count; k++)
+                                    {
+
+                                        @if (form.Parts[i].Questions[j].Items[k].IsChecked == false)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id">
+                                                <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
+                                                    @form.Parts[i].Questions[j].Items[k].SpanishTitle
+                                                </label>
+                                            </div>
+                                        }
+                                        @if (form.Parts[i].Questions[j].Items[k].IsChecked == true)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id" checked>
+                                                <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
+                                                    @form.Parts[i].Questions[j].Items[k].SpanishTitle
+                                                </label>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.Date)
+                            {
+                                <div class="mb-3 col-12">
+                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                        @form.Parts[i].Questions[j].Number .
+                                        @form.Parts[i].Questions[j].SpanishText
+                                        @if (form.Parts[i].Questions[j].IsRequierd)
+                                        {
+                                            <small class="font-10">
+                                                <i class="fa fa-asterisk text-danger"></i>
+                                            </small>
+                                        }
+                                    </label>
+                                    <input type="date" placeholder="..." class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId" value="@form.Parts[i].Questions[j].Answer" />
+                                </div>
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.Boolean)
+                            {
+                                <div class="mb-3 col-12">
+                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                        @form.Parts[i].Questions[j].Number .
+                                        @form.Parts[i].Questions[j].SpanishText
+                                        @if (form.Parts[i].Questions[j].IsRequierd)
+                                        {
+                                            <small class="font-10">
+                                                <i class="fa fa-asterisk text-danger"></i>
+                                            </small>
+                                        }
+                                    </label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId-yes">
+                                        <label class="form-check-label" for="@form.Parts[i].Questions[j].Text + '-yes'">
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text-no">
+                                        <label class="form-check-label" for="@form.Parts[i].Questions[j].Text + '-no'">
+                                            No
+                                        </label>
+                                    </div>
+
+                                </div>
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.Note)
+                            {
+                                <div class="mb-3 col-12 col-md-6">
+                                    <p> @form.Parts[i].Questions[j].SpanishText</p>
+                                </div>
+                            }
+
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
     <div class="w-100 d-flex justify-content-center my-3 px-3">
         <button class="btn btn-primary" id="saveForm" onclick="doFunction(@(JsonConvert.SerializeObject(form)));">
             Update
@@ -493,7 +764,8 @@
         if (getValue != '') {
             displayToaster(getValue);
         };
-
+        document.getElementById('accordionEn').style.display = "block";
+        document.getElementById('accordionEsp').style.display = "none";
 
     });
 
