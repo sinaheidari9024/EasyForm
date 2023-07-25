@@ -37,11 +37,12 @@ namespace EasyForm.Controllers
             _answerService = answerService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             int userId = Convert.ToInt32(_userManager.GetUserId(User));
             var userApplications = await _userApplicationService.GetUserApplicationsAsync(userId);
-            return View(userApplications);
+            return View("Index", userApplications);
         }
 
         public async Task<IActionResult> Edit(int userApplicationId)
@@ -131,11 +132,9 @@ namespace EasyForm.Controllers
                                                         && string.IsNullOrEmpty(s.Answer));
                 }
 
-                return View("Edit", result);
+                return View(false);
             }
-            int userId = Convert.ToInt32(_userManager.GetUserId(User));
-            var userApplications = await _userApplicationService.GetUserApplicationsAsync(userId);
-            return View("Index", userApplications);
+            return Json(new { redirectToUrl = Url.Action("Index", "Home") });
         }
     }
 }

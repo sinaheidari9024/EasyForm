@@ -159,7 +159,7 @@
                                         @if (form.Parts[i].Questions[j].Items[k].IsChecked == false)
                                         {
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Items[k].Title">
+                                                <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id">
                                                 <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
                                                     @form.Parts[i].Questions[j].Items[k].Title
                                                 </label>
@@ -168,7 +168,7 @@
                                         @if (form.Parts[i].Questions[j].Items[k].IsChecked == true)
                                         {
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Items[k].Title" checked>
+                                                <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id" checked>
                                                 <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
                                                     @form.Parts[i].Questions[j].Items[k].Title
                                                 </label>
@@ -465,6 +465,9 @@
         cache: false,
         contentType: 'application/json',
         data: JSON.stringify(answerList),
+            success: function (result) {
+                window.location = result.redirectToUrl;
+                }
         });
     }
 </script>
