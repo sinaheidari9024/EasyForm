@@ -74,6 +74,7 @@ namespace EasyForm.Services.Implementations
                     Answer = answer?.Text,
                     ApplicationPartId = item.ApplicationPartId,
                     Text = item.Text,
+                    SpanishText = item.SpanishText,
                     IsRequierd = item.IsRequierd,
                     Type = item.Type,
                     Number = item.Number,
