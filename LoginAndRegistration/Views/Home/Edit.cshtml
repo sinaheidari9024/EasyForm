@@ -288,7 +288,28 @@
                                     <textarea class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" rows="3"></textarea>
                                 </div>
                             }
-
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.Check)
+                            {
+                                <div class="mb-3 col-12 d-flex flex-row align-items-center">
+                                    <div>
+                                        <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                        @form.Parts[i].Questions[j].Number .
+                                    </label>
+                                    </div>
+                                    <div class="form-check mx-2">
+                                        <input class="form-check-input" type="checkbox" value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId">
+                                        <label for="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId" class="form-label">
+                                            @form.Parts[i].Questions[j].Text
+                                            @if (form.Parts[i].Questions[j].IsRequierd)
+                                            {
+                                                <small class="font-10">
+                                                    <i class="fa fa-asterisk text-danger"></i>
+                                                </small>
+                                            }
+                                        </label>
+                                    </div>
+                                </div>
+                            }
                         }
                     </div>
                 </div>
@@ -575,6 +596,28 @@
                                     <textarea class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" rows="3"></textarea>
                                 </div>
                             }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.Check)
+                            {
+                                <div class="mb-3 col-12 d-flex flex-row align-items-center">
+                                    <div>
+                                        <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                        @form.Parts[i].Questions[j].Number .
+                                    </label>
+                                    </div>
+                                    <div class="form-check mx-2">
+                                        <input class="form-check-input" type="checkbox" value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId">
+                                        <label for="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId" class="form-label">
+                                            @form.Parts[i].Questions[j].SpanishText
+                                            @if (form.Parts[i].Questions[j].IsRequierd)
+                                            {
+                                                <small class="font-10">
+                                                    <i class="fa fa-asterisk text-danger"></i>
+                                                </small>
+                                            }
+                                        </label>
+                                    </div>
+                                </div>
+                            }
                         }
                     </div>
                 </div>
@@ -781,6 +824,21 @@
                             QuestionId: question.QuestionId,
                             UserApplicationId: userAplicationId,
                             Text: textAreaValue
+                        };
+                        answerList.push(answer);
+                        break;
+                    } else {
+                        break;
+                    }
+
+                    //check
+                    case 12:
+                    const check = document.getElementById(question.Text + question.QuestionId.toString());
+                    if(check.checked == true) {
+                        var answer = {
+                            QuestionId: question.QuestionId,
+                            UserApplicationId: userAplicationId,
+                            Text: "checked"
                         };
                         answerList.push(answer);
                         break;
