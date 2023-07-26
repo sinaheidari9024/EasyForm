@@ -48,15 +48,6 @@ namespace EasyForm.Controllers
         public async Task<IActionResult> Edit(int userApplicationId)
         {
             var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(userApplicationId);
-            //var Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(userApplicationId);
-
-            //foreach (var part in result.Parts)
-            //{
-            //    part.Questions = Questions.Where(s => s.ApplicationPartId == userApplicationId).ToList();
-            //    part.IsCompleted = !Questions.Any(s => s.ApplicationPartId == userApplicationId
-            //                                        && s.IsRequierd
-            //                                        && string.IsNullOrEmpty(s.Answer));
-            //}
 
             foreach (var part in result.Parts)
             {
