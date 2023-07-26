@@ -38,14 +38,14 @@
                                     <li class="nav-item">
                                         @Html.ActionLink("UserApplication", "Index", "UserApplication",
                             new DataGridSearch
-                                 {
-                                     PageNumber = 1,
-                                     Email = null,
-                                     PageCount = 10,
-                                     SortBy = "CreationDate"
+                            {
+                            PageNumber = 1,
+                            Email = null,
+                            PageCount = 10,
+                            SortBy = "CreationDate"
                             ,
-                                     SortDir = "Asc"
-                                 }, new { @class = "nav-link text-dark" })
+                            SortDir = "Asc"
+                            }, new { @class = "nav-link text-dark" })
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Application" asp-action="Index">Application</a>
@@ -160,10 +160,16 @@
         const elementEsp = document.getElementById('accordionEsp');
         if (lang === 'lang-en') {
             if (elementEn && elementEsp) {
+                document.getElementById('lang-en').style.display = 'block';
+                document.getElementById('lang-esp').style.display = 'none';
+
                 elementEn.style.display = 'block';
                 elementEsp.style.display = 'none';
             }
         } else if (lang === 'lang-esp') {
+            document.getElementById('lang-en').style.display = 'none';
+            document.getElementById('lang-esp').style.display = 'block';
+
             elementEn.style.display = 'none';
             elementEsp.style.display = 'block';
         }

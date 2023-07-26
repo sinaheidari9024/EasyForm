@@ -79,6 +79,7 @@ namespace EasyForm.Services.Implementations
                 {
                     Description = part.Description,
                     Title = part.Title,
+                    SpanishTitle = part.SpanishTitle,
                     IsCompleted = false,
                     Questions = questions.Where(s=>s.ApplicationPartId == part.Id).ToList()
                 });
