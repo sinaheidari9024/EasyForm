@@ -272,6 +272,22 @@
                                     <p> @form.Parts[i].Questions[j].Text</p>
                                 </div>
                             }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.TextArea)
+                            {
+                                <div class="mb-3 col-12">
+                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                        @form.Parts[i].Questions[j].Number .
+                                        @form.Parts[i].Questions[j].Text
+                                        @if (form.Parts[i].Questions[j].IsRequierd)
+                                        {
+                                            <small class="font-10">
+                                                <i class="fa fa-asterisk text-danger"></i>
+                                            </small>
+                                        }
+                                    </label>
+                                    <textarea class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" rows="3"></textarea>
+                                </div>
+                            }
 
                         }
                     </div>
@@ -543,7 +559,22 @@
                                     <p> @form.Parts[i].Questions[j].SpanishText</p>
                                 </div>
                             }
-
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.TextArea)
+                            {
+                                <div class="mb-3 col-12">
+                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                        @form.Parts[i].Questions[j].Number .
+                                        @form.Parts[i].Questions[j].SpanishText
+                                        @if (form.Parts[i].Questions[j].IsRequierd)
+                                        {
+                                            <small class="font-10">
+                                                <i class="fa fa-asterisk text-danger"></i>
+                                            </small>
+                                        }
+                                    </label>
+                                    <textarea class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" rows="3"></textarea>
+                                </div>
+                            }
                         }
                     </div>
                 </div>
@@ -739,6 +770,21 @@
                             Text: 'false'
                         };
                         answerList.push(answer);
+                        break;
+                    }
+
+                    //TextArea
+                    case 11:
+                    var textAreaValue = (document.getElementById(question.Text + question.QuestionId.toString())).value;
+                    if(textAreaValue != null) {
+                        var answer = {
+                            QuestionId: question.QuestionId,
+                            UserApplicationId: userAplicationId,
+                            Text: textAreaValue
+                        };
+                        answerList.push(answer);
+                        break;
+                    } else {
                         break;
                     }
                     default:
