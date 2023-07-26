@@ -61,12 +61,12 @@
                             <ul class="navbar-nav d-flex justify-content-end">
                                 <li class="nav-item mx-2">
                                     <div class="dropdown">
-                                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn btn-primary dropdown-toggle d-flex flex-row align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <span id="lang-en">
                                                 <img src="~/img/en.png" />
                                                 EN
                                             </span>
-                                            <span id="lang-esp" class="d-none">
+                                            <span id="lang-esp">
                                                 <img src="~/img/esp.png" />
                                                 ESP
                                             </span>
@@ -137,6 +137,8 @@
 
 <script type="text/javascript">
 
+    document.getElementById('lang-esp').style.display = "none";
+
     function spinnerLoader() {
         $("#spinnerLoader").show();
     }
@@ -156,13 +158,13 @@
     }
 
     function setLang(lang) {
+        debugger;
         const elementEn = document.getElementById('accordionEn');
         const elementEsp = document.getElementById('accordionEsp');
         if (lang === 'lang-en') {
+            document.getElementById('lang-en').style.display = 'block';
+            document.getElementById('lang-esp').style.display = 'none';
             if (elementEn && elementEsp) {
-                document.getElementById('lang-en').style.display = 'block';
-                document.getElementById('lang-esp').style.display = 'none';
-
                 elementEn.style.display = 'block';
                 elementEsp.style.display = 'none';
             }
@@ -170,8 +172,10 @@
             document.getElementById('lang-en').style.display = 'none';
             document.getElementById('lang-esp').style.display = 'block';
 
-            elementEn.style.display = 'none';
-            elementEsp.style.display = 'block';
+            if(elementEn && elementEsp) {
+                elementEn.style.display = 'none';
+                elementEsp.style.display = 'block';
+            }
         }
     }
 
