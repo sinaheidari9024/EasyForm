@@ -64,11 +64,10 @@ namespace EasyForm.Controllers
             int userId = Convert.ToInt32(_userManager.GetUserId(User));
             var newItemId = await _userApplicationService.CreateNewUserApplication(userId);
             var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(newItemId);
-            var Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(newItemId);
 
             foreach (var part in result.Parts)
             {
-                part.Questions = Questions.Where(s => s.ApplicationPartId == newItemId).ToList();
+                part.IsCompleted = false;
             }
             return View("Edit", result);
         }
