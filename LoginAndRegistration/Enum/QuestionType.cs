@@ -16,6 +16,7 @@
         TextArea,
         Check,
         CheckText,
-        SpecialText
+        SpecialText,
+        CheckBoxTextBox
     }
 }
