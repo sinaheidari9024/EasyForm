@@ -293,8 +293,8 @@
                                 <div class="mb-3 col-12 d-flex flex-row align-items-center">
                                     <div>
                                         <label for="@form.Parts[i].Questions[j].Text" class="form-label">
-                                        @form.Parts[i].Questions[j].Number .
-                                    </label>
+                                            @form.Parts[i].Questions[j].Number .
+                                        </label>
                                     </div>
                                     <div class="form-check mx-2">
                                         <input class="form-check-input" type="checkbox" value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId">
@@ -309,6 +309,66 @@
                                         </label>
                                     </div>
                                 </div>
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.CheckText)
+                            {
+                                @if (form.Parts[i].Questions[j].Answer != null)
+                                {
+                                    <div class="mb-3 col-12 d-flex flex-column align-items-center">
+                                        <div class="col-12 d-flex flex-row p-0 mb-3">
+                                            <div>
+                                                <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                                    @form.Parts[i].Questions[j].Number .
+                                                </label>
+                                            </div>
+                                            <div class="form-check mx-2">
+                                                <input class="form-check-input" type="checkbox" checked value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId-check" onclick="checkForInpuCheckTex(@(JsonConvert.SerializeObject(@form.Parts[i].Questions[j])))">
+                                                <label for="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId" class="form-label">
+                                                    @form.Parts[i].Questions[j].Text
+                                                    @if (form.Parts[i].Questions[j].IsRequierd)
+                                                    {
+                                                        <small class="font-10">
+                                                            <i class="fa fa-asterisk text-danger"></i>
+                                                        </small>
+                                                    }
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 d-block" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()-box">
+                                            <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()-input" value="@form.Parts[i].Questions[j].Answer.Remove(0, 8)" />
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="mb-3 col-12 d-flex flex-column align-items-center">
+                                        <div class="col-12 d-flex flex-row p-0 mb-3">
+                                            <div>
+                                                <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                                    @form.Parts[i].Questions[j].Number .
+                                                </label>
+                                            </div>
+                                            <div class="form-check mx-2">
+                                                <input class="form-check-input" type="checkbox" value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId-check" onclick="checkForInpuCheckTex(@(JsonConvert.SerializeObject(@form.Parts[i].Questions[j])))">
+                                                <label for="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId" class="form-label">
+                                                    @form.Parts[i].Questions[j].Text
+                                                    @if (form.Parts[i].Questions[j].IsRequierd)
+                                                    {
+                                                        <small class="font-10">
+                                                            <i class="fa fa-asterisk text-danger"></i>
+                                                        </small>
+                                                    }
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 d-none" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()-box">
+                                            <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()-input" />
+                                        </div>
+                                    </div>
+                                }
+
                             }
                         }
                     </div>
@@ -601,8 +661,8 @@
                                 <div class="mb-3 col-12 d-flex flex-row align-items-center">
                                     <div>
                                         <label for="@form.Parts[i].Questions[j].Text" class="form-label">
-                                        @form.Parts[i].Questions[j].Number .
-                                    </label>
+                                            @form.Parts[i].Questions[j].Number .
+                                        </label>
                                     </div>
                                     <div class="form-check mx-2">
                                         <input class="form-check-input" type="checkbox" value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId">
@@ -617,6 +677,66 @@
                                         </label>
                                     </div>
                                 </div>
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.CheckText)
+                            {
+                                @if (form.Parts[i].Questions[j].Answer != null)
+                                {
+                                    <div class="mb-3 col-12 d-flex flex-column align-items-center">
+                                        <div class="col-12 d-flex flex-row p-0 mb-3">
+                                            <div>
+                                                <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                                    @form.Parts[i].Questions[j].Number .
+                                                </label>
+                                            </div>
+                                            <div class="form-check mx-2">
+                                                <input class="form-check-input" type="checkbox" checked value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId-check" onclick="checkForInpuCheckTex(@(JsonConvert.SerializeObject(@form.Parts[i].Questions[j])))">
+                                                <label for="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId" class="form-label">
+                                                    @form.Parts[i].Questions[j].SpanishText
+                                                    @if (form.Parts[i].Questions[j].IsRequierd)
+                                                    {
+                                                        <small class="font-10">
+                                                            <i class="fa fa-asterisk text-danger"></i>
+                                                        </small>
+                                                    }
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 d-block" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()-box">
+                                            <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()-input" value="@form.Parts[i].Questions[j].Answer" />
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="mb-3 col-12 d-flex flex-column align-items-center">
+                                        <div class="col-12 d-flex flex-row p-0 mb-3">
+                                            <div>
+                                                <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                                    @form.Parts[i].Questions[j].Number .
+                                                </label>
+                                            </div>
+                                            <div class="form-check mx-2">
+                                                <input class="form-check-input" type="checkbox" value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId-check" onclick="checkForInpuCheckTex(@(JsonConvert.SerializeObject(@form.Parts[i].Questions[j])))">
+                                                <label for="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId" class="form-label">
+                                                    @form.Parts[i].Questions[j].SpanishText
+                                                    @if (form.Parts[i].Questions[j].IsRequierd)
+                                                    {
+                                                        <small class="font-10">
+                                                            <i class="fa fa-asterisk text-danger"></i>
+                                                        </small>
+                                                    }
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 d-none" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()-box">
+                                            <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()-input" />
+                                        </div>
+                                    </div>
+                                }
+
                             }
                         }
                     </div>
@@ -682,7 +802,7 @@
                         if(question.IsRequierd == true && !item) {
                             break;
                         } else {
-                            if(item ) {
+                            if(item) {
                             var answer = {
                                 QuestionId: question.QuestionId,
                                 UserApplicationId: userAplicationId,
@@ -844,7 +964,33 @@
                         break;
                     } else {
                         break;
-                    }
+                        }
+
+                    //CheckText
+                    case 13:
+                        const checkElement = document.getElementById(question.Text + question.QuestionId.toString() + '-check');
+                        if (checkElement.checked) {
+                            const inputElement = document.getElementById(question.Text + question.QuestionId.toString() + '-input');
+                            if (inputElement.value) {
+                                var answer = {
+                                    QuestionId: question.QuestionId,
+                                    UserApplicationId: userAplicationId,
+                                    Text: "Checked:" + inputElement.value
+                                };
+                                answerList.push(answer);
+                                break;
+                            } else {
+                                var answer = {
+                                    QuestionId: question.QuestionId,
+                                    UserApplicationId: userAplicationId,
+                                    Text: "Checked:"
+                                };
+                                answerList.push(answer);
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
                     default:
                         break;
                 }
@@ -858,6 +1004,17 @@
         contentType: 'application/json',
         data: JSON.stringify(answerList),
         });
+    }
+
+    function checkForInpuCheckTex(question) {
+        var checkElement = document.getElementById(question.Text + question.QuestionId + "-check");
+        if (checkElement.checked) {
+            document.getElementById(question.Text + question.QuestionId + "-box").classList.remove("d-none")
+            document.getElementById(question.Text + question.QuestionId + "-box").classList.add("d-block");
+        } else {
+            document.getElementById(question.Text + question.QuestionId + "-box").classList.remove("d-block");
+            document.getElementById(question.Text + question.QuestionId + "-box").classList.add("d-none");
+        }
     }
 </script>
 <script type="text/javascript">
