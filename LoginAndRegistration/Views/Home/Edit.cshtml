@@ -268,7 +268,7 @@
                             }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.Note)
                             {
-                                <div class="mb-3 col-12 col-md-6">
+                                <div class="mb-3 col-12">
                                     <p> @form.Parts[i].Questions[j].Text</p>
                                 </div>
                             }
@@ -636,7 +636,7 @@
                             }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.Note)
                             {
-                                <div class="mb-3 col-12 col-md-6">
+                                <div class="mb-3 col-12">
                                     <p> @form.Parts[i].Questions[j].SpanishText</p>
                                 </div>
                             }
@@ -1003,6 +1003,9 @@
         cache: false,
         contentType: 'application/json',
         data: JSON.stringify(answerList),
+            success: function (result) {
+                window.location = result.redirectToUrl;
+                }
         });
     }
 

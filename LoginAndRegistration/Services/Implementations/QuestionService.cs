@@ -74,11 +74,14 @@ namespace EasyForm.Services.Implementations
                     Answer = answer?.Text,
                     ApplicationPartId = item.ApplicationPartId,
                     Text = item.Text,
+                    SpanishText = item.SpanishText,
                     IsRequierd = item.IsRequierd,
                     Type = item.Type,
                     Number = item.Number,
                     QuestionId = item.Id,
                     Items = questionItems,
+                    MaxLengh = item.MaxLengh,
+                    Minlengh = item.Minlengh,
                     Table1 = answer != null && item.Type == QuestionType.Table1 ? Newtonsoft.Json.JsonConvert.DeserializeObject<List<Table1>>(answer.Text) : null,
                     Table2 = answer != null && item.Type == QuestionType.Table2 ? Newtonsoft.Json.JsonConvert.DeserializeObject<List<Table2>>(answer.Text) : null
                 });

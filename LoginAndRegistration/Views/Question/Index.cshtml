@@ -80,7 +80,7 @@
                     @Html.ActionLink("Delete", "Delete", new { QuestionId = item.Id }, new { @class = "details-link" })
 
                     @{
-                        if (item.Type == QuestionType.DropDown || item.Type == QuestionType.CheckBox || item.Type == QuestionType.OptionBox)
+                        if (item.Type == QuestionType.DropDown || item.Type == QuestionType.CheckBox || item.Type == QuestionType.OptionBox || item.Type == QuestionType.CheckBoxTextBox)
                         {
                             @Html.ActionLink("Items", "Index", "QuestionItem", new { QuestionId = item.Id }, new { @class = "details-link" });
                         }

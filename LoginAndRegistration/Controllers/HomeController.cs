@@ -37,25 +37,17 @@ namespace EasyForm.Controllers
             _answerService = answerService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             int userId = Convert.ToInt32(_userManager.GetUserId(User));
             var userApplications = await _userApplicationService.GetUserApplicationsAsync(userId);
-            return View(userApplications);
+            return View("Index", userApplications);
         }
 
         public async Task<IActionResult> Edit(int userApplicationId)
         {
             var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(userApplicationId);
-            //var Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(userApplicationId);
-
-            //foreach (var part in result.Parts)
-            //{
-            //    part.Questions = Questions.Where(s => s.ApplicationPartId == userApplicationId).ToList();
-            //    part.IsCompleted = !Questions.Any(s => s.ApplicationPartId == userApplicationId
-            //                                        && s.IsRequierd
-            //                                        && string.IsNullOrEmpty(s.Answer));
-            //}
 
             foreach (var part in result.Parts)
             {
@@ -72,11 +64,10 @@ namespace EasyForm.Controllers
             int userId = Convert.ToInt32(_userManager.GetUserId(User));
             var newItemId = await _userApplicationService.CreateNewUserApplication(userId);
             var result = await _userApplicationService.GetUserApplicationIncludePartsAsync(newItemId);
-            var Questions = await _questionService.GetQuestionIncludeItemsAndAnswerAsync(newItemId);
 
             foreach (var part in result.Parts)
             {
-                part.Questions = Questions.Where(s => s.ApplicationPartId == newItemId).ToList();
+                part.IsCompleted = false;
             }
             return View("Edit", result);
         }
@@ -131,11 +122,9 @@ namespace EasyForm.Controllers
                                                         && string.IsNullOrEmpty(s.Answer));
                 }
 
-                return View("Edit", result);
+                return View(false);
             }
-            int userId = Convert.ToInt32(_userManager.GetUserId(User));
-            var userApplications = await _userApplicationService.GetUserApplicationsAsync(userId);
-            return View("Index", userApplications);
+            return Json(new { redirectToUrl = Url.Action("Index", "Home") });
         }
     }
 }

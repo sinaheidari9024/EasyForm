@@ -38,14 +38,14 @@
                                     <li class="nav-item">
                                         @Html.ActionLink("UserApplication", "Index", "UserApplication",
                             new DataGridSearch
-                                 {
-                                     PageNumber = 1,
-                                     Email = null,
-                                     PageCount = 10,
-                                     SortBy = "CreationDate"
+                            {
+                            PageNumber = 1,
+                            Email = null,
+                            PageCount = 10,
+                            SortBy = "CreationDate"
                             ,
-                                     SortDir = "Asc"
-                                 }, new { @class = "nav-link text-dark" })
+                            SortDir = "Asc"
+                            }, new { @class = "nav-link text-dark" })
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Application" asp-action="Index">Application</a>
@@ -61,12 +61,12 @@
                             <ul class="navbar-nav d-flex justify-content-end">
                                 <li class="nav-item mx-2">
                                     <div class="dropdown">
-                                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn btn-primary dropdown-toggle d-flex flex-row align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <span id="lang-en">
                                                 <img src="~/img/en.png" />
                                                 EN
                                             </span>
-                                            <span id="lang-esp" class="d-none">
+                                            <span id="lang-esp">
                                                 <img src="~/img/esp.png" />
                                                 ESP
                                             </span>
@@ -137,6 +137,8 @@
 
 <script type="text/javascript">
 
+    document.getElementById('lang-esp').style.display = "none";
+
     function spinnerLoader() {
         $("#spinnerLoader").show();
     }
@@ -156,16 +158,24 @@
     }
 
     function setLang(lang) {
+        debugger;
         const elementEn = document.getElementById('accordionEn');
         const elementEsp = document.getElementById('accordionEsp');
         if (lang === 'lang-en') {
+            document.getElementById('lang-en').style.display = 'block';
+            document.getElementById('lang-esp').style.display = 'none';
             if (elementEn && elementEsp) {
                 elementEn.style.display = 'block';
                 elementEsp.style.display = 'none';
             }
         } else if (lang === 'lang-esp') {
-            elementEn.style.display = 'none';
-            elementEsp.style.display = 'block';
+            document.getElementById('lang-en').style.display = 'none';
+            document.getElementById('lang-esp').style.display = 'block';
+
+            if(elementEn && elementEsp) {
+                elementEn.style.display = 'none';
+                elementEsp.style.display = 'block';
+            }
         }
     }
 
