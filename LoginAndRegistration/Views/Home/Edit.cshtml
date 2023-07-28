@@ -388,7 +388,7 @@
                                         else if (form.Parts[i].Questions[j].Text[k].Equals('#') && isInInputRange == false)
                                         {
                                             isInInputRange = true;
-                                            if (form.Parts[i].Questions[j].Answer.Length > 0)
+                                            if (form.Parts[i].Questions[j].Answer != null && form.Parts[i].Questions[j].Answer.Length > 0)
                                             {
                                                 var answerListPush = form.Parts[i].Questions[j].Answer.Split(',');
                                                 for (int d = 0; d < answerListPush.Length; d++)

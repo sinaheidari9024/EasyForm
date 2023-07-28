@@ -93,7 +93,7 @@ namespace EasyForm.Controllers
                     );
                 }
                 model.Applications = applications;
-                return View(Constants.CreateAction, model);
+                return View(Constants.CreateAction, model.ApplicationId);
             }
             var part = _mapper.Map<ApplicationPart>(model);
 
@@ -109,8 +109,7 @@ namespace EasyForm.Controllers
                 _logger.LogError($"{Constants.UserError}: \"We have some problem in creating this part.");
 
             }
-            var response = await _partService.GetApplicationPartsAsync();
-            return RedirectToAction(Constants.IndexAction, response);
+            return RedirectToAction(Constants.IndexAction, model.ApplicationId);
         }
 
         [HttpGet]
@@ -156,8 +155,7 @@ namespace EasyForm.Controllers
                 TempData[Constants.IsShow] = "We have some problem in update this part.";
                 _logger.LogError($"{Constants.UserError}: \"We have some problem in update this part.");
             }
-            var response = await _partService.GetApplicationPartsAsync();
-            return RedirectToAction(Constants.IndexAction, response);
+            return RedirectToAction(Constants.IndexAction, model.ApplicationId);
         }
 
         public async Task<IActionResult> Delete(int partId)
