@@ -297,7 +297,15 @@
                                         </label>
                                     </div>
                                     <div class="form-check mx-2">
-                                        <input class="form-check-input" type="checkbox" value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId">
+                                        @if (form.Parts[i].Questions[j].Answer != null && form.Parts[i].Questions[j].Answer.Contains("checked"))
+                                        {
+                                            <input class="form-check-input" type="checkbox" checked value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId">
+                                        }
+                                        else
+                                        {
+                                            <input class="form-check-input" type="checkbox" value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId">
+                                        }
+
                                         <label for="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId" class="form-label">
                                             @form.Parts[i].Questions[j].Text
                                             @if (form.Parts[i].Questions[j].IsRequierd)
@@ -712,7 +720,14 @@
                                         </label>
                                     </div>
                                     <div class="form-check mx-2">
-                                        <input class="form-check-input" type="checkbox" value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId">
+                                        @if (form.Parts[i].Questions[j].Answer != null && form.Parts[i].Questions[j].Answer.Contains("checked"))
+                                        {
+                                            <input class="form-check-input" type="checkbox" checked value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId">
+                                        }
+                                        else
+                                        {
+                                            <input class="form-check-input" type="checkbox" value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId">
+                                        }
                                         <label for="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId" class="form-label">
                                             @form.Parts[i].Questions[j].SpanishText
                                             @if (form.Parts[i].Questions[j].IsRequierd)
@@ -783,7 +798,53 @@
                                         </div>
                                     </div>
                                 }
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.SpecialText)
+                            {
+                                <div class="mb-3 col-12 d-flex flex-row align-items-center">
+                                    <span>@form.Parts[i].Questions[j].Number. </span>
+                                    @{
+                                        bool isInInputRange = false;
+                                        var answerIndex = 0;
+                                    }
+                                    @for (var k = 0; k < form.Parts[i].Questions[j].SpanishText.Length; k++)
+                                    {
+                                        @if (form.Parts[i].Questions[j].SpanishText[k].Equals(' '))
+                                        {
 
+                                            <span class="special-text-letter-spacing"></span>
+                                        }
+                                        else if (form.Parts[i].Questions[j].SpanishText[k].Equals('#') && isInInputRange == false)
+                                        {
+                                            isInInputRange = true;
+                                            if (form.Parts[i].Questions[j].Answer.Length > 0)
+                                            {
+                                                var answerListPush = form.Parts[i].Questions[j].Answer.Split(',');
+                                                for (int d = 0; d < answerListPush.Length; d++)
+                                                {
+                                                    var index = answerListPush[d].IndexOf(':');
+                                                    answerListPush[d] = answerListPush[d].Substring(index + 1);
+                                                }
+                                                <input type="text" class="form-control w-25 mx-1" id="@k.ToString()" value="@answerListPush[answerIndex]" />
+                                                answerIndex = answerIndex + 1;
+                                            }
+                                            else
+                                            {
+                                                <input type="text" class="form-control w-25 mx-1" id="@k.ToString()" />
+                                            }
+
+                                        }
+                                        else if (form.Parts[i].Questions[j].SpanishText[k].Equals('#') && isInInputRange == true)
+                                        {
+                                            isInInputRange = false;
+                                        }
+                                        else if (isInInputRange == false)
+                                        {
+                                            <span>@form.Parts[i].Questions[j].SpanishText[k]</span>
+                                        }
+
+                                    }
+                                </div>
                             }
                         }
                     </div>
