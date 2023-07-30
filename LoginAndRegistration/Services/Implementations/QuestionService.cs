@@ -5,6 +5,7 @@ using EasyForm.Models;
 using EasyForm.Services.Contracts;
 using EasyForm.Stores.Contracts;
 using EasyForm.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -58,7 +59,19 @@ namespace EasyForm.Services.Implementations
                     {
                         foreach (var questionItem in item.QuestionItems)
                         {
-                            List<int> intTest = answer?.Text?.Split(',').Select(int.Parse).ToList();
+                        List<int> intTest = new List<int>();
+                        var test = answer?.Text?.Split(',');
+                        if(test!= null)
+                        {
+
+                        foreach(var item2 in test)
+                        {
+                            if (int.TryParse(item2, out int value))
+                            {
+                                intTest.Add(Convert.ToInt32(item2));
+                            }
+                        }
+                        }
                             var isChecked = intTest != null && intTest.Contains(questionItem.Id);
                             questionItems.Add(new QuestionItemVm
                             {
