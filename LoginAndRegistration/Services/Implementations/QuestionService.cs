@@ -54,7 +54,7 @@ namespace EasyForm.Services.Implementations
                 var questionItems = new List<QuestionItemVm>();
 
 
-                    if (item.Type == QuestionType.DropDown || item.Type == QuestionType.CheckBox || item.Type == QuestionType.OptionBox)
+                    if (item.Type == QuestionType.DropDown || item.Type == QuestionType.CheckBox || item.Type == QuestionType.OptionBox || item.Type == QuestionType.CheckBoxTextBox)
                     {
                         foreach (var questionItem in item.QuestionItems)
                         {
