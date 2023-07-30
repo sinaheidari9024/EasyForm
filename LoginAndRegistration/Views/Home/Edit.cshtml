@@ -439,7 +439,7 @@
                                     </label>
                                     @for (var k = 0; k < form.Parts[i].Questions[j].Items.Count; k++)
                                     {
-                                        @if (form.Parts[i].Questions[j].Answer.Contains(form.Parts[i].Questions[j].Items[k].Id.ToString()))
+                                        @if (form.Parts[i].Questions[j].Answer != null && form.Parts[i].Questions[j].Answer.Contains(form.Parts[i].Questions[j].Items[k].Id.ToString()))
                                         {
                                             <div class="form-check mx-2">
                                                 <input class="form-check-input" checked type="checkbox" value="" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id">
@@ -459,7 +459,15 @@
                                         }
 
                                     }
-                                    <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" value="@form.Parts[i].Questions[j].Answer.Remove(0, form.Parts[i].Questions[j].Answer.IndexOf(":"))" />
+                                    @if (@form.Parts[i].Questions[j].Answer != null)
+                                    {
+                                        <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" value="@form.Parts[i].Questions[j].Answer.Remove(0, form.Parts[i].Questions[j].Answer.IndexOf(":") + 1)" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" value="" />
+                                    }
+
                                 </div>
                             }
                         }
@@ -881,6 +889,51 @@
                                         }
 
                                     }
+                                </div>
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.CheckBoxTextBox)
+                            {
+                                <div class="mb-3 col-12 d-flex flex-row align-items-center">
+                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label" style="width: 55px">
+                                        @form.Parts[i].Questions[j].Number .
+                                        @if (form.Parts[i].Questions[j].IsRequierd)
+                                        {
+                                            <small class="font-10">
+                                                <i class="fa fa-asterisk text-danger"></i>
+                                            </small>
+                                        }
+                                    </label>
+                                    @for (var k = 0; k < form.Parts[i].Questions[j].Items.Count; k++)
+                                    {
+                                        @if (form.Parts[i].Questions[j].Answer != null && form.Parts[i].Questions[j].Answer.Contains(form.Parts[i].Questions[j].Items[k].Id.ToString()))
+                                        {
+                                            <div class="form-check mx-2">
+                                                <input class="form-check-input" checked type="checkbox" value="" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id">
+                                                <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
+                                                    @form.Parts[i].Questions[j].Items[k].SpanishTitle
+                                                </label>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-check mx-2">
+                                                <input class="form-check-input" type="checkbox" value="" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id">
+                                                <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
+                                                    @form.Parts[i].Questions[j].Items[k].SpanishTitle
+                                                </label>
+                                            </div>
+                                        }
+
+                                    }
+                                    @if (@form.Parts[i].Questions[j].Answer != null)
+                                    {
+                                        <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" value="@form.Parts[i].Questions[j].Answer.Remove(0, form.Parts[i].Questions[j].Answer.IndexOf(":") + 1)" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" value="" />
+                                    }
+
                                 </div>
                             }
                         }
