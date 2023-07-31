@@ -115,8 +115,46 @@
                             }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.Table1)
                             {
-                                <div class"mb-3 col-12">
-                                    <table class="table w-100">
+                                <div class="mb-3 col-12">
+                                    <div>
+                                        <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                            @form.Parts[i].Questions[j].Number .
+                                            @form.Parts[i].Questions[j].Text
+                                            @if (form.Parts[i].Questions[j].IsRequierd)
+                                            {
+                                                <small class="font-10">
+                                                    <i class="fa fa-asterisk text-danger"></i>
+                                                </small>
+                                            }
+                                        </label>
+                                    </div>
+                                    <div class="d-flex flex-wrap justify-content-between">
+                                        <div class="mb-3 col-12 col-md-auto p-3">
+                                            <label for="benefit-received" class="form-label">Benefit Received</label>
+                                            <input type="text" class="form-control" id="@form.Parts[i].Questions[j].QuestionId-benefit-received" placeholder="">
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-auto p-3">
+                                            <label for="start-date" class="form-label">Start Date</label>
+                                            <input type="date" placeholder="..." class="form-control" id="@form.Parts[i].Questions[j].QuestionId-start-date" />
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-auto p-3">
+                                            <label for="end-date" class="form-label">End Date</label>
+                                            <input type="date" placeholder="..." class="form-control" id="@form.Parts[i].Questions[j].QuestionId-end-date" />
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-auto p-3">
+                                            <label for="dollar-amount" class="form-label">Dollar Amount</label>
+                                            <input type="number" placeholder="..." class="form-control" id="@form.Parts[i].Questions[j].QuestionId-dollar-amount" />
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-auto p-3 d-flex align-items-end">
+                                            <button class="btn btn-success" onclick="onAddTable1(@(JsonConvert.SerializeObject(form.Parts[i].Questions[j].QuestionId)))">Save</button>
+                                        </div>
+                                    </div>
+
+                                    <table class="table w-100 table-striped table-bordered" id="@form.Parts[i].Questions[j].QuestionId-table1">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Benefit Received</th>
@@ -125,7 +163,20 @@
                                                 <th scope="col">Dollar Amount</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="@form.Parts[i].Questions[j].QuestionId-table1-body">
+                                            @if (form.Parts[i].Questions[j].Answer != null && form.Parts[i].Questions[j].Answer.Length > 0)
+                                            {
+                                                var dataList = JsonConvert.DeserializeObject<List<Table1>>(form.Parts[i].Questions[j].Answer);
+                                                for (var k = 0; k < dataList.Count; k++)
+                                                {
+                                                    <tr>
+                                                        <td>@dataList[k].BenefitReceived</td>
+                                                        <td>@dataList[k].StartDate</td>
+                                                        <td>@dataList[k].EndDate</td>
+                                                        <td>@dataList[k].DollarAmount</td>
+                                                    </tr>
+                                                }
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -133,16 +184,67 @@
                             @if (form.Parts[i].Questions[j].Type == QuestionType.Table2)
                             {
                                 <div class="mb-3 col-12">
-                                    <table class="table w-100">
+                                    <div>
+                                        <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                            @form.Parts[i].Questions[j].Number .
+                                            @form.Parts[i].Questions[j].Text
+                                            @if (form.Parts[i].Questions[j].IsRequierd)
+                                            {
+                                                <small class="font-10">
+                                                    <i class="fa fa-asterisk text-danger"></i>
+                                                </small>
+                                            }
+                                        </label>
+                                    </div>
+                                    <div class="d-flex flex-wrap justify-content-between">
+                                        <div class="mb-3 col-12 col-md-auto p-3">
+                                            <label for="benefit-received" class="form-label">Institution Name</label>
+                                            <input type="text" class="form-control" id="@form.Parts[i].Questions[j].QuestionId-institution-name" placeholder="">
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-auto p-3">
+                                            <label for="start-date" class="form-label">Start Date</label>
+                                            <input type="date" placeholder="..." class="form-control" id="@form.Parts[i].Questions[j].QuestionId-start-date" />
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-auto p-3">
+                                            <label for="end-date" class="form-label">End Date</label>
+                                            <input type="date" placeholder="..." class="form-control" id="@form.Parts[i].Questions[j].QuestionId-end-date" />
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-auto p-3">
+                                            <label for="dollar-amount" class="form-label">Reason</label>
+                                            <input type="text" placeholder="..." class="form-control" id="@form.Parts[i].Questions[j].QuestionId-reason" />
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-auto p-3 d-flex align-items-end">
+                                            <button class="btn btn-success" onclick="onAddTable2(@(JsonConvert.SerializeObject(form.Parts[i].Questions[j].QuestionId)))">Save</button>
+                                        </div>
+                                    </div>
+
+                                    <table class="table w-100 table-striped table-bordered" id="@form.Parts[i].Questions[j].QuestionId-table2">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Institution Name/City/State</th>
-                                                <th scope="col">Date From</th>
-                                                <th scope="col">Date To</th>
+                                                <th scope="col">Institution Name</th>
+                                                <th scope="col">Start Date</th>
+                                                <th scope="col">End Date</th>
                                                 <th scope="col">Reason</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="@form.Parts[i].Questions[j].QuestionId-table2-body">
+                                            @if (form.Parts[i].Questions[j].Answer != null && form.Parts[i].Questions[j].Answer.Length > 0)
+                                            {
+                                                var dataList = JsonConvert.DeserializeObject<List<Table2>>(form.Parts[i].Questions[j].Answer);
+                                                for (var k = 0; k < dataList.Count; k++)
+                                                {
+                                                    <tr>
+                                                        <td>@dataList[k].InstitutionName</td>
+                                                        <td>@dataList[k].StartDate</td>
+                                                        <td>@dataList[k].EndDate</td>
+                                                        <td>@dataList[k].Reason</td>
+                                                    </tr>
+                                                }
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -297,7 +399,15 @@
                                         </label>
                                     </div>
                                     <div class="form-check mx-2">
-                                        <input class="form-check-input" type="checkbox" value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId">
+                                        @if (form.Parts[i].Questions[j].Answer != null && form.Parts[i].Questions[j].Answer.Contains("checked"))
+                                        {
+                                            <input class="form-check-input" type="checkbox" checked value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId">
+                                        }
+                                        else
+                                        {
+                                            <input class="form-check-input" type="checkbox" value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId">
+                                        }
+
                                         <label for="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId" class="form-label">
                                             @form.Parts[i].Questions[j].Text
                                             @if (form.Parts[i].Questions[j].IsRequierd)
@@ -368,7 +478,6 @@
                                         </div>
                                     </div>
                                 }
-
                             }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.SpecialText)
                             {
@@ -415,6 +524,51 @@
                                         }
 
                                     }
+                                </div>
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.CheckBoxTextBox)
+                            {
+                                <div class="mb-3 col-12 d-flex flex-row align-items-center">
+                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label" style="width: 55px">
+                                        @form.Parts[i].Questions[j].Number .
+                                        @if (form.Parts[i].Questions[j].IsRequierd)
+                                        {
+                                            <small class="font-10">
+                                                <i class="fa fa-asterisk text-danger"></i>
+                                            </small>
+                                        }
+                                    </label>
+                                    @for (var k = 0; k < form.Parts[i].Questions[j].Items.Count; k++)
+                                    {
+                                        @if (form.Parts[i].Questions[j].Answer != null && form.Parts[i].Questions[j].Answer.Contains(form.Parts[i].Questions[j].Items[k].Id.ToString()))
+                                        {
+                                            <div class="form-check mx-2">
+                                                <input class="form-check-input" checked type="checkbox" value="" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id">
+                                                <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
+                                                    @form.Parts[i].Questions[j].Items[k].Title
+                                                </label>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-check mx-2">
+                                                <input class="form-check-input" type="checkbox" value="" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id">
+                                                <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
+                                                    @form.Parts[i].Questions[j].Items[k].Title
+                                                </label>
+                                            </div>
+                                        }
+
+                                    }
+                                    @if (@form.Parts[i].Questions[j].Answer != null)
+                                    {
+                                        <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" value="@form.Parts[i].Questions[j].Answer.Remove(0, form.Parts[i].Questions[j].Answer.IndexOf(":") + 1)" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" value="" />
+                                    }
+
                                 </div>
                             }
                         }
@@ -530,17 +684,68 @@
                             }
                             @if (form.Parts[i].Questions[j].Type == QuestionType.Table1)
                             {
-                                <div class"mb-3 col-12">
-                                    <table class="table w-100">
+                                <div class="mb-3 col-12">
+                                    <div>
+                                        <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                            @form.Parts[i].Questions[j].Number .
+                                            @form.Parts[i].Questions[j].SpanishText
+                                            @if (form.Parts[i].Questions[j].IsRequierd)
+                                            {
+                                                <small class="font-10">
+                                                    <i class="fa fa-asterisk text-danger"></i>
+                                                </small>
+                                            }
+                                        </label>
+                                    </div>
+                                    <div class="d-flex flex-wrap justify-content-between">
+                                        <div class="mb-3 col-12 col-md-auto p-3">
+                                            <label for="benefit-received" class="form-label">Beneficio recibido</label>
+                                            <input type="text" class="form-control" id="@form.Parts[i].Questions[j].QuestionId-benefit-received" placeholder="">
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-auto p-3">
+                                            <label for="start-date" class="form-label">Fecha de inicio</label>
+                                            <input type="date" placeholder="..." class="form-control" id="@form.Parts[i].Questions[j].QuestionId-start-date" />
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-auto p-3">
+                                            <label for="end-date" class="form-label">Fecha final</label>
+                                            <input type="date" placeholder="..." class="form-control" id="@form.Parts[i].Questions[j].QuestionId-end-date" />
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-auto p-3">
+                                            <label for="dollar-amount" class="form-label">Monto en dólares</label>
+                                            <input type="number" placeholder="..." class="form-control" id="@form.Parts[i].Questions[j].QuestionId-dollar-amount" />
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-auto p-3 d-flex align-items-end">
+                                            <button class="btn btn-success" onclick="onAddTable1(@(JsonConvert.SerializeObject(form.Parts[i].Questions[j].QuestionId)))">Ahorrar</button>
+                                        </div>
+                                    </div>
+
+                                    <table class="table w-100 table-striped table-bordered" id="@form.Parts[i].Questions[j].QuestionId-table1">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Benefit Received</th>
-                                                <th scope="col">Start Date</th>
-                                                <th scope="col">End Date</th>
-                                                <th scope="col">Dollar Amount</th>
+                                                <th scope="col">Beneficio recibido</th>
+                                                <th scope="col">Fecha de inicio</th>
+                                                <th scope="col">Fecha final</th>
+                                                <th scope="col">Monto en dólares</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="@form.Parts[i].Questions[j].QuestionId-table1-body">
+                                            @if (form.Parts[i].Questions[j].Answer != null && form.Parts[i].Questions[j].Answer.Length > 0)
+                                            {
+                                                var dataList = JsonConvert.DeserializeObject<List<Table1>>(form.Parts[i].Questions[j].Answer);
+                                                for (var k = 0; k < dataList.Count; k++)
+                                                {
+                                                    <tr>
+                                                        <td>@dataList[k].BenefitReceived</td>
+                                                        <td>@dataList[k].StartDate</td>
+                                                        <td>@dataList[k].EndDate</td>
+                                                        <td>@dataList[k].DollarAmount</td>
+                                                    </tr>
+                                                }
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -548,16 +753,67 @@
                             @if (form.Parts[i].Questions[j].Type == QuestionType.Table2)
                             {
                                 <div class="mb-3 col-12">
-                                    <table class="table w-100">
+                                    <div>
+                                        <label for="@form.Parts[i].Questions[j].Text" class="form-label">
+                                            @form.Parts[i].Questions[j].Number .
+                                            @form.Parts[i].Questions[j].SpanishText
+                                            @if (form.Parts[i].Questions[j].IsRequierd)
+                                            {
+                                                <small class="font-10">
+                                                    <i class="fa fa-asterisk text-danger"></i>
+                                                </small>
+                                            }
+                                        </label>
+                                    </div>
+                                    <div class="d-flex flex-wrap justify-content-between">
+                                        <div class="mb-3 col-12 col-md-auto p-3">
+                                            <label for="benefit-received" class="form-label">Nombre de la Institución</label>
+                                            <input type="text" class="form-control" id="@form.Parts[i].Questions[j].QuestionId-institution-name" placeholder="">
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-auto p-3">
+                                            <label for="start-date" class="form-label">Fecha de inicio</label>
+                                            <input type="date" placeholder="..." class="form-control" id="@form.Parts[i].Questions[j].QuestionId-start-date" />
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-auto p-3">
+                                            <label for="end-date" class="form-label">Fecha final</label>
+                                            <input type="date" placeholder="..." class="form-control" id="@form.Parts[i].Questions[j].QuestionId-end-date" />
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-auto p-3">
+                                            <label for="dollar-amount" class="form-label">Razón</label>
+                                            <input type="text" placeholder="..." class="form-control" id="@form.Parts[i].Questions[j].QuestionId-reason" />
+                                        </div>
+
+                                        <div class="mb-3 col-12 col-md-auto p-3 d-flex align-items-end">
+                                            <button class="btn btn-success" onclick="onAddTable2(@(JsonConvert.SerializeObject(form.Parts[i].Questions[j].QuestionId)))">Save</button>
+                                        </div>
+                                    </div>
+
+                                    <table class="table w-100 table-striped table-bordered" id="@form.Parts[i].Questions[j].QuestionId-table2">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Institution Name/City/State</th>
-                                                <th scope="col">Date From</th>
-                                                <th scope="col">Date To</th>
-                                                <th scope="col">Reason</th>
+                                                <th scope="col">Nombre de la Institución</th>
+                                                <th scope="col">Fecha de inicio</th>
+                                                <th scope="col">Fecha final</th>
+                                                <th scope="col">Razón</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="@form.Parts[i].Questions[j].QuestionId-table2-body">
+                                            @if (form.Parts[i].Questions[j].Answer != null && form.Parts[i].Questions[j].Answer.Length > 0)
+                                            {
+                                                var dataList = JsonConvert.DeserializeObject<List<Table2>>(form.Parts[i].Questions[j].Answer);
+                                                for (var k = 0; k < dataList.Count; k++)
+                                                {
+                                                    <tr>
+                                                        <td>@dataList[k].InstitutionName</td>
+                                                        <td>@dataList[k].StartDate</td>
+                                                        <td>@dataList[k].EndDate</td>
+                                                        <td>@dataList[k].Reason</td>
+                                                    </tr>
+                                                }
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -712,7 +968,14 @@
                                         </label>
                                     </div>
                                     <div class="form-check mx-2">
-                                        <input class="form-check-input" type="checkbox" value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId">
+                                        @if (form.Parts[i].Questions[j].Answer != null && form.Parts[i].Questions[j].Answer.Contains("checked"))
+                                        {
+                                            <input class="form-check-input" type="checkbox" checked value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId">
+                                        }
+                                        else
+                                        {
+                                            <input class="form-check-input" type="checkbox" value="" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId">
+                                        }
                                         <label for="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId" class="form-label">
                                             @form.Parts[i].Questions[j].SpanishText
                                             @if (form.Parts[i].Questions[j].IsRequierd)
@@ -783,7 +1046,98 @@
                                         </div>
                                     </div>
                                 }
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.SpecialText)
+                            {
+                                <div class="mb-3 col-12 d-flex flex-row align-items-center">
+                                    <span>@form.Parts[i].Questions[j].Number. </span>
+                                    @{
+                                        bool isInInputRange = false;
+                                        var answerIndex = 0;
+                                    }
+                                    @for (var k = 0; k < form.Parts[i].Questions[j].SpanishText.Length; k++)
+                                    {
+                                        @if (form.Parts[i].Questions[j].SpanishText[k].Equals(' '))
+                                        {
 
+                                            <span class="special-text-letter-spacing"></span>
+                                        }
+                                        else if (form.Parts[i].Questions[j].SpanishText[k].Equals('#') && isInInputRange == false)
+                                        {
+                                            isInInputRange = true;
+                                            if (form.Parts[i].Questions[j].Answer.Length > 0)
+                                            {
+                                                var answerListPush = form.Parts[i].Questions[j].Answer.Split(',');
+                                                for (int d = 0; d < answerListPush.Length; d++)
+                                                {
+                                                    var index = answerListPush[d].IndexOf(':');
+                                                    answerListPush[d] = answerListPush[d].Substring(index + 1);
+                                                }
+                                                <input type="text" class="form-control w-25 mx-1" id="@k.ToString()" value="@answerListPush[answerIndex]" />
+                                                answerIndex = answerIndex + 1;
+                                            }
+                                            else
+                                            {
+                                                <input type="text" class="form-control w-25 mx-1" id="@k.ToString()" />
+                                            }
+
+                                        }
+                                        else if (form.Parts[i].Questions[j].SpanishText[k].Equals('#') && isInInputRange == true)
+                                        {
+                                            isInInputRange = false;
+                                        }
+                                        else if (isInInputRange == false)
+                                        {
+                                            <span>@form.Parts[i].Questions[j].SpanishText[k]</span>
+                                        }
+
+                                    }
+                                </div>
+                            }
+                            @if (form.Parts[i].Questions[j].Type == QuestionType.CheckBoxTextBox)
+                            {
+                                <div class="mb-3 col-12 d-flex flex-row align-items-center">
+                                    <label for="@form.Parts[i].Questions[j].Text" class="form-label" style="width: 55px">
+                                        @form.Parts[i].Questions[j].Number .
+                                        @if (form.Parts[i].Questions[j].IsRequierd)
+                                        {
+                                            <small class="font-10">
+                                                <i class="fa fa-asterisk text-danger"></i>
+                                            </small>
+                                        }
+                                    </label>
+                                    @for (var k = 0; k < form.Parts[i].Questions[j].Items.Count; k++)
+                                    {
+                                        @if (form.Parts[i].Questions[j].Answer != null && form.Parts[i].Questions[j].Answer.Contains(form.Parts[i].Questions[j].Items[k].Id.ToString()))
+                                        {
+                                            <div class="form-check mx-2">
+                                                <input class="form-check-input" checked type="checkbox" value="" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id">
+                                                <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
+                                                    @form.Parts[i].Questions[j].Items[k].SpanishTitle
+                                                </label>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-check mx-2">
+                                                <input class="form-check-input" type="checkbox" value="" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id">
+                                                <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
+                                                    @form.Parts[i].Questions[j].Items[k].SpanishTitle
+                                                </label>
+                                            </div>
+                                        }
+
+                                    }
+                                    @if (@form.Parts[i].Questions[j].Answer != null)
+                                    {
+                                        <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" value="@form.Parts[i].Questions[j].Answer.Remove(0, form.Parts[i].Questions[j].Answer.IndexOf(":") + 1)" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="form-control" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId.ToString()" value="" />
+                                    }
+
+                                </div>
                             }
                         }
                     </div>
@@ -903,6 +1257,63 @@
                         break;
                     }
 
+                    //Table1
+                    case 4:
+                    var tableBody = document.getElementById(question.QuestionId + "-table1-body");
+                    var rowLength = tableBody.rows.length;
+                    var tableDataList = []
+                    if(rowLength > 0) {
+                        for (i = 0; i < rowLength; i++) {
+                         var rowCells = tableBody.rows.item(i).cells;
+                         var cellLength = rowCells.length;
+                         const rowData = {
+                             BenefitReceived: rowCells.item(0).innerHTML,
+                             StartDate: rowCells.item(1).innerHTML,
+                             EndDate: rowCells.item(2).innerHTML,
+                             DollarAmount: rowCells.item(3).innerHTML,
+                         }
+                         tableDataList.push(rowData);
+                        }
+                        var answer = {
+                            QuestionId: question.QuestionId,
+                            UserApplicationId: userAplicationId,
+                            Text: JSON.stringify(tableDataList)
+                        }
+                        answerList.push(answer);
+                        break;
+                    } else {
+                        break;
+                    }
+                    break;
+
+                    //Table2
+                    case 5:
+                    var tableBody = document.getElementById(question.QuestionId + "-table2-body");
+                    var rowLength = tableBody.rows.length;
+                    var tableDataList = []
+                    if(rowLength > 0) {
+                        for (i = 0; i < rowLength; i++) {
+                         var rowCells = tableBody.rows.item(i).cells;
+                         var cellLength = rowCells.length;
+                         const rowData = {
+                             InstitutionName: rowCells.item(0).innerHTML,
+                             StartDate: rowCells.item(1).innerHTML,
+                             EndDate: rowCells.item(2).innerHTML,
+                             Reason: rowCells.item(3).innerHTML,
+                         }
+                         tableDataList.push(rowData);
+                        }
+                        var answer = {
+                            QuestionId: question.QuestionId,
+                            UserApplicationId: userAplicationId,
+                            Text: JSON.stringify(tableDataList)
+                        }
+                        answerList.push(answer);
+                        break;
+                    } else {
+                        break;
+                    }
+                    break;
                     //OptionBox
                     case 6:
                     var text = '';
@@ -1043,7 +1454,7 @@
                             break;
                         }
 
-                        //SpecialText
+                    //SpecialText
                     case 14:
                         var isInInputRange = false;
                         var textName = '';
@@ -1065,6 +1476,31 @@
                                 UserApplicationId: userAplicationId,
                                 Text: textName.substring(0, textName.length - 1)
                             };
+                            answerList.push(answer);
+                            break;
+                        } else {
+                            break;
+                        }
+                    //CheckBoxTextBox
+                    case 15:
+                        var text = '';
+                        for (var k = 0; k < question.Items.length; k++) {
+                            var checkbox = document.getElementById(question.Items[k].Title + question.Items[k].Id);
+                            if (checkbox.checked) {
+                                text = text + question.Items[k].Id + ',';
+                            }
+                        }
+                        text = text.substring(0, text.length - 1);
+                        var questtionElementValue = (document.getElementById(question.Text + question.QuestionId.toString())).value;
+                        if (questtionElementValue != null) {
+                            text = text + ":" + questtionElementValue;
+                        }
+                        if (text.length > 0) {
+                            var answer = {
+                                QuestionId: question.QuestionId,
+                                UserApplicationId: userAplicationId,
+                                Text: text
+                            }
                             answerList.push(answer);
                             break;
                         } else {
@@ -1097,6 +1533,40 @@
             document.getElementById(question.Text + question.QuestionId + "-box").classList.remove("d-block");
             document.getElementById(question.Text + question.QuestionId + "-box").classList.add("d-none");
         }
+    }
+
+    function onAddTable1(questionId) {
+        const benefitReceivedValue = document.getElementById(questionId + "-benefit-received").value;
+        const startDateValue = document.getElementById(questionId + "-start-date").value;
+        const endDateValue = document.getElementById(questionId + "-end-date").value;
+        const dollarAmountValue = document.getElementById(questionId + "-dollar-amount").value;
+        const table1Element = document.getElementById(questionId + "-table1-body");
+        var table1Row = table1Element.insertRow(0);
+        var benefitReceivedCell = table1Row.insertCell(0);
+        var startDateCell = table1Row.insertCell(1);
+        var endDateCell = table1Row.insertCell(2);
+        var dollarAmountCell = table1Row.insertCell(3);
+        benefitReceivedCell.innerHTML = benefitReceivedValue;
+        startDateCell.innerHTML = startDateValue;
+        endDateCell.innerHTML = endDateValue;
+        dollarAmountCell.innerHTML = dollarAmountValue;
+    }
+
+    function onAddTable2(questionId) {
+        const institutionNameValue = document.getElementById(questionId + "-institution-name").value;
+        const startDateValue = document.getElementById(questionId + "-start-date").value;
+        const endDateValue = document.getElementById(questionId + "-end-date").value;
+        const reasonValue = document.getElementById(questionId + "-reason").value;
+        const table1Element = document.getElementById(questionId + "-table2-body");
+        var table1Row = table1Element.insertRow(0);
+        var institutionNameCell = table1Row.insertCell(0);
+        var startDateCell = table1Row.insertCell(1);
+        var endDateCell = table1Row.insertCell(2);
+        var reasonCell = table1Row.insertCell(3);
+        institutionNameCell.innerHTML = institutionNameValue;
+        startDateCell.innerHTML = startDateValue;
+        endDateCell.innerHTML = endDateValue;
+        reasonCell.innerHTML = reasonValue;
     }
 </script>
 <script type="text/javascript">
