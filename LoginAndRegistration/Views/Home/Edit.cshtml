@@ -267,7 +267,7 @@
                                         @if (form.Parts[i].Questions[j].Items[k].IsChecked == false)
                                         {
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id">
+                                                <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id">
                                                 <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
                                                     @form.Parts[i].Questions[j].Items[k].Title
                                                 </label>
@@ -276,7 +276,7 @@
                                         @if (form.Parts[i].Questions[j].Items[k].IsChecked == true)
                                         {
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id" checked>
+                                                <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id" checked>
                                                 <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
                                                     @form.Parts[i].Questions[j].Items[k].Title
                                                 </label>
@@ -353,13 +353,13 @@
                                         }
                                     </label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId-yes">
+                                        <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId-yes">
                                         <label class="form-check-label" for="@form.Parts[i].Questions[j].Text + '-yes'">
                                             Yes
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="@form.Parts[i].Questions[j].Text-no">
+                                        <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text-no">
                                         <label class="form-check-label" for="@form.Parts[i].Questions[j].Text + '-no'">
                                             No
                                         </label>
@@ -835,7 +835,7 @@
                                         @if (form.Parts[i].Questions[j].Items[k].IsChecked == false)
                                         {
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id">
+                                                <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Items[k].Title" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id">
                                                 <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
                                                     @form.Parts[i].Questions[j].Items[k].SpanishTitle
                                                 </label>
@@ -844,7 +844,7 @@
                                         @if (form.Parts[i].Questions[j].Items[k].IsChecked == true)
                                         {
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id" checked>
+                                                <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Items[k].Title" id="@form.Parts[i].Questions[j].Items[k].Title@form.Parts[i].Questions[j].Items[k].Id" checked>
                                                 <label class="form-check-label" for="@form.Parts[i].Questions[j].Items[k].Title">
                                                     @form.Parts[i].Questions[j].Items[k].SpanishTitle
                                                 </label>
@@ -922,13 +922,13 @@
                                         }
                                     </label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId-yes">
+                                        <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text@form.Parts[i].Questions[j].QuestionId-yes">
                                         <label class="form-check-label" for="@form.Parts[i].Questions[j].Text + '-yes'">
                                             Yes
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="@form.Parts[i].Questions[j].Text-no">
+                                        <input class="form-check-input" type="radio" name="@form.Parts[i].Questions[j].Text" id="@form.Parts[i].Questions[j].Text-no">
                                         <label class="form-check-label" for="@form.Parts[i].Questions[j].Text + '-no'">
                                             No
                                         </label>
